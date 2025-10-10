@@ -40,5 +40,5 @@ RUN apt install -y open5gs
 # WORKDIR /
 
 WORKDIR /
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+COPY scripts/systune.sh .
+RUN chmod +x /systune.sh
