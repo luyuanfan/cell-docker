@@ -1,3 +1,8 @@
+NUM_UES = 1
+MCC = 999
+MNC = 99
+KEY = "3E14763419F4BF79EC1CCAEDDF6B57AF"
+OPC = "27DF2870CC361FDC568DE86C8B56F610"
 
 #############
 #  MongoDB  #
@@ -35,16 +40,16 @@ do
 	fi
 done
 
-# # Populate core database
-# for i in $(seq -f "%010g" 1 $NUM_UES)
-# do
-# 	/open5gs/misc/db/open5gs-dbctl add $MCC$MNC$i $KEY $OPC
-# done
+# Populate core database
+for i in $(seq -f "%010g" 1 $NUM_UES)
+do
+	/open5gs/misc/db/open5gs-dbctl add $MCC$MNC$i $KEY $OPC
+done
 
-# # Get main interface IP
-# # Modify the Core configuration file 
-# sed -i "s/NETWORK_MCC/$MCC/g" config.yaml
-# sed -i "s/NETWORK_MNC/$MNC/g" config.yaml
+# Get main interface IP
+# Modify the Core configuration file 
+sed -i "s/NETWORK_MCC/$MCC/g" config.yaml
+sed -i "s/NETWORK_MNC/$MNC/g" config.yaml
 
 
 # Run Open5GS

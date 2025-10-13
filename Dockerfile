@@ -28,8 +28,6 @@ RUN add-apt-repository ppa:open5gs/latest
 RUN apt update
 RUN apt install -y open5gs
 
-# Install VS code
-
 # Open5GS from source
 # RUN git clone https://github.com/open5gs/open5gs
 # WORKDIR open5gs
@@ -39,6 +37,4 @@ RUN apt install -y open5gs
 # RUN ninja
 # WORKDIR /
 
-WORKDIR /
-COPY scripts/systune.sh .
-RUN chmod +x /systune.sh
+COPY tune.sh .
