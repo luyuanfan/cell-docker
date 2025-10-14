@@ -1,0 +1,17 @@
+{
+    "network": {
+        "mcc": "999",
+        "mnc": "99"
+    },
+    "ran": {
+        "usrp": "328900E", 
+        "prbs": 50,
+        "mimo": "no",
+        "dl_earfcn": 3350
+    },
+    "core": {
+        "num_ues": 1,
+        "key": "3E14763419F4BF79EC1CCAEDDF6B57AF",
+        "opc": "27DF2870CC361FDC568DE86C8B56F610"
+    }
+}
