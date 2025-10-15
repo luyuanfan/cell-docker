@@ -4,7 +4,7 @@ Single-click mobile operator deployment (1 eNB and core network).
 
 ## How to run
 ```bash
-./run.sh config.json
+./operator.sh config.json
 ```
 
 ## Config file parameters
