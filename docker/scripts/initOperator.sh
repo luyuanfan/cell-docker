@@ -13,6 +13,7 @@ OPC=$(jq -r ".core.opc" <<< "$CONFIG")
 NUM_PRBS=$(jq -r ".ran.prbs" <<< "$CONFIG")
 MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
+TYPE=1
 
 #############
 # Time Zone #
@@ -24,25 +25,14 @@ echo "America/New_York" > /etc/timezone
 #############
 #  MongoDB  #
 #############
-# # If mongo is not running, execute it in the background
-# mkdir -p /data/db
-# chown -R mongodb:mongodb /data/db || true
-
-# nc -zvv localhost 27017 > /dev/null 2>&1
-# if [ $? -ne 0 ]; then
-# 	mongod --fork --logpath /mongod.log
-# fi
+# If mongo is not running, execute it in the background
 
 mkdir -p /data/db
 chown -R mongodb:mongodb /data/db || true
-echo "Starting MongoDB manually...??"
 
-# If MongoDB is not running, start it manually
 if ! nc -z localhost 27017; then
-    echo "Starting MongoDB manually...!!"
-    # mongod --dbpath /data/db --logpath /mongod.log --bind_ip_all --fork
+    echo "Starting MongoDB manually..."
 	mongod --fork --logpath /mongod.log
-    # sleep 3
 fi
 
 ##########
@@ -75,7 +65,7 @@ done
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$i $KEY $OPC $APN
-	/open5gs/misc/db/open5gs-dbctl type 1
+	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$i $TYPE
 done
 
 # Get main interface IP

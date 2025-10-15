@@ -2,7 +2,7 @@
     "network": {
         "mcc": "999",
         "mnc": "99",
-        "apn": "testing_apn"
+        "apn": "test-internet"
     },
     "ran": {
         "usrp": "328900E", 
