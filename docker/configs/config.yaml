@@ -28,6 +28,7 @@ global:
 #    no_pcrf: true
 #    no_hss: true
 
+###### FOR 4G ######
 mme:
   freeDiameter:
     identity: mme.localdomain
@@ -92,7 +93,6 @@ sgwc:
     client:
       sgwu:
         - address: 127.0.0.6
-
 
 smf:
   sbi:
@@ -190,21 +190,13 @@ amf:
     t3512:
       value: 540     # 9 mintues * 60 = 540 seconds
 
-sgwu:
-  pfcp:
-    server:
-      - address: 127.0.0.6
-  gtpu:
-    server:
-      - address: 127.0.0.6
-
 upf:
   pfcp:
     server:
       - address: 127.0.0.7
   gtpu:
     server:
-      - address: 127.0.0.7
+      - address: 127.0.0.7 # Jasmine: probably must change this
   session:
     - subnet: 10.45.0.0/16
       gateway: 10.45.0.1
@@ -214,6 +206,24 @@ upf:
     server:
       - address: 127.0.0.7
         port: 9090
+
+nrf:
+  serving: # Jasmine: added the serving block
+    - plmn_id:
+      mcc: NETWORK_MCC
+      mnc: NETWORK_MNC
+  sbi:
+    server:
+      - address: 127.0.0.10
+        port: 7777
+
+sgwu:
+  pfcp:
+    server:
+      - address: 127.0.0.6
+  gtpu:
+    server:
+      - address: 127.0.0.6
 
 hss:
   freeDiameter:
@@ -251,12 +261,6 @@ pcrf:
     connect:
       - identity: smf.localdomain
         address: 127.0.0.4
-
-nrf:
-  sbi:
-    server:
-      - address: 127.0.0.10
-        port: 7777
 
 scp:
   sbi:
