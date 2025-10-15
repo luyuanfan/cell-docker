@@ -5,6 +5,7 @@ CONFIG=$(echo "$CONFIG64" | base64 -d)
 # Parse operator configuration
 MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
 MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
+APN=$(jq -r ".network.apn" <<< "$CONFIG")
 USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
 NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
 KEY=$(jq -r ".core.key" <<< "$CONFIG")
@@ -13,23 +14,40 @@ NUM_PRBS=$(jq -r ".ran.prbs" <<< "$CONFIG")
 MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
 
+#############
+# Time Zone #
+#############
+
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+echo "America/New_York" > /etc/timezone
 
 #############
 #  MongoDB  #
 #############
-# If mongo is not running, execute it in the background
-nc -zvv localhost 27017 > /dev/null 2>&1
-if [ $? -ne 0 ]; then
+# # If mongo is not running, execute it in the background
+# mkdir -p /data/db
+# chown -R mongodb:mongodb /data/db || true
+
+# nc -zvv localhost 27017 > /dev/null 2>&1
+# if [ $? -ne 0 ]; then
+# 	mongod --fork --logpath /mongod.log
+# fi
+
+mkdir -p /data/db
+chown -R mongodb:mongodb /data/db || true
+echo "Starting MongoDB manually...??"
+
+# If MongoDB is not running, start it manually
+if ! nc -z localhost 27017; then
+    echo "Starting MongoDB manually...!!"
+    # mongod --dbpath /data/db --logpath /mongod.log --bind_ip_all --fork
 	mongod --fork --logpath /mongod.log
+    # sleep 3
 fi
 
 ##########
 #  Core  #
 ##########
-
-# Start mongodb 
-systemctl start mongodb
-systemctl enable mongodb
 
 # Create TUN device
 ip tuntap add name ogstun mode tun
@@ -41,22 +59,23 @@ ip link set ogstun up
 sysctl -w net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
 
-# # Wait until mongo DB gets initialized
-# while true;
-# do
-# 	nc -zvv localhost 27017 > /dev/null 2>&1
-# 	if [ $? -eq 0 ]; then
-# 		break
-# 	else
-# 		echo "Waiting for MongoDB..."
-# 		sleep 1
-# 	fi
-# done
+# Wait until mongo DB gets initialized
+while true;
+do
+	nc -zvv localhost 27017 > /dev/null 2>&1
+	if [ $? -eq 0 ]; then
+		break
+	else
+		echo "Waiting for MongoDB..."
+		sleep 1
+	fi
+done
 
 # Populate core database
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
-	/open5gs/misc/db/open5gs-dbctl add $MCC$MNC$i $KEY $OPC
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$i $KEY $OPC $APN
+	/open5gs/misc/db/open5gs-dbctl type 1
 done
 
 # Get main interface IP

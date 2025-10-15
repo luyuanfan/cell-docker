@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo docker image push luyuanfan/enb:lastest
+sudo docker image push luyuanfan/enb
