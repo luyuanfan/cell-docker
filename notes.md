@@ -1,0 +1,1 @@
+Current phone config is `apn type: default` and `Bearer: LTE`
