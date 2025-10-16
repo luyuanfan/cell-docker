@@ -79,9 +79,9 @@ sed -i "s/NETWORK_MNC/$MNC/g" config.yaml
 echo "Running 4G Core Network"
 sleep 1
 
-#########
-#  RAN  #
-#########
+############
+#  RAN 4G  #
+############
 sed -i "s/NETWORK_MCC/$MCC/g" enb.conf
 sed -i "s/NETWORK_MNC/$MNC/g" enb.conf
 sed -i "s/USRP_ID/$USRP/g" enb.conf
@@ -99,3 +99,24 @@ sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" enb.conf
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 srsenb enb.conf
+
+# ############
+# #  RAN 5G  #
+# ############
+# sed -i "s/NETWORK_MCC/$MCC/g" gnb.yaml
+# sed -i "s/NETWORK_MNC/$MNC/g" gnb.yaml
+# sed -i "s/USRP_ID/$USRP/g" gnb.yaml
+# sed -i "s/NUM_PRBS/$NUM_PRBS/g" gnb.yaml
+# if [[ ${MIMO,,} == "yes" ]]; then 
+# 	TRANSMISSION_MODE=4
+# 	NUM_PORTS=2
+# else
+# 	TRANSMISSION_MODE=1
+# 	NUM_PORTS=1
+# fi
+# sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yaml
+# sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yaml
+# sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" gnb.yaml
+
+# #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" gnb.yaml
+# srsenb gnb.yaml
