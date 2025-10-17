@@ -14,8 +14,8 @@ WORKDIR uhd
 RUN git checkout v4.8.0.0
 RUN git submodule update --init --recursive
 RUN mkdir build 
+RUN cmake .. -DCMAKE_INSTALL_PREFIX:PATH
 WORKDIR build
-RUN cmake ../
 RUN make
 RUN make test
 RUN make install
