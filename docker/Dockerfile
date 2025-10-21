@@ -8,7 +8,9 @@ SHELL ["/bin/bash", "-c"]
 
 # Install dependencies
 RUN apt -y update
-RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson iproute2 netcat tshark cmake nano iputils-ping jq libuhd-dev uhd-host software-properties-common gnuradio
+RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson iproute2 netcat tshark cmake nano iputils-ping jq libuhd-dev uhd-host software-properties-common gnuradio 
+# For srsRAN build from source
+RUN DEBIAN_FRONTEND=noninteractive apt install -y libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
 
 # Install mongodb
 RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
@@ -16,6 +18,8 @@ RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc | gpg -o /usr/share/keyrin
 # RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 # For Jammy 22.04:  
 RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+# For Noble Numbat 24.04:
+# RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 RUN apt update
 RUN apt install -y mongodb-org
 
@@ -29,9 +33,13 @@ RUN ninja
 WORKDIR /
 
 # Install srsRAN
-RUN add-apt-repository -y ppa:softwareradiosystems/srsran
-RUN apt update -y
-RUN apt-get install srsran -y
+# RUN add-apt-repository -y ppa:softwareradiosystems/srsran
+# RUN apt update -y
+# RUN apt-get install srsran -y
+
+# Build srsRAN from source
+RUN git clone https://github.com/srsRAN/srsRAN.git
+RUN cd srsRAN && git checkout release_22_10 && git rev-parse HEAD && mkdir build && cd build && cmake ../ && make && make test
 
 # Download USRP images
 RUN /usr/lib/uhd/utils/uhd_images_downloader.py

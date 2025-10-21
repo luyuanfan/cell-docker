@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$NAME" ]]; then
-    NAME="luyuanfan/enb:x310"
+    NAME="luyuanfan/enb:x310-test"
 fi
 
 docker build --network=host $SCRATCH -t $NAME .

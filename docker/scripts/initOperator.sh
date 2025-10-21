@@ -101,6 +101,7 @@ sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" enb.conf
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 srsenb enb.conf
+# enb.conf
 
 # ############
 # #  RAN 5G  #
