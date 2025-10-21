@@ -38,8 +38,8 @@ WORKDIR /
 # RUN apt-get install srsran -y
 
 # Build srsRAN from source
-RUN git clone https://github.com/srsRAN/srsRAN.git
-RUN cd srsRAN && git checkout release_22_10 && git rev-parse HEAD && mkdir build && cd build && cmake ../ && make && make test
+RUN git clone https://github.com/srsRAN/srsRAN_4G.git
+RUN cd srsRAN_4G && git checkout release_22_10 && git rev-parse HEAD && mkdir build && cd build && cmake ../ -DUSE_LTE_RATES=ON && make && make install
 
 # Download USRP images
 RUN /usr/lib/uhd/utils/uhd_images_downloader.py
