@@ -5,7 +5,8 @@
         "apn": "test-internet"
     },
     "ran": {
-        "usrp": "328900E", 
+        "usrp": "308C9D0", 
+        "usrp_ip": "192.168.10.2",
         "prbs": 50,
         "mimo": "no",
         "dl_earfcn": 3350

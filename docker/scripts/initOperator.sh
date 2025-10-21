@@ -7,6 +7,7 @@ MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
 MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
 APN=$(jq -r ".network.apn" <<< "$CONFIG")
 USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
+USRP_IP=$(jq -r ".ran.usrp_ip" <<< "$CONFIG")
 NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
 KEY=$(jq -r ".core.key" <<< "$CONFIG")
 OPC=$(jq -r ".core.opc" <<< "$CONFIG")
@@ -85,6 +86,7 @@ sleep 1
 sed -i "s/NETWORK_MCC/$MCC/g" enb.conf
 sed -i "s/NETWORK_MNC/$MNC/g" enb.conf
 sed -i "s/USRP_ID/$USRP/g" enb.conf
+sed -i "s/USRP_IP/$USRP_IP/g" enb.conf
 sed -i "s/NUM_PRBS/$NUM_PRBS/g" enb.conf
 if [[ ${MIMO,,} == "yes" ]]; then 
 	TRANSMISSION_MODE=4

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo docker image push luyuanfan/enb
+sudo docker image push luyuanfan/enb:x310
