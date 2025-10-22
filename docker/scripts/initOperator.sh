@@ -51,14 +51,6 @@ ip link set ogstun up
 sysctl -w net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
 
-#######
-# UHD #
-#######
-
-# ifconfig eth0 mtu 8000 # For 10 GigE
-# ifconfig ogstun mtu 8000
-# sysctl -w net.core.wmem_max=24862979
-
 # Wait until mongo DB gets initialized
 while true;
 do

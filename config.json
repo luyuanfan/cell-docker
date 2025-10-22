@@ -6,8 +6,8 @@
     },
     "ran": {
         "usrp": "308C9D0", 
-        "usrp_ip": "192.168.30.2",
-        "prbs": 40,
+        "usrp_ip": "192.168.40.2",
+        "prbs": 50,
         "mimo": "no",
         "dl_earfcn": 3350
     },
