@@ -16,12 +16,6 @@ MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
 TYPE=1
 
-#######
-# UHD #
-#######
-
-# ifconfig enp12s0f1np1 mtu 9000 # For 10 GigE
-# sysctl -w net.core.wmem_max=24862979
 
 #############
 # Time Zone #
@@ -50,12 +44,20 @@ fi
 # Create TUN device
 ip tuntap add name ogstun mode tun
 ip addr add 10.45.0.1/16 dev ogstun
-# ip addr add 2001:db8:cafe::1/48 dev ogstun
+ip addr add 2001:db8:cafe::1/48 dev ogstun
 ip link set ogstun up
 
 # Connect core to the internet
 sysctl -w net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+
+#######
+# UHD #
+#######
+
+# ifconfig eth0 mtu 8000 # For 10 GigE
+# ifconfig ogstun mtu 8000
+# sysctl -w net.core.wmem_max=24862979
 
 # Wait until mongo DB gets initialized
 while true;
@@ -108,25 +110,3 @@ sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" enb.conf
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 srsenb enb.conf
-# enb.conf
-
-# ############
-# #  RAN 5G  #
-# ############
-# sed -i "s/NETWORK_MCC/$MCC/g" gnb.yaml
-# sed -i "s/NETWORK_MNC/$MNC/g" gnb.yaml
-# sed -i "s/USRP_ID/$USRP/g" gnb.yaml
-# sed -i "s/NUM_PRBS/$NUM_PRBS/g" gnb.yaml
-# if [[ ${MIMO,,} == "yes" ]]; then 
-# 	TRANSMISSION_MODE=4
-# 	NUM_PORTS=2
-# else
-# 	TRANSMISSION_MODE=1
-# 	NUM_PORTS=1
-# fi
-# sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yaml
-# sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yaml
-# sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" gnb.yaml
-
-# #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" gnb.yaml
-# srsenb gnb.yaml
