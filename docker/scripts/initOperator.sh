@@ -16,6 +16,13 @@ MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
 TYPE=1
 
+#######
+# UHD #
+#######
+
+# ifconfig enp12s0f1np1 mtu 9000 # For 10 GigE
+# sysctl -w net.core.wmem_max=24862979
+
 #############
 # Time Zone #
 #############
