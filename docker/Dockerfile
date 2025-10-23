@@ -53,10 +53,11 @@ RUN /usr/lib/uhd/utils/uhd_images_downloader.py
 # Copy scripts and files
 COPY scripts/initOperator.sh .
 COPY configs/config.yaml .
-COPY configs/enb.conf .
-COPY configs/rb.conf .
-COPY configs/rr.conf .
-COPY configs/sib.conf .
+
+# COPY configs/enb.conf .
+# COPY configs/rb.conf .
+# COPY configs/rr.conf .
+# COPY configs/sib.conf .
 
 # gNB files
 COPY configs/gnb.yml .

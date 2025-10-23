@@ -75,20 +75,43 @@ done
 sed -i "s/NETWORK_MCC/$MCC/g" config.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" config.yaml
 
-
 # Run Open5GS
-/open5gs/build/tests/app/epc -c /config.yaml > core.log &
-echo "Running 4G Core Network"
+/open5gs/build/tests/app/5gc -c /config.yaml > core.log &
+echo "Running 5G SA Core Network"
+# /open5gs/build/tests/app/epc -c /config.yaml > core.log &
+# echo "Running 4G Core Network"
 sleep 1
 
+# ############
+# #  RAN 4G  #
+# ############
+# sed -i "s/NETWORK_MCC/$MCC/g" enb.conf
+# sed -i "s/NETWORK_MNC/$MNC/g" enb.conf
+# sed -i "s/USRP_ID/$USRP/g" enb.conf
+# sed -i "s/USRP_IP/$USRP_IP/g" enb.conf
+# sed -i "s/NUM_PRBS/$NUM_PRBS/g" enb.conf
+# if [[ ${MIMO,,} == "yes" ]]; then 
+# 	TRANSMISSION_MODE=4
+# 	NUM_PORTS=2
+# else
+# 	TRANSMISSION_MODE=1
+# 	NUM_PORTS=1
+# fi
+# sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" enb.conf
+# sed -i "s/NUM_PORTS/$NUM_PORTS/g" enb.conf
+# sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" enb.conf
+
+# #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
+# srsenb enb.conf
+
 ############
-#  RAN 4G  #
+#  RAN 5G  #
 ############
-sed -i "s/NETWORK_MCC/$MCC/g" enb.conf
-sed -i "s/NETWORK_MNC/$MNC/g" enb.conf
-sed -i "s/USRP_ID/$USRP/g" enb.conf
-sed -i "s/USRP_IP/$USRP_IP/g" enb.conf
-sed -i "s/NUM_PRBS/$NUM_PRBS/g" enb.conf
+sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
+sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
+sed -i "s/USRP_ID/$USRP/g" gnb.yml
+sed -i "s/USRP_IP/$USRP_IP/g" gnb.yml
+sed -i "s/NUM_PRBS/$NUM_PRBS/g" gnb.yml
 if [[ ${MIMO,,} == "yes" ]]; then 
 	TRANSMISSION_MODE=4
 	NUM_PORTS=2
@@ -96,9 +119,10 @@ else
 	TRANSMISSION_MODE=1
 	NUM_PORTS=1
 fi
-sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" enb.conf
-sed -i "s/NUM_PORTS/$NUM_PORTS/g" enb.conf
-sed -i "s/#DL_EARFCN/dl_earfcn = $DL_EARFCN/g" enb.conf
+sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
+sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
+sed -i "s/#DL_EARFCN/dl_arfcn = $DL_EARFCN/g" gnb.yml
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
-srsenb enb.conf
+# srsenb enb.conf
+gnb -c gnb.yml
