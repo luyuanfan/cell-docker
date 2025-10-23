@@ -2,7 +2,7 @@ db_uri: mongodb://localhost/open5gs
 
 logger:
   file:
-    path: /home/lyspfan/5g-cell/open5gs/open5gs.log
+    path: /
 
 # test:
 #   serving:
@@ -112,14 +112,14 @@ mme:
     listen_on: 127.0.0.2
     no_fwd: true
     load_extension:
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
         conf: 0x8888
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
     connect:
       - identity: hss.localdomain
         address: 127.0.0.8
@@ -211,14 +211,14 @@ smf:
     listen_on: 127.0.0.4
     no_fwd: true
     load_extension:
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
         conf: 0x8888
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
     connect:
       - identity: pcrf.localdomain
         address: 127.0.0.9
@@ -238,14 +238,14 @@ hss:
     listen_on: 127.0.0.8
     no_fwd: true
     load_extension:
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
         conf: 0x8888
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
     connect:
       - identity: mme.localdomain
         address: 127.0.0.2
@@ -256,14 +256,14 @@ pcrf:
     listen_on: 127.0.0.9
     no_fwd: true
     load_extension:
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dbg_msg_dumps.fdx
         conf: 0x8888
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
-      - module: /home/lyspfan/5g-cell/open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_rfc5777.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_mip6i.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nasreq.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_nas_mipv6.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca.fdx
+      - module: /open5gs/build/subprojects/freeDiameter/extensions/dict_dcca_3gpp/dict_dcca_3gpp.fdx
     connect:
       - identity: smf.localdomain
         address: 127.0.0.4
@@ -291,10 +291,10 @@ udm:
   hnet:
     - id: 1
       scheme: 1
-      key: /home/lyspfan/5g-cell/open5gs/build/configs/open5gs/hnet/curve25519-1.key
+      key: /open5gs/build/configs/open5gs/hnet/curve25519-1.key
     - id: 2
       scheme: 2
-      key: /home/lyspfan/5g-cell/open5gs/build/configs/open5gs/hnet/secp256r1-2.key
+      key: /open5gs/build/configs/open5gs/hnet/secp256r1-2.key
   sbi:
     server:
       - address: 127.0.0.12
