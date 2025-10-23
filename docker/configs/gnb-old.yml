@@ -1,0 +1,52 @@
+# This example configuration outlines how to use the 'cells' subcommand. The base cell configuration is
+# for all cells using the 'cell_cfg' subcommand, with the 'cell' subcommand being used to overwrite this
+# base configuration for a single cell.
+
+cu_cp:
+  amf:
+    addr: 127.0.1.100 # set to the IP address of AMF
+    port: 38412
+    bind_addr: 127.0.0.1 # A local IP that the gNB binds to for traffic from the AMF
+    supported_tracking_areas:
+      - tac: 7
+        plmn_list:
+          - plmn: NETWORK_MCCNETWORK_MNC
+            tai_slice_support_list:
+              - sst: 1
+
+ru_sdr:
+  device_driver: uhd
+  # device_args: type=x300,ext_adc_self_test=0,num_recv_frames=64,num_send_frames=64
+  device_args: serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=64, num_send_frames=64
+  sync: external
+  clock: external
+  # srate:  30.72 # (Mhz) 122.77 or smth
+  tx_gain: 80
+  rx_gain: 40
+
+# Properties set in this section are inherited for all cells unless overridden inside the cells section.
+cell_cfg:
+  dl_arfcn: 368500
+  band: 3
+  channel_bandwidth_MHz: 20 # set channel bandwidth in MHz. 100
+  # common_scs: 30 # set the subcarrier spacing in kHz [15, 30]
+  plmn: NETWORK_MCCNETWORK_MNC
+  tac: 7
+  pci: 1
+
+# This section is represented as an array of cells. For this example, a single cell is declared that overrides the PCI and channel bandwidth properties from the default values.
+# cells:
+#   - pci: 10
+#     channel_bandwidth_MHz: 10
+
+# none, error, warning, info, debug
+log:
+  filename: /tmp/gnb.log
+  all_level: info 
+
+pcap:
+  mac_enable: false
+  mac_filename: /tmp/gnb_mac.pcap
+  ngap_enable: false
+  ngap_filename: /tmp/gnb_ngap.pcap
+

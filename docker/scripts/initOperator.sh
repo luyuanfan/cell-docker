@@ -121,7 +121,7 @@ else
 fi
 sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
 sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
-sed -i "s/#DL_EARFCN/dl_arfcn = $DL_EARFCN/g" gnb.yml
+sed -i "s/DL_EARFCN/$DL_EARFCN/g" gnb.yml
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 # srsenb enb.conf
