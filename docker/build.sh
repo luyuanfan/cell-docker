@@ -2,7 +2,7 @@
 
 Help() {
     echo "Usage: $0 [Options...]" >&2
-    echo "  -n, --name <Image name>     Name of the Docker image (Default luyuanfan/enb:x310)"
+    echo "  -n, --name <Image name>     Name of the Docker image (Default luyuanfan/gnb:x310)"
     echo "  -s, --scratch               Build Docker image from scrach"
     echo "  -h, --help                  Show help menu"
     echo
@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$NAME" ]]; then
-    NAME="luyuanfan/enb:x310-test"
+    NAME="luyuanfan/gnb:x310"
 fi
 
 docker build --network=host $SCRATCH -t $NAME .
