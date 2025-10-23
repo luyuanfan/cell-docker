@@ -57,3 +57,6 @@ COPY configs/enb.conf .
 COPY configs/rb.conf .
 COPY configs/rr.conf .
 COPY configs/sib.conf .
+
+# gNB files
+COPY configs/gnb.yml .
