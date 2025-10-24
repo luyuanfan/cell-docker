@@ -49,7 +49,7 @@ RUN cd srsRAN_Project && mkdir build && cd build && cmake ../ && make -j $(nproc
 # Download USRP images
 RUN /usr/lib/uhd/utils/uhd_images_downloader.py
 # When setting up for the first time, comment out the next line to match all compat numbers
-# RUN uhd_image_loader --args="type=x300,addr=192.168.30.2"
+# RUN uhd_image_loader --args="type=x300,addr=192.168.40.2"
 
 # Copy scripts and files
 COPY scripts/initOperator.sh .
