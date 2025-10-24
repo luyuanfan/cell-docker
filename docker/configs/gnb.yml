@@ -15,6 +15,10 @@
 
 # srbs:                               # Optional TEXT. Configures signaling radio bearers. Each list entry should begin with "-".
 
+##################################################################################
+# Control Unit - Control Plane
+# connect to AMF
+##################################################################################
 cu_cp:
   # max_nof_dus:                          # Optional UINT. Maximum number of DU connections that the CU-CP may accept.
   # max_nof_cu_ups:                       # Optional UINT. Maximum number of CU-UP connections that the CU-CP may accept.
@@ -22,13 +26,22 @@ cu_cp:
   # max_nof_drbs_per_ue:                  # Optional UINT. Maximum number of DRBs per UE. Supported: [1 - 29].
   # inactivity_timer: 120                 # Optional INT (120). Sets the UE/PDU Session/DRB inactivity timer in seconds. Supported: [1 - 7200].
   # request_pdu_session_timeout: 3        # Optional INT (3). Timeout for the setup of a PDU session after an InitialUeMessage was sent to the core, in seconds. The timeout must be larger than T310. If the value is reached, the UE will be released
-
   amf:
-    # no_core: false                        # Optional BOOLEAN. Setting to true allows the gNB to run without a core. Supported: [0, 1].
-    # amf_reconnection_retry_time: 1000     # Optional INT (1000). Sets the time in ms to wait before retrying to connect to the AMF after a failed connection attempt.
     addr: 127.0.1.100                     # Required TEXT. Sets the IP address or hostname of the AMF. Format: IPV4 or IPV6 IP address.
     port: 38412                           # Optional UINT. Sets the AMF port. Format: integer between [20000 - 40000].
     bind_addr: 127.0.0.1                  # Optional TEXT. Sets local IP address to bind for N2 interface. Format: IPV4 or IPV6 IP address.
+
+    # List of tracking areas supported by this AMF. Note that the first PLMN is used for the Global RAN Node ID
+    supported_tracking_areas:             # Required TEXT. Sets the list of tracking areas supported by this AMF.
+      - tac: 7                                # Required UINT. Sets the Tracking Area Code.
+        plmn_list:                            # Required TEXT. Sets the list of PLMN items supported for this Tracking Area.
+          - plmn: "NETWORK_MCCNETWORK_MNC"        # Required TEXT. Sets the Public Land Mobile Network code. Format: 7-digit PLMN code containing MCC & MNC.
+            tai_slice_support_list:               # Required TEXT. Sets the list of TAI slices for this PLMN item.
+              - sst: 1                                # Optional UINT. Sets the Slice Service Type. Supported: [0 - 255].
+                # sd:                                   # Optional UINT. Sets the Service Differentiator. Supported: [0-16777215].
+    # no_core: false                        # Optional BOOLEAN. Setting to true allows the gNB to run without a core. Supported: [0, 1].
+    # amf_reconnection_retry_time: 1000     # Optional INT (1000). Sets the time in ms to wait before retrying to connect to the AMF after a failed connection attempt.
+
     # bind_interface: auto                  # Optional TEXT (auto). Sets network device to bind for N2 interface. Format: IPV4 or IPV6 IP address.
     # sctp_rto_initial: 120                 # Optional INT. Sets the initial retransmission timeout when creating the SCTP connection.
     # sctp_rto_min: 120                     # Optional INT. Sets the minimum retransmission timeout for the SCTP connection.
@@ -38,13 +51,6 @@ cu_cp:
     # sctp_hb_interval: 30000               # Optional INT (30000). SCTP heartbeat interval in milliseconds (-1 to use system default). 
     # sctp_assoc_max_retx: 10               # Optional INT (10). SCTP association max retransmissions (-1 to use system default).    
     # sctp_nodelay: false                   # Optional BOOLEAN. Setting to true allows the gNB to send SCTP messages as soon as possible without any Nagle-like algorithm. Supported: [false, true].
-    supported_tracking_areas:             # Required TEXT. Sets the list of tracking areas supported by this AMF.
-      - tac: 7                                # Required UINT. Sets the Tracking Area Code.
-        plmn_list:                            # Required TEXT. Sets the list of PLMN items supported for this Tracking Area.
-          - plmn: "NETWORK_MCCNETWORK_MNC"        # Required TEXT. Sets the Public Land Mobile Network code. Format: 7-digit PLMN code containing MCC & MNC.
-            tai_slice_support_list:               # Required TEXT. Sets the list of TAI slices for this PLMN item.
-              - sst: 1                                # Optional UINT. Sets the Slice Service Type. Supported: [0 - 255].
-                # sd:                                   # Optional UINT. Sets the Service Differentiator. Supported: [0-16777215].
 
   # mobility:
   #   trigger_handover_from_measurements: false   # Optional BOOLEAN (false). Sets whether or not to start HO if neighbor cells become stronger. Supported: [false, true].
@@ -122,10 +128,14 @@ cu_cp:
 # du:
 #   warn_on_drop: false                   # Optional BOOLEAN (false). Enables the option to log a warning for dropped packets in F1-U, RLC and MAC due to full queues. Supported: [false, true].
 
+##################################################################################
+# Cell Config 
+##################################################################################
+
 cell_cfg:
   pci: 1                                # Required UINT (1). Sets the Physical Cell ID. Supported: [0-1007].
   # sector_id: 0                          # Optional UINT (0). Sets the Sector ID (4-14 bits). This value is concatenated with the gNB Id to form the NR Cell Identity (NCI). If not specified, a unique value for the DU is automatically derived. Supported: [0 - 16383].
-  dl_arfcn: 641000 #DL_EARFCN                   # Required UINT (536020). Sets the Downlink ARFCN.
+  dl_arfcn: 641000                       # Required UINT (536020). Sets the Downlink ARFCN.
   band: 78                               # Optional TEXT (auto). Sets the NR band being used for the cell. If not specified, will be set automatically based on ARFCN. Supported: all release 17 bands.
   common_scs: 30                        # Required UINT (15). Sets the subcarrier spacing in KHz to be used by the cell. Supported: [15, 30].
   channel_bandwidth_MHz: 20       # Required UINT (20). Sets the channel Bandwidth in MHz, the number of PRBs will be derived from this. Supported: [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100].
