@@ -6,10 +6,10 @@
     },
     "ran": {
         "usrp": "308C9D0", 
-        "usrp_ip": "192.168.40.2",
+        "_comment": "'usrp_ip': '192.168.40.2',",
         "prbs": 50,
         "mimo": "no",
-        "dl_earfcn": 3350
+        "dl_earfcn": 641000
     },
     "core": {
         "num_ues": 1,
