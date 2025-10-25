@@ -107,6 +107,9 @@ sleep 1
 ############
 #  RAN 5G  #
 ############
+
+./srsran_performance # Tune system
+
 sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
 sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
 sed -i "s/USRP_ID/$USRP/g" gnb.yml
