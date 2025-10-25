@@ -18,21 +18,38 @@ ru_sdr:
   device_driver: uhd
   # device_args: type=x300,ext_adc_self_test=0,num_recv_frames=64,num_send_frames=64
   device_args: serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=64, num_send_frames=64
-  sync: external
+  # sync: external
   clock: external
-  srate: 46.08 # (Mhz) 122.77 or smth
-  tx_gain: 25
+  srate: 15.36 # (Mhz) 122.77 or smth
+  tx_gain: 20
   rx_gain: 20
 
 # Properties set in this section are inherited for all cells unless overridden inside the cells section.
+# cell_cfg:
+#   dl_arfcn: DL_EARFCN
+#   band: 78
+#   channel_bandwidth_MHz: 10 # set channel bandwidth in MHz. 100
+#   common_scs: 30 # set the subcarrier spacing in kHz [15, 30]
+#   plmn: "NETWORK_MCCNETWORK_MNC"
+#   tac: 7
+#   pci: 1
+
 cell_cfg:
-  dl_arfcn: DL_EARFCN
-  band: 78
-  channel_bandwidth_MHz: 40 # set channel bandwidth in MHz. 100
-  common_scs: 30 # set the subcarrier spacing in kHz [15, 30]
-  plmn: "NETWORK_MCCNETWORK_MNC"
-  tac: 7
-  pci: 1
+  dl_arfcn: 368500                 # ARFCN of the downlink carrier (center frequency).
+  band: 3                           # The NR band.
+  channel_bandwidth_MHz: 10         # Bandwith in MHz. Number of PRBs will be automatically derived.
+  common_scs: 15                    # Subcarrier spacing in kHz used for data.
+  plmn: "NETWORK_MCCNETWORK_MNC"                    # PLMN broadcasted by the gNB.
+  tac: 7                            # Tracking area code (needs to match the core configuration).
+  # pdcch:
+  #   common:
+  #     ss0_index: 0                  # Set search space zero index to match srsUE capabilities
+  #     coreset0_index: 12            # Set search CORESET Zero index to match srsUE capabilities
+  #   dedicated:
+  #     ss2_type: common              # Search Space type, has to be set to common
+  #     dci_format_0_1_and_1_1: false # Set correct DCI format (fallback)
+  # prach:
+  #   prach_config_index: 1           # Sets PRACH config to match what is expected by srsUE
 
 # none, error, warning, info, debug
 log:
