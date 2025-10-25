@@ -11,7 +11,7 @@ USRP_IP=$(jq -r ".ran.usrp_ip" <<< "$CONFIG")
 NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
 KEY=$(jq -r ".core.key" <<< "$CONFIG")
 OPC=$(jq -r ".core.opc" <<< "$CONFIG")
-NUM_PRBS=$(jq -r ".ran.prbs" <<< "$CONFIG")
+BANDWIDTH=$(jq -r ".ran.bandwidth" <<< "$CONFIG")
 MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
 TYPE=1
@@ -115,7 +115,7 @@ sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
 sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
 sed -i "s/USRP_ID/$USRP/g" gnb.yml
 sed -i "s/USRP_IP/$USRP_IP/g" gnb.yml
-sed -i "s/NUM_PRBS/$NUM_PRBS/g" gnb.yml
+sed -i "s/BANDWIDTH/$BANDWIDTH/g" gnb.yml
 if [[ ${MIMO,,} == "yes" ]]; then 
 	TRANSMISSION_MODE=4
 	NUM_PORTS=2
