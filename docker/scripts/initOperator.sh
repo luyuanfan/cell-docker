@@ -66,6 +66,7 @@ done
 # Populate core database
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
+	/open5gs/misc/db/open5gs-dbctl reset
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$i $KEY $OPC $APN
 	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$i $TYPE
 done
