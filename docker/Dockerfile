@@ -8,7 +8,8 @@ SHELL ["/bin/bash", "-c"]
 
 # Install dependencies
 RUN apt -y update
-RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson iproute2 netcat tshark cmake nano iputils-ping jq libuhd-dev uhd-host software-properties-common gnuradio 
+RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson iproute2 netcat tshark cmake nano iputils-ping jq software-properties-common gnuradio 
+# libuhd-dev uhd-host
 # For srsRAN_Project build from source
 # RUN DEBIAN_FRONTEND=noninteractive apt install -y libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
 RUN DEBIAN_FRONTEND=noninteractive apt install -y make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
@@ -24,7 +25,12 @@ RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.
 RUN apt update
 RUN apt install -y mongodb-org
 
-# Install Open5GS
+# Build UHD from source
+RUN git clone git@github.com:EttusResearch/uhd.git
+RUN git checkout v4.9.0.0
+RUN cd uhd/host && mkdir build && cd build && cmake ../ && make && make install && ldconfig
+
+# Build Open5GS from source
 RUN git clone https://github.com/open5gs/open5gs
 WORKDIR open5gs
 #RUN git checkout 85f150c
