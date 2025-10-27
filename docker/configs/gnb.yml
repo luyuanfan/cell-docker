@@ -20,9 +20,9 @@ ru_sdr:
   device_args: serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=64, num_send_frames=64
   # sync: external
   clock: external
-  srate: 15.36 # (Mhz) 122.77 or smth
-  tx_gain: 20
-  rx_gain: 20
+  srate: 15.36
+  tx_gain: 31.5
+  rx_gain: 37.5
 
 # Properties set in this section are inherited for all cells unless overridden inside the cells section.
 # cell_cfg:
