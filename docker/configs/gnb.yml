@@ -18,8 +18,8 @@ ru_sdr:
   device_driver: uhd
   # device_args: type=x300,ext_adc_self_test=0,num_recv_frames=64,num_send_frames=64
   device_args: serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=64, num_send_frames=64
-  # sync: external
   clock: external
+  sync: external
   srate: 15.36
   tx_gain: 31.5
   rx_gain: 37.5
@@ -31,12 +31,28 @@ cell_cfg:
   common_scs: 15                    # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC"                    # PLMN broadcasted by the gNB.
   tac: 7                            # Tracking area code (needs to match the core configuration).
-  q_rx_lev_min: -70
+  # q_rx_lev_min: -70
+  pusch: # below are low latency configs. maybe it'll solve the late problem
+    min_k2: 2
+  tdd_ul_dl_cfg:
+    dl_ul_tx_period: 4
+    nof_dl_slots: 2
+    nof_dl_symbols: 10
+    nof_ul_slots: 1
+    nof_ul_symbols: 0
+  pucch:
+    sr_period_ms: 2
+    min_k1: 2
+  mac_cell_group:
+    bsr_cfg:
+      periodic_bsr_timer: 1
+  
 
 # none, error, warning, info, debug
 log:
   filename: /tmp/gnb.log
-  all_level: info 
+  all_level: info
+  # config_level: debug
 
 pcap:
   mac_enable: false
@@ -44,3 +60,8 @@ pcap:
   ngap_enable: false
   ngap_filename: /tmp/gnb_ngap.pcap
 
+# metrics:
+#   enable_log: true
+#   layers:
+#     enable_ru: true
+#     enable_sched: true

@@ -150,7 +150,7 @@ cell_cfg:
   band: 78
   common_scs: 30
   channel_bandwidth_MHz: NUM_PRBS
-  plmn: "NETWORK_MCCNETWORK_MNC"
+  plmn: NETWORK_MCCNETWORK_MNC
   tac: 7  
 
   # pci: 1                                # Required UINT (1). Sets the Physical Cell ID. Supported: [0-1007].
