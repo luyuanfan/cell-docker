@@ -23,6 +23,10 @@ RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.
 RUN apt update
 RUN apt install -y mongodb-org
 
+# Build UHD from source
+RUN git clone https://github.com/EttusResearch/uhd.git
+RUN cd uhd && git checkout v4.9.0.0 && cd host && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+
 # Install Open5GS
 RUN git clone https://github.com/open5gs/open5gs
 WORKDIR open5gs
@@ -39,12 +43,12 @@ WORKDIR /
 
 # Build srsRAN from source
 RUN git clone https://github.com/srsRAN/srsRAN_4G.git
-RUN cd srsRAN_4G && git checkout release_22_10 && git rev-parse HEAD && mkdir build && cd build && cmake ../ -DUSE_LTE_RATES=ON && make && make install && ldconfig
+RUN cd srsRAN_4G && git checkout release_22_10 && git rev-parse HEAD && mkdir build && cd build && cmake ../ -DUSE_LTE_RATES=ON && make -j $(nproc) && make install && ldconfig
 
 # Download USRP images
 RUN /usr/lib/uhd/utils/uhd_images_downloader.py
 # When setting up for the first time, comment out the next line to match all compat numbers
-RUN uhd_image_loader --args="type=x300,serial=308C9D0"
+# RUN uhd_image_loader --args="type=x300,serial=308C9D0"
 
 # Copy scripts and files
 COPY scripts/initOperator.sh .
