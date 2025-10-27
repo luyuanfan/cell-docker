@@ -109,6 +109,7 @@ sleep 1
 #  RAN 5G  #
 ############
 
+chmod 700 srsran_performance
 ./srsran_performance # Tune system
 
 sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml

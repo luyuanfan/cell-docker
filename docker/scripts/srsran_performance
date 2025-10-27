@@ -38,11 +38,11 @@ set -o pipefail
 # See: https://docs.kernel.org/admin-guide/pm/cpufreq.html#generic-scaling-governors
 #
 set_performance_governor() {
-  read -e -p "Would you like to set the CPU governor to performance: [Y/n]: " choice
-  if ! [[ "$choice" == [Yy]* || "$choice" == "" ]]; then
-    echo "Did not set scaling governor"
-    return
-  fi
+  # read -e -p "Would you like to set the CPU governor to performance: [Y/n]: " choice
+  # if ! [[ "$choice" == [Yy]* || "$choice" == "" ]]; then
+  #   echo "Did not set scaling governor"
+  #   return
+  # fi
   echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null
   echo "Scaling governor set to performance"
 }
@@ -52,11 +52,11 @@ set_performance_governor() {
 # See: https://wiki.archlinux.org/title/kernel_mode_setting#Problem_upon_bootloading_and_dmesg
 #
 set_kms_polling() {
-  read -e -p "Would you like to disable KMS polling: [Y/n]: " choice
-  if ! [[ "$choice" == [Yy]* || "$choice" == "" ]]; then
-    echo "Did not disable KMS polling"
-    return
-  fi
+  # read -e -p "Would you like to disable KMS polling: [Y/n]: " choice
+  # if ! [[ "$choice" == [Yy]* || "$choice" == "" ]]; then
+  #   echo "Did not disable KMS polling"
+  #   return
+  # fi
   echo N | tee /sys/module/drm_kms_helper/parameters/poll >/dev/null
   echo "Disabled DRM KMS polling"
 }
@@ -66,11 +66,11 @@ set_kms_polling() {
 # See: https://kb.ettus.com/USRP_Host_Performance_Tuning_Tips_and_Tricks
 #
 set_network_buffers() {
-  read -e -p "Would you like to tweak the network buffer sizes: [Y/n]: " choice
-  if ! [[ "$choice" == [Yy]* || "$choice" == "" ]]; then
-    echo "Did not tweak network buffer sizes"
-    return
-  fi
+  # read -e -p "Would you like to tweak the network buffer sizes: [Y/n]: " choice
+  # if ! [[ "$choice" == [Yy]* || "$choice" == "" ]]; then
+  #   echo "Did not tweak network buffer sizes"
+  #   return
+  # fi
   sysctl -w net.core.wmem_max=33554432
   sysctl -w net.core.rmem_max=33554432
   sysctl -w net.core.wmem_default=33554432
