@@ -2,8 +2,6 @@
 # for all cells using the 'cell_cfg' subcommand, with the 'cell' subcommand being used to overwrite this
 # base configuration for a single cell.
 
-gnb_id: 0x19A
-
 cu_cp:
   amf:
     addr: 127.0.1.100 # set to the IP address of AMF
@@ -25,19 +23,19 @@ ru_sdr:
   # device_args: type=x300,ext_adc_self_test=0,num_recv_frames=64,num_send_frames=64
   device_args: addr=USRP_IP, serial=USRP_ID, ext_adc_self_test=0, send_frame_size=8000, recv_frame_size=8000, master_clock_rate=184.32e6
   clock: external
-  # sync: external
-  srate: 11.52
-  tx_gain: 31.5
-  rx_gain: 37.5
+  sync: default
+  srate: 30.72
+  tx_gain: 31
+  rx_gain: 20
 
 cell_cfg:
-  dl_arfcn: 368500                 # ARFCN of the downlink carrier (center frequency).
-  band: 3                           # The NR band.
-  channel_bandwidth_MHz: 10         # Bandwith in MHz. Number of PRBs will be automatically derived.
-  common_scs: 15                    # Subcarrier spacing in kHz used for data.
+  dl_arfcn: 627340                 # ARFCN of the downlink carrier (center frequency).
+  # band: 3                           # The NR band.
+  channel_bandwidth_MHz: 20         # Bandwith in MHz. Number of PRBs will be automatically derived.
+  common_scs: 30                    # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC"                    # PLMN broadcasted by the gNB.
   tac: 7                            # Tracking area code (needs to match the core configuration).
-  q_rx_lev_min: -70
+  # q_rx_lev_min: -70
 
   # pusch: # below are low latency configs. maybe it'll solve the late problem
   #   min_k2: 2
@@ -61,9 +59,9 @@ log:
   # config_level: debug
 
 pcap:
-  mac_enable: false
+  mac_enable: true
   mac_filename: /tmp/gnb_mac.pcap
-  ngap_enable: false
+  ngap_enable: true
   ngap_filename: /tmp/gnb_ngap.pcap
 
 # metrics:
