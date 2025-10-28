@@ -15,6 +15,10 @@ cu_cp:
           - plmn: "NETWORK_MCCNETWORK_MNC"
             tai_slice_support_list:
               - sst: 1
+  # mobility:
+  #   cells:
+  #     - nr_cell_id: 0x19A
+  #       ssb_scs: 30
 
 ru_sdr:
   device_driver: uhd
@@ -34,7 +38,7 @@ cell_cfg:
   plmn: "NETWORK_MCCNETWORK_MNC"                    # PLMN broadcasted by the gNB.
   tac: 7                            # Tracking area code (needs to match the core configuration).
   q_rx_lev_min: -70
-  
+
   # pusch: # below are low latency configs. maybe it'll solve the late problem
   #   min_k2: 2
   # tdd_ul_dl_cfg:
