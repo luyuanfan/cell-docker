@@ -15,7 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y make gcc g++ pkg-config libfft
 
 # Build UHD from source
 RUN git clone https://github.com/EttusResearch/uhd.git
-RUN cd uhd && git checkout v4.9.0.0 && cd host && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+RUN cd uhd && git checkout v4.8.0.0 && cd host && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
 
 # Install mongodb
 RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
@@ -48,7 +48,7 @@ WORKDIR /
 
 # Build srsRAN 5g from source
 RUN git clone https://github.com/srsRAN/srsRAN_Project.git
-RUN cd srsRAN_Project && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+RUN cd srsRAN_Project && git checkout release_25_04 && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
 
 # Download USRP images
 RUN /usr/local/lib/uhd/utils/uhd_images_downloader.py
