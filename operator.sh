@@ -6,5 +6,5 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-docker run -ti --privileged --network host --rm --ulimit rtprio=99 --ulimit memlock=-1 -v /dev/:/dev/ -e CONFIG64="$(base64 $1)" luyuanfan/gnb:x310 ./initOperator.sh
+docker run -ti --privileged -v /tmp/gnb/:/tmp/ --network host --ulimit rtprio=99 --ulimit memlock=-1 -v /dev/:/dev/ -e CONFIG64="$(base64 $1)" luyuanfan/gnb:x310 ./initOperator.sh
 # docker run -ti --privileged --rm -v /dev/:/dev/ -e CONFIG64="$(base64 $1)" luyuanfan/gnb:x310 ./initOperator.sh
