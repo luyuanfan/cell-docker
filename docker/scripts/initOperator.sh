@@ -64,22 +64,25 @@ do
 done
 
 # Populate core database
+# add_ue_with_apn {imsi key opc apn}
+# type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
+
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
 	/open5gs/misc/db/open5gs-dbctl reset
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$i $KEY $OPC $APN
-	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$i $TYPE
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn "001010100000001" $KEY $OPC $APN
+	/open5gs/misc/db/open5gs-dbctl type "001010100000001" $TYPE
 done
 
 # Get main interface IP
 # Modify the Core configuration file 
-sed -i "s/NETWORK_MCC/$MCC/g" config.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" config.yaml
+sed -i "s/NETWORK_MCC/$MCC/g" core.yaml
+sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
 
 # Run Open5GS
-/open5gs/build/tests/app/5gc -c /config.yaml > core.log &
+/open5gs/build/tests/app/5gc -c /core.yaml > core.log &
 echo "Running 5G SA Core Network"
-# /open5gs/build/tests/app/epc -c /config.yaml > core.log &
+# /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"
 sleep 1
 
