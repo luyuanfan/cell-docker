@@ -36,16 +36,26 @@ cell_cfg:
 # none, error, warning, info, debug
 log:
   filename: /tmp/gnb.log
-  all_level: debug
+  all_level: info 
+  ngap_level: info
+  e1ap_level: warning
+  e2ap_level: warning
+  gtpu_level: warning
+  high_latency_diagnostics_enabled: true
+
 
 pcap:
   mac_enable: true
-  mac_type: dlt
+  # mac_type: dlt
   mac_filename: /tmp/gnb_mac.pcap
   ngap_enable: true
   ngap_filename: /tmp/gnb_ngap.pcap
-  rlc_enable: false
-  rlc_rb_type: srb
+  # rlc_enable: false
+  # rlc_rb_type: srb
+  e1ap_filename: /tmp/gnb_e1ap.pcap     # Optional TEXT (/tmp/gnb_e1ap.pcap). Path for E1AP PCAPs.
+  e1ap_enable: true 
+  f1ap_filename: /tmp/gnb_f1ap.pcap     # Optional TEXT (/tmp/gnb_f1ap.pcap). Path for F1AP PCAPs.
+  f1ap_enable: true
 
 
 metrics:

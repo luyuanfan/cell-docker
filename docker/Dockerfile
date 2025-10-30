@@ -67,3 +67,5 @@ COPY configs/core.yaml .
 
 # gNB files
 COPY configs/gnb.yml .
+
+RUN DEBIAN_FRONTEND=noninteractive apt install -y wireshark
