@@ -67,6 +67,7 @@ amf:
     ciphering_order : [ NEA0, NEA1, NEA2 ]
   network_name:
     full: Operator
+    short: Next 
   amf_name: open5gs-amf0
   time:
     t3512:
@@ -77,6 +78,7 @@ upf:
   pfcp:
     server:
       - address: 127.0.0.7
+    client:
   gtpu:
     server:
       - address: 127.0.1.100

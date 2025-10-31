@@ -1,7 +1,7 @@
 {
     "network": {
-        "mcc": "001",
-        "mnc": "01",
+        "mcc": "310",
+        "mnc": "451",
         "apn": "test-internet"
     },
     "ran": {
