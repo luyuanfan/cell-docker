@@ -133,4 +133,4 @@ sed -i "s/DL_EARFCN/$DL_EARFCN/g" gnb.yml
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 # srsenb enb.conf
-chrt -f 90 gnb -c gnb.yml
+chrt -rr 99 gnb -c gnb.yml
