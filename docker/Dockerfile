@@ -59,6 +59,9 @@ RUN /usr/local/lib/uhd/utils/uhd_images_downloader.py
 COPY scripts/initOperator.sh .
 COPY scripts/srsran_performance .
 COPY configs/core.yaml .
+COPY configs/amf.yaml .
+COPY configs/nrf.yaml .
+COPY config/upf.yaml .
 
 # COPY configs/enb.conf .
 # COPY configs/rb.conf .
