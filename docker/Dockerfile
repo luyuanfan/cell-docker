@@ -14,6 +14,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools pyt
 # RUN DEBIAN_FRONTEND=noninteractive apt install -y libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
 RUN DEBIAN_FRONTEND=noninteractive apt install -y make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
 
+# Build UHD from source
+RUN git clone https://github.com/EttusResearch/uhd.git
+RUN cd uhd && git checkout v4.8.0.0 && cd host && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+
 # Install mongodb
 RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 # For Focal 20.04: 
@@ -50,17 +54,20 @@ WORKDIR /
 
 # Build srsRAN 5g from source
 RUN git clone https://github.com/srsRAN/srsRAN_Project.git
-RUN cd srsRAN_Project && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+RUN cd srsRAN_Project && git checkout release_25_04 && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
 
 # Download USRP images
-RUN /usr/lib/uhd/utils/uhd_images_downloader.py
+RUN /usr/local/lib/uhd/utils/uhd_images_downloader.py
 # When setting up for the first time, comment out the next line to match all compat numbers
-# RUN uhd_image_loader --args="type=x300,addr=192.168.40.2"
+# RUN /usr/local/bin/uhd_image_loader --args="type=x300,addr=192.168.40.2"
 
 # Copy scripts and files
 COPY scripts/initOperator.sh .
 COPY scripts/srsran_performance .
-COPY configs/config.yaml .
+COPY configs/core.yaml .
+COPY configs/amf.yaml .
+COPY configs/nrf.yaml .
+COPY config/upf.yaml .
 
 # COPY configs/enb.conf .
 # COPY configs/rb.conf .

@@ -1,12 +1,12 @@
 {
     "network": {
-        "mcc": "999",
-        "mnc": "99",
+        "mcc": "310",
+        "mnc": "451",
         "apn": "test-internet"
     },
     "ran": {
         "usrp": "308C9D0", 
-        "_comment": "'usrp_ip': '192.168.40.2',",
+        "usrp_ip": "192.168.40.2",
         "bandwidth": 10,
         "mimo": "no",
         "dl_earfcn": 641000

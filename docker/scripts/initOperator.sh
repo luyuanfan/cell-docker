@@ -64,22 +64,43 @@ do
 done
 
 # Populate core database
+# add_ue_with_apn {imsi key opc apn}
+# type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
+
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
 	/open5gs/misc/db/open5gs-dbctl reset
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$i $KEY $OPC $APN
-	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$i $TYPE
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn "001010100000001" $KEY $OPC $APN
+	/open5gs/misc/db/open5gs-dbctl type "001010100000001" $TYPE
 done
 
 # Get main interface IP
 # Modify the Core configuration file 
-sed -i "s/NETWORK_MCC/$MCC/g" config.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" config.yaml
+sed -i "s/NETWORK_MCC/$MCC/g" core.yaml
+sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
 
 # Run Open5GS
-/open5gs/build/tests/app/5gc -c /config.yaml > core.log &
 echo "Running 5G SA Core Network"
-# /open5gs/build/tests/app/epc -c /config.yaml > core.log &
+# /open5gs/build/tests/app/5gc -c /core.yaml > core.log &
+./open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
+./open5gs/install/bin/open5gs-scpd
+./open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp2.yaml
+./open5gs/install/bin/open5gs-amfd -c /amf.yaml
+./open5gs/install/bin/open5gs-smfd
+./open5gs/install/bin/open5gs-upfd -c /upf.yaml
+./open5gs/install/bin/open5gs-ausfd
+./open5gs/install/bin/open5gs-udmd
+./open5gs/install/bin/open5gs-pcfd
+./open5gs/install/bin/open5gs-nssfd
+./open5gs/install/bin/open5gs-bsfd
+./open5gs/install/bin/open5gs-udrd
+./open5gs/install/bin/open5gs-mmed
+./open5gs/install/bin/open5gs-sgwcd
+./open5gs/install/bin/open5gs-sgwud
+./open5gs/install/bin/open5gs-hssd
+./open5gs/install/bin/open5gs-pcrfd
+
+# /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"
 sleep 1
 
@@ -109,6 +130,7 @@ sleep 1
 #  RAN 5G  #
 ############
 
+chmod 700 srsran_performance
 ./srsran_performance # Tune system
 
 sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
@@ -129,4 +151,4 @@ sed -i "s/DL_EARFCN/$DL_EARFCN/g" gnb.yml
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 # srsenb enb.conf
-gnb -c gnb.yml
+chrt -rr 99 gnb -c gnb.yml
