@@ -80,8 +80,26 @@ sed -i "s/NETWORK_MCC/$MCC/g" core.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
 
 # Run Open5GS
-/open5gs/build/tests/app/5gc -c /core.yaml > core.log &
 echo "Running 5G SA Core Network"
+# /open5gs/build/tests/app/5gc -c /core.yaml > core.log &
+./open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
+./open5gs/install/bin/open5gs-scpd
+./open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp2.yaml
+./open5gs/install/bin/open5gs-amfd -c /amf.yaml
+./open5gs/install/bin/open5gs-smfd
+./open5gs/install/bin/open5gs-upfd -c /upf.yaml
+./open5gs/install/bin/open5gs-ausfd
+./open5gs/install/bin/open5gs-udmd
+./open5gs/install/bin/open5gs-pcfd
+./open5gs/install/bin/open5gs-nssfd
+./open5gs/install/bin/open5gs-bsfd
+./open5gs/install/bin/open5gs-udrd
+./open5gs/install/bin/open5gs-mmed
+./open5gs/install/bin/open5gs-sgwcd
+./open5gs/install/bin/open5gs-sgwud
+./open5gs/install/bin/open5gs-hssd
+./open5gs/install/bin/open5gs-pcrfd
+
 # /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"
 sleep 1
