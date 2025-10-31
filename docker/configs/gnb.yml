@@ -5,7 +5,7 @@
 cu_cp:
   amf:
     addr: 127.0.1.100 # set to the IP address of AMF
-    port: 38412
+    # port: 38412
     bind_addr: 127.0.0.1 # A local IP that the gNB binds to for traffic from the AMF
     supported_tracking_areas:
       - tac: 7
@@ -16,17 +16,18 @@ cu_cp:
 
 ru_sdr:
   device_driver: uhd
-  device_args: addr=USRP_IP, serial=USRP_ID, ext_adc_self_test=0, send_frame_size=8000, recv_frame_size=8000 #, master_clock_rate=184.32e6
+  device_args: addr=USRP_IP, serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=256, num_send_frames=256
   clock: external
-  sync: external
+  # sync: external
   srate: 23.04  # Sets the sampling rate of the RF-frontend in MHz
+  otw_format: sc12 
   tx_gain: 30
   rx_gain: 30
   time_alignment_calibration: -170    # This will set an offset of -170 samples
 
 cell_cfg:
-  dl_arfcn: 627340
-  band: 78                         
+  dl_arfcn: 503340
+  band: 41                         
   channel_bandwidth_MHz: 20
   common_scs: 30                    # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC" 
@@ -36,13 +37,13 @@ cell_cfg:
 # none, error, warning, info, debug
 log:
   filename: /tmp/gnb.log
-  all_level: info 
+  all_level: info
+  hex_max_size: 32
   ngap_level: info
   e1ap_level: warning
   e2ap_level: warning
   gtpu_level: warning
   high_latency_diagnostics_enabled: true
-
 
 pcap:
   mac_enable: true
@@ -58,8 +59,8 @@ pcap:
   f1ap_enable: true
 
 
-metrics:
-  enable_log: true
-  layers:
-    enable_ru: true
-    enable_sched: true
+# metrics:
+#   enable_log: true
+#   layers:
+#     enable_ru: true
+#     enable_sched: true
