@@ -8,14 +8,14 @@ MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
 APN=$(jq -r ".network.apn" <<< "$CONFIG")
 USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
 USRP_IP=$(jq -r ".ran.usrp_ip" <<< "$CONFIG")
-NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
-KEY=$(jq -r ".core.key" <<< "$CONFIG")
-OPC=$(jq -r ".core.opc" <<< "$CONFIG")
 BANDWIDTH=$(jq -r ".ran.bandwidth" <<< "$CONFIG")
 MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
+NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
+IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
+KEY=$(jq -r ".core.key" <<< "$CONFIG")
+OPC=$(jq -r ".core.opc" <<< "$CONFIG")
 TYPE=1
-
 
 #############
 # Time Zone #
@@ -66,12 +66,11 @@ done
 # Populate core database
 # add_ue_with_apn {imsi key opc apn}
 # type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
-
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
 	/open5gs/misc/db/open5gs-dbctl reset
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn "001010100000001" $KEY $OPC $APN
-	/open5gs/misc/db/open5gs-dbctl type "001010100000001" $TYPE
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
+	/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
 done
 
 # Get main interface IP
