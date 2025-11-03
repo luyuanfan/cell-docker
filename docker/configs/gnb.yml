@@ -20,7 +20,7 @@ ru_sdr:
   clock: external
   # sync: external
   srate: 23.04  # Sets the sampling rate of the RF-frontend in MHz
-  otw_format: sc12 
+  # otw_format: sc12 
   tx_gain: 30
   rx_gain: 30
   time_alignment_calibration: -170    # This will set an offset of -170 samples

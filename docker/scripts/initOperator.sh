@@ -82,23 +82,25 @@ sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
 # Run Open5GS
 echo "Running 5G SA Core Network"
 # /open5gs/build/tests/app/5gc -c /core.yaml > core.log &
-./open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
-./open5gs/install/bin/open5gs-scpd
-./open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp2.yaml
-./open5gs/install/bin/open5gs-amfd -c /amf.yaml
-./open5gs/install/bin/open5gs-smfd
-./open5gs/install/bin/open5gs-upfd -c /upf.yaml
-./open5gs/install/bin/open5gs-ausfd
-./open5gs/install/bin/open5gs-udmd
-./open5gs/install/bin/open5gs-pcfd
-./open5gs/install/bin/open5gs-nssfd
-./open5gs/install/bin/open5gs-bsfd
-./open5gs/install/bin/open5gs-udrd
-./open5gs/install/bin/open5gs-mmed
-./open5gs/install/bin/open5gs-sgwcd
-./open5gs/install/bin/open5gs-sgwud
-./open5gs/install/bin/open5gs-hssd
-./open5gs/install/bin/open5gs-pcrfd
+mkdir core
+
+/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml > /core/nrf.log &
+/open5gs/install/bin/open5gs-scpd > /core/scp.log &
+# /open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp1.yaml > /core/sepp.log &
+/open5gs/install/bin/open5gs-amfd -c /amf.yaml > /core/amf.log &
+/open5gs/install/bin/open5gs-smfd > /core/smf.log &
+/open5gs/install/bin/open5gs-upfd -c /upf.yaml > /core/upf.log &
+/open5gs/install/bin/open5gs-ausfd > /core/ausf.log &
+/open5gs/install/bin/open5gs-udmd > /core/udm.log &
+/open5gs/install/bin/open5gs-pcfd > /core/pcf.log &
+/open5gs/install/bin/open5gs-nssfd > /core/nssf.log &
+/open5gs/install/bin/open5gs-bsfd > /core/bsf.log &
+/open5gs/install/bin/open5gs-udrd > /core/udr.log &
+/open5gs/install/bin/open5gs-mmed > /core/mme.log &
+/open5gs/install/bin/open5gs-sgwcd > /core/sgwc.log &
+/open5gs/install/bin/open5gs-sgwud > /core/sgwu.log &
+/open5gs/install/bin/open5gs-hssd > /core/hss.log &
+/open5gs/install/bin/open5gs-pcrfd > /core/pcrf.log &
 
 # /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"
