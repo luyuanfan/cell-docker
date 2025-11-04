@@ -2,7 +2,7 @@
     "network": {
         "mcc": "310",
         "mnc": "451",
-        "apn": "test-internet"
+        "apn": "internet"
     },
     "ran": {
         "usrp": "308C9D0", 
