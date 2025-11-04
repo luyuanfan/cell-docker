@@ -6,7 +6,7 @@
     },
     "ran": {
         "usrp": "308C9D0", 
-        "usrp_ip": "192.168.40.2",
+        "usrp_ip": "192.168.30.2",
         "bandwidth": 10,
         "mimo": "no",
         "dl_earfcn": 641000
