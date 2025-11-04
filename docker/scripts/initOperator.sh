@@ -21,8 +21,8 @@ TYPE=1
 # Time Zone #
 #############
 
-ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-echo "America/New_York" > /etc/timezone
+# ln -sf /usr/share/zoneinfo/Etc/Universal /etc/localtime
+echo "Etc/Universal" > /etc/timezone
 
 #############
 #  MongoDB  #
@@ -49,7 +49,9 @@ ip link set ogstun up
 
 # Connect core to the internet
 sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv6.conf.all.forwarding=1
 iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
 
 # Wait until mongo DB gets initialized
 while true;
@@ -85,23 +87,33 @@ echo "Running 5G SA Core Network"
 # /open5gs/build/tests/app/5gc -c /core.yaml > core.log &
 mkdir core
 
-/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml & # > /core/nrf.log &
+# discover other core services
+/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml > /core/nrf.log &
+# enable indirect communication
 /open5gs/install/bin/open5gs-scpd & #> /core/scp.log &
-# /open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp1.yaml > /core/sepp.log &
+# roaming security
+# /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml > /core/sepp.log &
+# subscriber authentication
 /open5gs/install/bin/open5gs-amfd -c /amf.yaml > /core/amf.log &
-/open5gs/install/bin/open5gs-smfd & #> /core/smf.log &
+# session management
+/open5gs/install/bin/open5gs-smfd -c /smf.yaml > /core/smf.log & #> /core/smf.log &
+# transport data packets between gnb and external WAN, connect to SMF
 /open5gs/install/bin/open5gs-upfd -c /upf.yaml > /core/upf.log &
+# next three do sim authentication and hold user profile
 /open5gs/install/bin/open5gs-ausfd & #> /core/ausf.log &
 /open5gs/install/bin/open5gs-udmd & #> /core/udm.log &
-/open5gs/install/bin/open5gs-pcfd & #> /core/pcf.log &
-/open5gs/install/bin/open5gs-nssfd & #> /core/nssf.log &
-/open5gs/install/bin/open5gs-bsfd & #> /core/bsf.log &
 /open5gs/install/bin/open5gs-udrd & #> /core/udr.log &
-/open5gs/install/bin/open5gs-mmed & #> /core/mme.log &
-/open5gs/install/bin/open5gs-sgwcd & #> /core/sgwc.log &
-/open5gs/install/bin/open5gs-sgwud & #> /core/sgwu.log &
-/open5gs/install/bin/open5gs-hssd & #> /core/hss.log &
-/open5gs/install/bin/open5gs-pcrfd & #> /core/pcrf.log &
+# charging & enforcing subscriber policies
+/open5gs/install/bin/open5gs-pcfd & #> /core/pcf.log &
+# allow selecting network slice
+/open5gs/install/bin/open5gs-nssfd & #> /core/nssf.log &
+# 
+/open5gs/install/bin/open5gs-bsfd & #> /core/bsf.log &
+# /open5gs/install/bin/open5gs-mmed & #> /core/mme.log &
+# /open5gs/install/bin/open5gs-sgwcd & #> /core/sgwc.log &
+# /open5gs/install/bin/open5gs-sgwud & #> /core/sgwu.log &
+# /open5gs/install/bin/open5gs-hssd & #> /core/hss.log &
+# /open5gs/install/bin/open5gs-pcrfd & #> /core/pcrf.log &
 
 # /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"
