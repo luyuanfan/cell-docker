@@ -1,7 +1,7 @@
 logger:
   file:
     path: /upf.log
-#  level: info   # fatal|error|warn|info(default)|debug|trace
+    level: debug   # fatal|error|warn|info(default)|debug|trace
 
 global:
   max:
