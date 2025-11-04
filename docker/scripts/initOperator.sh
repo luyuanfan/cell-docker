@@ -8,14 +8,14 @@ MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
 APN=$(jq -r ".network.apn" <<< "$CONFIG")
 USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
 USRP_IP=$(jq -r ".ran.usrp_ip" <<< "$CONFIG")
-NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
-KEY=$(jq -r ".core.key" <<< "$CONFIG")
-OPC=$(jq -r ".core.opc" <<< "$CONFIG")
 BANDWIDTH=$(jq -r ".ran.bandwidth" <<< "$CONFIG")
 MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
 DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
+NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
+IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
+KEY=$(jq -r ".core.key" <<< "$CONFIG")
+OPC=$(jq -r ".core.opc" <<< "$CONFIG")
 TYPE=1
-
 
 #############
 # Time Zone #
@@ -66,39 +66,42 @@ done
 # Populate core database
 # add_ue_with_apn {imsi key opc apn}
 # type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
-
 for i in $(seq -f "%010g" 1 $NUM_UES)
 do
 	/open5gs/misc/db/open5gs-dbctl reset
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn "001010100000001" $KEY $OPC $APN
-	/open5gs/misc/db/open5gs-dbctl type "001010100000001" $TYPE
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
+	/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
 done
 
 # Get main interface IP
 # Modify the Core configuration file 
-sed -i "s/NETWORK_MCC/$MCC/g" core.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
+sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
+sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
+sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
+sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 
 # Run Open5GS
 echo "Running 5G SA Core Network"
 # /open5gs/build/tests/app/5gc -c /core.yaml > core.log &
-./open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
-./open5gs/install/bin/open5gs-scpd
-./open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp2.yaml
-./open5gs/install/bin/open5gs-amfd -c /amf.yaml
-./open5gs/install/bin/open5gs-smfd
-./open5gs/install/bin/open5gs-upfd -c /upf.yaml
-./open5gs/install/bin/open5gs-ausfd
-./open5gs/install/bin/open5gs-udmd
-./open5gs/install/bin/open5gs-pcfd
-./open5gs/install/bin/open5gs-nssfd
-./open5gs/install/bin/open5gs-bsfd
-./open5gs/install/bin/open5gs-udrd
-./open5gs/install/bin/open5gs-mmed
-./open5gs/install/bin/open5gs-sgwcd
-./open5gs/install/bin/open5gs-sgwud
-./open5gs/install/bin/open5gs-hssd
-./open5gs/install/bin/open5gs-pcrfd
+mkdir core
+
+/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml & # > /core/nrf.log &
+/open5gs/install/bin/open5gs-scpd & #> /core/scp.log &
+# /open5gs/install/bin/open5gs-seppd -c ./open5gs/install/etc/open5gs/sepp1.yaml > /core/sepp.log &
+/open5gs/install/bin/open5gs-amfd -c /amf.yaml > /core/amf.log &
+/open5gs/install/bin/open5gs-smfd & #> /core/smf.log &
+/open5gs/install/bin/open5gs-upfd -c /upf.yaml > /core/upf.log &
+/open5gs/install/bin/open5gs-ausfd & #> /core/ausf.log &
+/open5gs/install/bin/open5gs-udmd & #> /core/udm.log &
+/open5gs/install/bin/open5gs-pcfd & #> /core/pcf.log &
+/open5gs/install/bin/open5gs-nssfd & #> /core/nssf.log &
+/open5gs/install/bin/open5gs-bsfd & #> /core/bsf.log &
+/open5gs/install/bin/open5gs-udrd & #> /core/udr.log &
+/open5gs/install/bin/open5gs-mmed & #> /core/mme.log &
+/open5gs/install/bin/open5gs-sgwcd & #> /core/sgwc.log &
+/open5gs/install/bin/open5gs-sgwud & #> /core/sgwu.log &
+/open5gs/install/bin/open5gs-hssd & #> /core/hss.log &
+/open5gs/install/bin/open5gs-pcrfd & #> /core/pcrf.log &
 
 # /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"

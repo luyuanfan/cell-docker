@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /open5gs/install/var/log/open5gs/nrf.log
+    path: /nrf.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
@@ -11,8 +11,8 @@ global:
 nrf:
   serving:  # 5G roaming requires PLMN in NRF
     - plmn_id:
-        mcc: 310
-        mnc: 451
+        mcc: NETWORK_MCC
+        mnc: NETWORK_MNC
   sbi:
     server:
       - address: 127.0.0.10

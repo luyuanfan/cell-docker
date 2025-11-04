@@ -36,11 +36,11 @@ RUN cd uhd/host && mkdir build && cd build && cmake ../ && make && make install 
 
 # Build Open5GS from source
 RUN git clone https://github.com/open5gs/open5gs
-WORKDIR open5gs
-#RUN git checkout 85f150c
-RUN meson build --prefix=/open5gs/install
-WORKDIR build
-RUN ninja
+RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
+# WORKDIR open5gs
+# RUN meson build --prefix=/open5gs/install
+# # WORKDIR build
+# RUN ninja -C build
 WORKDIR /
 
 # Install srsRAN
@@ -67,7 +67,7 @@ COPY scripts/srsran_performance .
 COPY configs/core.yaml .
 COPY configs/amf.yaml .
 COPY configs/nrf.yaml .
-COPY config/upf.yaml .
+COPY configs/upf.yaml .
 
 # COPY configs/enb.conf .
 # COPY configs/rb.conf .

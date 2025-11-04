@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /open5gs/install/var/log/open5gs/amf.log
+    path: /amf.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
@@ -27,20 +27,20 @@ amf:
         port: 9090
   guami:
     - plmn_id:
-        mcc: 310
-        mnc: 451
+        mcc: NETWORK_MCC
+        mnc: NETWORK_MNC
       amf_id:
         region: 2
         set: 1
   tai:
     - plmn_id:
-        mcc: 310
-        mnc: 451
+        mcc: NETWORK_MCC
+        mnc: NETWORK_MNC
       tac: 7
   plmn_support:
     - plmn_id:
-        mcc: 310
-        mnc: 451
+        mcc: NETWORK_MCC
+        mnc: NETWORK_MNC
       s_nssai:
         - sst: 1
   security:

@@ -2,7 +2,7 @@
     "network": {
         "mcc": "310",
         "mnc": "451",
-        "apn": "test-internet"
+        "apn": "internet"
     },
     "ran": {
         "usrp": "308C9D0", 
@@ -13,7 +13,8 @@
     },
     "core": {
         "num_ues": 1,
-        "key": "3E14763419F4BF79EC1CCAEDDF6B57AF",
-        "opc": "27DF2870CC361FDC568DE86C8B56F610"
+        "imsi": "310451000085875",
+        "key": "05EA501E9AF94BBA1AE5DD426EFA0DAA",
+        "opc": "DCB307105505164936A46C831AA9A98A"
     }
 }
