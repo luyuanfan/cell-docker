@@ -42,16 +42,20 @@ fi
 ##########
 
 # Create TUN device
-ip tuntap add name ogstun mode tun
-ip addr add 10.45.0.1/16 dev ogstun
-ip addr add 2001:db8:cafe::1/48 dev ogstun
-ip link set ogstun up
+# ip tuntap add name ogstun mode tun
+# ip addr add 10.45.0.1/16 dev ogstun
+# # ip addr add 2001:db8:cafe::1/48 dev ogstun
+# ip link set ogstun up
 
 # Connect core to the internet
-sysctl -w net.ipv4.ip_forward=1
-sysctl -w net.ipv6.conf.all.forwarding=1
-iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
-ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
+# sysctl -w net.ipv4.ip_forward=1
+# # sysctl -w net.ipv6.conf.all.forwarding=1
+# iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+
+# iptables -I INPUT -i ogstun -j ACCEPT
+# iptables -I INPUT -s 10.45.0.0/16 -j DROP
+
+# ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
 
 # Wait until mongo DB gets initialized
 while true;
@@ -68,12 +72,16 @@ done
 # Populate core database
 # add_ue_with_apn {imsi key opc apn}
 # type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
-for i in $(seq -f "%010g" 1 $NUM_UES)
-do
-	/open5gs/misc/db/open5gs-dbctl reset
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
-	/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
-done
+# for i in $(seq -f "%010g" 1 $NUM_UES)
+# do
+# 	/open5gs/misc/db/open5gs-dbctl reset
+# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
+# 	/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
+# done
+
+/open5gs/misc/db/open5gs-dbctl reset
+/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
+/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
 
 # Get main interface IP
 # Modify the Core configuration file 
@@ -92,7 +100,7 @@ mkdir core
 # enable indirect communication
 /open5gs/install/bin/open5gs-scpd & #> /core/scp.log &
 # roaming security
-# /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml > /core/sepp.log &
+# /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp1.yaml > /core/sepp.log &
 # subscriber authentication
 /open5gs/install/bin/open5gs-amfd -c /amf.yaml > /core/amf.log &
 # session management
@@ -107,13 +115,14 @@ mkdir core
 /open5gs/install/bin/open5gs-pcfd & #> /core/pcf.log &
 # allow selecting network slice
 /open5gs/install/bin/open5gs-nssfd & #> /core/nssf.log &
-# 
+# Binding Support Function
 /open5gs/install/bin/open5gs-bsfd & #> /core/bsf.log &
-# /open5gs/install/bin/open5gs-mmed & #> /core/mme.log &
-# /open5gs/install/bin/open5gs-sgwcd & #> /core/sgwc.log &
-# /open5gs/install/bin/open5gs-sgwud & #> /core/sgwu.log &
-# /open5gs/install/bin/open5gs-hssd & #> /core/hss.log &
-# /open5gs/install/bin/open5gs-pcrfd & #> /core/pcrf.log &
+# don't really care these are LTE services
+/open5gs/install/bin/open5gs-mmed & #> /core/mme.log &
+/open5gs/install/bin/open5gs-sgwcd & #> /core/sgwc.log &
+/open5gs/install/bin/open5gs-sgwud & #> /core/sgwu.log &
+/open5gs/install/bin/open5gs-hssd & #> /core/hss.log &
+/open5gs/install/bin/open5gs-pcrfd & #> /core/pcrf.log &
 
 # /open5gs/build/tests/app/epc -c /core.yaml > core.log &
 # echo "Running 4G Core Network"
