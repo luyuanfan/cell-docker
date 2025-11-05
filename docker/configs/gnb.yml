@@ -16,9 +16,9 @@ cu_cp:
 
 ru_sdr:
   device_driver: uhd
-  device_args: addr=USRP_IP, serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=256, num_send_frames=256
-  clock: internal
-  sync: internal
+  device_args: serial=USRP_ID #, num_recv_frames=256, num_send_frames=256
+  clock: external
+  sync: external
   srate: 23.04  # Sets the sampling rate of the RF-frontend in MHz
   # otw_format: sc12 
   tx_gain: 30

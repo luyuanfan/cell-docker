@@ -5,7 +5,7 @@
         "apn": "internet"
     },
     "ran": {
-        "usrp": "308C9D0", 
+        "usrp": "328900E", 
         "usrp_ip": "192.168.30.2",
         "bandwidth": 10,
         "mimo": "no",
