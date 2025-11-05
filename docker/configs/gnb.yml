@@ -5,7 +5,7 @@
 cu_cp:
   amf:
     addr: 127.0.1.100 # set to the IP address of AMF
-    # port: 38412
+    port: 38412
     bind_addr: 127.0.0.1 # A local IP that the gNB binds to for traffic from the AMF
     supported_tracking_areas:
       - tac: 7
@@ -17,8 +17,8 @@ cu_cp:
 ru_sdr:
   device_driver: uhd
   device_args: addr=USRP_IP, serial=USRP_ID, ext_adc_self_test=0, num_recv_frames=256, num_send_frames=256
-  clock: external
-  # sync: external
+  clock: internal
+  sync: internal
   srate: 23.04  # Sets the sampling rate of the RF-frontend in MHz
   # otw_format: sc12 
   tx_gain: 30

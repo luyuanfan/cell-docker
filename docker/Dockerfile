@@ -68,6 +68,7 @@ COPY configs/core.yaml .
 COPY configs/amf.yaml .
 COPY configs/nrf.yaml .
 COPY configs/upf.yaml .
+COPY configs/smf.yaml .
 
 # COPY configs/enb.conf .
 # COPY configs/rb.conf .
