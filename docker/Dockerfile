@@ -14,8 +14,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools pyt
 RUN DEBIAN_FRONTEND=noninteractive apt install -y make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
 
 # Build UHD from source
-RUN git clone https://github.com/EttusResearch/uhd.git
-RUN cd uhd && git checkout v4.8.0.0 && cd host && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+# RUN git clone https://github.com/EttusResearch/uhd.git
+# RUN cd uhd && git checkout v4.8.0.0 && cd host && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
 
 # Install mongodb
 RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
@@ -51,9 +51,10 @@ RUN git clone https://github.com/srsRAN/srsRAN_Project.git
 RUN cd srsRAN_Project && git checkout release_25_04 && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
 
 # Download USRP images
-RUN /usr/local/lib/uhd/utils/uhd_images_downloader.py
+RUN uhd_images_downloader
 # When setting up for the first time, comment out the next line to match all compat numbers
 # RUN /usr/local/bin/uhd_image_loader --args="type=x300,addr=192.168.40.2"
+# RUN uhd_image_loader --args="type=b200"
 
 # Copy scripts and files
 COPY scripts/initOperator.sh .
