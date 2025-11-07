@@ -6,7 +6,6 @@
     },
     "ran": {
         "usrp": "328900E", 
-        "usrp_ip": "192.168.30.2",
         "bandwidth": 10,
         "mimo": "no",
         "dl_earfcn": 641000
