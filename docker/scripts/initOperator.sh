@@ -154,9 +154,6 @@ sleep 1
 #  RAN 5G  #
 ############
 
-chmod 700 srsran_performance
-./srsran_performance # Tune system
-
 sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
 sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
 sed -i "s/USRP_ID/$USRP/g" gnb.yml
@@ -175,4 +172,4 @@ sed -i "s/DL_EARFCN/$DL_EARFCN/g" gnb.yml
 
 #taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
 # srsenb enb.conf
-chrt -rr 99 gnb -c gnb.yml
+chrt --rr 99 gnb -c gnb.yml

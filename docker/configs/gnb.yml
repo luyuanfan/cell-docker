@@ -16,14 +16,15 @@ cu_cp:
 
 ru_sdr:
   device_driver: uhd
+  # device_args: type=b200,serial=USRP_ID, num_recv_frames=64,num_send_frames=64 #num_recv_frames=256,num_send_frames=256
   device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
   clock: external
   # sync: external
   srate: 23.04  # Sets the sampling rate of the RF-frontend in MHz
-  # otw_format: sc12 
+  otw_format: sc12
   tx_gain: 80
   rx_gain: 40 
-  time_alignment_calibration: -170    # This will set an offset of -170 samples
+  # time_alignment_calibration: -1000    # This will set an offset of -170 samples
 
 cell_cfg:
   dl_arfcn: 503340
