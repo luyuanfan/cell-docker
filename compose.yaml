@@ -1,0 +1,20 @@
+services:
+
+  # open5gs
+  core:
+    container_name: "core"
+    image: "jasminetest2"
+    ports:
+      - "8080:12312"
+    build:
+      dockerfile: ./core/Dockerfile
+    
+  # srsran gnb
+  gnb:
+    container_name: "gnb"
+    image: "jasminetest2"
+    ports:
+      - "8081:12313"
+    build: 
+      dockerfile: ./gnb/Dockerfile
+      

@@ -1,0 +1,55 @@
+# This example configuration outlines how to use the 'cells' subcommand. The base cell configuration is
+# for all cells using the 'cell_cfg' subcommand, with the 'cell' subcommand being used to overwrite this
+# base configuration for a single cell.
+
+cu_cp:
+  amf:
+    addr: 127.0.1.100                    # set to the IP address of AMF
+    port: 38412
+    bind_addr: 127.0.0.1                 # A local IP that the gNB binds to for traffic from the AMF
+    supported_tracking_areas:
+      - tac: 7
+        plmn_list:
+          - plmn: "NETWORK_MCCNETWORK_MNC"
+            tai_slice_support_list:
+              - sst: 1
+
+ru_sdr:
+  device_driver: uhd
+  device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
+  clock: external
+  srate: 23.04                           # Sets the sampling rate of the RF-frontend in MHz
+  otw_format: sc12
+  tx_gain: 80
+  rx_gain: 40 
+  # time_alignment_calibration: -1000    # This will set an offset of -170 samples
+
+cell_cfg:
+  dl_arfcn: 503340
+  band: 41                         
+  channel_bandwidth_MHz: 20
+  common_scs: 30                         # Subcarrier spacing in kHz used for data.
+  plmn: "NETWORK_MCCNETWORK_MNC" 
+  tac: 7                            
+  pci: 1
+  
+# level: none, error, warning, info, debug
+log:
+  filename: /tmp/gnb.log
+  all_level: info
+  hex_max_size: 32
+  ngap_level: info
+  e1ap_level: warning
+  e2ap_level: warning
+  gtpu_level: warning
+  high_latency_diagnostics_enabled: true
+
+pcap:
+  mac_enable: true
+  mac_filename: /tmp/gnb_mac.pcap
+  ngap_enable: true
+  ngap_filename: /tmp/gnb_ngap.pcap
+  e1ap_filename: /tmp/gnb_e1ap.pcap     # Optional TEXT (/tmp/gnb_e1ap.pcap). Path for E1AP PCAPs.
+  e1ap_enable: true 
+  f1ap_filename: /tmp/gnb_f1ap.pcap     # Optional TEXT (/tmp/gnb_f1ap.pcap). Path for F1AP PCAPs.
+  f1ap_enable: true
