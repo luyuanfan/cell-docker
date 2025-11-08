@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 CONFIG=$(echo "$CONFIG64" | base64 -d)
 
@@ -89,23 +90,23 @@ echo "Running 5G SA Core Network"
 /open5gs/install/bin/open5gs-hssd & 
 /open5gs/install/bin/open5gs-pcrfd &
 
-sleep 1
+# sleep 1
 
 ############
 #  RAN 5G  #
 ############
 
-sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
-sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
-sed -i "s/USRP_ID/$USRP/g" gnb.yml
-if [[ ${MIMO,,} == "yes" ]]; then 
-	TRANSMISSION_MODE=4
-	NUM_PORTS=2
-else
-	TRANSMISSION_MODE=1
-	NUM_PORTS=1
-fi
-sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
-sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
+# sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
+# sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
+# sed -i "s/USRP_ID/$USRP/g" gnb.yml
+# if [[ ${MIMO,,} == "yes" ]]; then 
+# 	TRANSMISSION_MODE=4
+# 	NUM_PORTS=2
+# else
+# 	TRANSMISSION_MODE=1
+# 	NUM_PORTS=1
+# fi
+# sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
+# sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
 
-chrt --rr 99 gnb -c gnb.yml
+# chrt --rr 99 gnb -c gnb.yml

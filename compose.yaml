@@ -3,10 +3,9 @@ services:
   # open5gs
   core:
     container_name: "core"
-    image: jasminetest2
-    command: ./core/scripts/initCore.sh
+    command: ./initCore.sh
     environment:
-      core_env: ${CONFIG64}
+      CONFIG64: ${CONFIG64}
     build:
       context: ./core
       network: host
@@ -18,19 +17,17 @@ services:
         - action: sync
           path: .
           target: /core_source
-    networks:
-      front-tier:
-        ipv4_address: 172.16.238.10
-    # volumnes:
-    #   - ./config.json:/config.json
+    # networks:
+    #   front-tier:
+    #     ipv4_address: 172.16.238.10
 
   # srsran gnb
   gnb:
-    container_name: gnb
-    image: jasminetest2
-    command: ./gnb/scripts/initGnb.sh
+    container_name: srsran
+    # image: jasminetest2
+    command: ./initGnb.sh
     environment:
-      core_env: ${CONFIG64}
+      CONFIG64: ${CONFIG64}
     build:
       context: ./gnb
       network: host
@@ -42,9 +39,9 @@ services:
         - action: sync
           path: .
           target: /gnb_source 
-    networks:
-      front-tier:
-        ipv4_address: 172.16.238.11
+    # networks:
+    #   front-tier:
+    #     ipv4_address: 172.16.238.11
     privileged: true
     network_mode: "host"
     cap_add:
@@ -56,7 +53,6 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
-      # - ./config.json:/config.json
       - ./tmp/gnb/:/tmp/
 
 # networks:
