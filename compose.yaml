@@ -3,18 +3,65 @@ services:
   # open5gs
   core:
     container_name: "core"
-    image: "jasminetest2"
+    image: jasminetest2
+    command: ./core/scripts/initCore.sh
+    environment:
+      core_env: ${CONFIG64}
+    build:
+      context: ./core
+      network: host
+      no_cache: true 
     ports:
       - "8080:12312"
-    build:
-      dockerfile: ./core/Dockerfile
-    
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /core_source
+    networks:
+      front-tier:
+        ipv4_address: 172.16.238.10
+    # volumnes:
+    #   - ./config.json:/config.json
+
   # srsran gnb
   gnb:
-    container_name: "gnb"
-    image: "jasminetest2"
+    container_name: gnb
+    image: jasminetest2
+    command: ./gnb/scripts/initGnb.sh
+    environment:
+      core_env: ${CONFIG64}
+    build:
+      context: ./gnb
+      network: host
+      no_cache: true 
     ports:
       - "8081:12313"
-    build: 
-      dockerfile: ./gnb/Dockerfile
-      
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /gnb_source 
+    networks:
+      front-tier:
+        ipv4_address: 172.16.238.11
+    privileged: true
+    network_mode: "host"
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      # - ./config.json:/config.json
+      - ./tmp/gnb/:/tmp/
+
+# networks:
+#   front-tier:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: "172.16.238.0/24"
