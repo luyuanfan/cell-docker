@@ -6,9 +6,7 @@
     },
     "ran": {
         "usrp": "328900E", 
-        "bandwidth": 10,
-        "mimo": "no",
-        "dl_earfcn": 641000
+        "mimo": "no"
     },
     "core": {
         "num_ues": 1,

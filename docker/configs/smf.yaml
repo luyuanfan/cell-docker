@@ -37,7 +37,7 @@ smf:
   session:
     - subnet: 10.45.0.0/16
       gateway: 10.45.0.1
-      dnn: internet
+      dnn: NETWORK_APN
     # - subnet: 2001:db8:cafe::/48
     #   gateway: 2001:db8:cafe::1
     #   dnn: internet
@@ -85,11 +85,11 @@ info:
   - s_nssai:
       - sst: 1
         dnn:
-          - internet
+          - NETWORK_APN
     tai:
       - plmn_id:
-          mcc: 310 
-          mnc: 451
+          mcc: NETWORK_MCC
+          mnc: NETWORK_MNC
         tac: 7
 #
 #  o If any of conditions below are met:

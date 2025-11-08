@@ -2,15 +2,11 @@
 
 CONFIG=$(echo "$CONFIG64" | base64 -d)
 
-# Parse operator configuration
 MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
 MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
 APN=$(jq -r ".network.apn" <<< "$CONFIG")
 USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
-USRP_IP=$(jq -r ".ran.usrp_ip" <<< "$CONFIG")
-BANDWIDTH=$(jq -r ".ran.bandwidth" <<< "$CONFIG")
 MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
-DL_EARFCN=$(jq -r ".ran.dl_earfcn" <<< "$CONFIG")
 NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
 IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
 KEY=$(jq -r ".core.key" <<< "$CONFIG")
@@ -27,8 +23,7 @@ echo "Etc/Universal" > /etc/timezone
 #  MongoDB  #
 #############
 
-# If mongo is not running, execute it in the background
-
+# if mongo is not running, execute it in the background
 mkdir -p /data/db
 chown -R mongodb:mongodb /data/db || true
 
@@ -41,7 +36,7 @@ fi
 #  Core  #
 ##########
 
-# Wait until mongo DB gets initialized
+# wait until mongo DB gets initialized
 while true;
 do
 	nc -zvv localhost 27017 > /dev/null 2>&1
@@ -53,7 +48,7 @@ do
 	fi
 done
 
-# Populate core database
+# # populate core database
 # add_ue_with_apn {imsi key opc apn}
 # type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
 # for i in $(seq -f "%010g" 1 $NUM_UES)
@@ -67,13 +62,13 @@ done
 /open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
 /open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
 
-# Modify the Core configuration file 
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
+sed -i "s/NETWORK_APN/$APN/g" amf.yaml
 sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
+sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 
-# Run Open5GS
 echo "Running 5G SA Core Network"
 
 /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
@@ -103,8 +98,6 @@ sleep 1
 sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
 sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
 sed -i "s/USRP_ID/$USRP/g" gnb.yml
-sed -i "s/USRP_IP/$USRP_IP/g" gnb.yml
-sed -i "s/BANDWIDTH/$BANDWIDTH/g" gnb.yml
 if [[ ${MIMO,,} == "yes" ]]; then 
 	TRANSMISSION_MODE=4
 	NUM_PORTS=2
@@ -114,8 +107,5 @@ else
 fi
 sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
 sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
-sed -i "s/DL_EARFCN/$DL_EARFCN/g" gnb.yml
 
-#taskset -c $CPU_IDS srsenb --rf.device_name=uhd --rf.device_args="serial=$USRP" enb.conf
-# srsenb enb.conf
 chrt --rr 99 gnb -c gnb.yml

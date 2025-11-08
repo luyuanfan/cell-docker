@@ -1,17 +1,15 @@
 #!/bin/bash
 set -e
 
-DEV="ogstun"
-
 if [ "$#" -ne 1 ]; then
     echo "USE: $0 <Operator Config File (JSON)>"
 	echo "Example: .$0 config.json"
     exit 1
 fi
 
-# echo "Deleting TUN device $DEV and creating a new one..."
+echo "Deleting TUN device ogstun nd creating a new one..."
 # delete existing tun device and associated NAT rules 
-if ip link show "ogstun" &>/dev/null; then
+if ip link show ogstun &>/dev/null; then
     ip tuntap del name ogstun mode tun
     iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
 fi
