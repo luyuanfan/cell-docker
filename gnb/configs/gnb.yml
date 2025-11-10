@@ -46,23 +46,23 @@ cell_cfg:
   band: 41                         
   channel_bandwidth_MHz: 20
   common_scs: 30                         # Subcarrier spacing in kHz used for data.
-  plmn: "NETWORK_MCCNETWORK_MNC" 
+  plmn: "NETWORK_MCCNETWORK_MNC"
+  nof_antennas_dl: 1
+  nof_antennas_ul: 1
   tac: 7                            
   pci: 1
 
 cells:
-  -
-    pci: 1
+  - pci: 1
     prach:
       prach_root_sequence_index: 0
-  -
-    pci: 2
+  - pci: 2
     prach:
       prach_root_sequence_index: 64
 
 ru_sdr:
   device_driver: uhd
-  device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
+  device_args: type=b210,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
   clock: external
   srate: 23.04                           # Sets the sampling rate of the RF-frontend in MHz
   otw_format: sc12

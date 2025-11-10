@@ -1,8 +1,8 @@
 #!/bin/bash
-set -e
+
+echo "Starting Open5GS core services"
 
 CONFIG=$(echo "$CONFIG64" | base64 -d)
-
 MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
 MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
 APN=$(jq -r ".network.apn" <<< "$CONFIG")
@@ -70,8 +70,6 @@ sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 
-echo "Running 5G SA Core Network"
-
 /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
 /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
 # /open5gs/install/bin/open5gs-seppd &                  # roaming security
@@ -90,7 +88,10 @@ echo "Running 5G SA Core Network"
 /open5gs/install/bin/open5gs-hssd & 
 /open5gs/install/bin/open5gs-pcrfd &
 
-# sleep 1
+echo "Running 5G SA Core Network" > "./health.log"
+
+tail -f ./health.log
+
 
 ############
 #  RAN 5G  #

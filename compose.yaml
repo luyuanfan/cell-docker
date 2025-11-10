@@ -3,37 +3,58 @@ services:
   # open5gs
   core:
     container_name: "core"
+    image: cell-docker-core
     command: ./initCore.sh
+    tty: true
     environment:
       CONFIG64: ${CONFIG64}
     build:
       context: ./core
       network: host
-      no_cache: true 
-    ports:
-      - "8080:12312"
+      # no_cache: true 
+    # ports:
+    #   - "8080:12312"
     develop:
       watch:
         - action: sync
           path: .
           target: /core_source
+    privileged: true
+    network_mode: "host"
+    cap_add:  
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    healthcheck:
+      test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
+      interval: 3s
+      timeout: 1s
+      retries: 60
+      # start_period: 5s
+    volumes:
+      - /dev/:/dev/
     # networks:
-    #   front-tier:
+    #   ran:
     #     ipv4_address: 172.16.238.10
 
   # srsran gnb
   gnb:
-    container_name: srsran
+    container_name: gnb
     # image: jasminetest2
+    image: cell-docker-gnb
     command: ./initGnb.sh
     environment:
       CONFIG64: ${CONFIG64}
     build:
       context: ./gnb
       network: host
-      no_cache: true 
-    ports:
-      - "8081:12313"
+      # no_cache: true 
+    # ports:
+    #   - "8081:12313"
     develop:
       watch:
         - action: sync
@@ -53,10 +74,15 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
-      - ./tmp/gnb/:/tmp/
+      # - /tmp/gnb/:/tmp/
+      - /dev/:/dev/
+    depends_on:
+      core:
+        condition: service_healthy
+        restart: true
 
 # networks:
-#   front-tier:
+#   ran:
 #     ipam:
 #       driver: default
 #       config:
