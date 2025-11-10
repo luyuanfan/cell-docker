@@ -16,30 +16,30 @@ cu_cp:
           - plmn: "NETWORK_MCCNETWORK_MNC"                        # PLMN ID
             tai_slice_support_list:                               # List of slices supported by the tracking area
               - sst: 1                                            # Slice/Service Type
-  mobility:
-    trigger_handover_from_measurements: true                      # Set the CU-CP to trigger handover when neighbor cell measurements arrive
-    cells:                                                        # List of cells available for handover known to the cu-cp
-      - nr_cell_id: 0x19B0                                        # Cell ID for cell 1
-        periodic_report_cfg_id: 1                                 # Set the periodic report configuration ID for this cell
-        ncells:                                                   # Neighbor cell(s) available for handover
-          - nr_cell_id: 0x19B1                                    # Cell ID of neighbor cell available for handover
-            report_configs: [ 2 ]                                 # Report configurations to configure for this neighbor cell
-      - nr_cell_id: 0x19B1                                        # Cell ID for cell 2
-        periodic_report_cfg_id: 1                                 # Set the periodic report configuration ID for this cell
-        ncells:                                                   # Neighbor cell(s) available for handover
-          - nr_cell_id: 0x19B0                                    # Cell ID of neighbor cell available for handover
-            report_configs: [ 2 ]                                 # Report configurations to configure for this neighbor cell
-    report_configs:                                               # Sets the report configuration for triggering handover
-      - report_cfg_id: 1                                          # Report config ID 1
-        report_type: periodical                                   # Sets the report type as periodical
-        report_interval_ms: 480                                   # Sets to report every 480ms
-      - report_cfg_id: 2                                          # Report config ID 2
-        report_type: event_triggered                              # Sets the report type as event triggered
-        event_triggered_report_type: a3                           # Sets the event triggered report type as A3
-        meas_trigger_quantity: rsrp                               # Sets the measurement trigger quantity as rsrp
-        meas_trigger_quantity_offset_db: 3                        # Sets the measurement trigger quantity offset to 3dB
-        hysteresis_db: 0                                          # Sets the hysteresis to 0dB
-        time_to_trigger_ms: 100                                   # Sets the time to trigger to 100ms
+  # mobility:
+  #   trigger_handover_from_measurements: true                      # Set the CU-CP to trigger handover when neighbor cell measurements arrive
+  #   cells:                                                        # List of cells available for handover known to the cu-cp
+  #     - nr_cell_id: 0x19B0                                        # Cell ID for cell 1
+  #       periodic_report_cfg_id: 1                                 # Set the periodic report configuration ID for this cell
+  #       ncells:                                                   # Neighbor cell(s) available for handover
+  #         - nr_cell_id: 0x19B1                                    # Cell ID of neighbor cell available for handover
+  #           report_configs: [ 2 ]                                 # Report configurations to configure for this neighbor cell
+  #     - nr_cell_id: 0x19B1                                        # Cell ID for cell 2
+  #       periodic_report_cfg_id: 1                                 # Set the periodic report configuration ID for this cell
+  #       ncells:                                                   # Neighbor cell(s) available for handover
+  #         - nr_cell_id: 0x19B0                                    # Cell ID of neighbor cell available for handover
+  #           report_configs: [ 2 ]                                 # Report configurations to configure for this neighbor cell
+  #   report_configs:                                               # Sets the report configuration for triggering handover
+  #     - report_cfg_id: 1                                          # Report config ID 1
+  #       report_type: periodical                                   # Sets the report type as periodical
+  #       report_interval_ms: 480                                   # Sets to report every 480ms
+  #     - report_cfg_id: 2                                          # Report config ID 2
+  #       report_type: event_triggered                              # Sets the report type as event triggered
+  #       event_triggered_report_type: a3                           # Sets the event triggered report type as A3
+  #       meas_trigger_quantity: rsrp                               # Sets the measurement trigger quantity as rsrp
+  #       meas_trigger_quantity_offset_db: 3                        # Sets the measurement trigger quantity offset to 3dB
+  #       hysteresis_db: 0                                          # Sets the hysteresis to 0dB
+  #       time_to_trigger_ms: 100                                   # Sets the time to trigger to 100ms
 
 cell_cfg:
   dl_arfcn: 503340
@@ -47,22 +47,22 @@ cell_cfg:
   channel_bandwidth_MHz: 20
   common_scs: 30                         # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC"
-  nof_antennas_dl: 1
-  nof_antennas_ul: 1
+  # nof_antennas_dl: 1
+  # nof_antennas_ul: 1
   tac: 7                            
   pci: 1
 
-cells:
-  - pci: 1
-    prach:
-      prach_root_sequence_index: 0
-  - pci: 2
-    prach:
-      prach_root_sequence_index: 64
+# cells:
+#   - pci: 1
+#     prach:
+#       prach_root_sequence_index: 0
+#   - pci: 2
+#     prach:
+#       prach_root_sequence_index: 64
 
 ru_sdr:
   device_driver: uhd
-  device_args: type=b210,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
+  device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
   clock: external
   srate: 23.04                           # Sets the sampling rate of the RF-frontend in MHz
   otw_format: sc12

@@ -82,15 +82,16 @@ sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 /open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
 /open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
 /open5gs/install/bin/open5gs-bsfd &                     # binding support function
-/open5gs/install/bin/open5gs-mmed &                     # below are all LTE services
-/open5gs/install/bin/open5gs-sgwcd & 
-/open5gs/install/bin/open5gs-sgwud & 
-/open5gs/install/bin/open5gs-hssd & 
-/open5gs/install/bin/open5gs-pcrfd &
+# /open5gs/install/bin/open5gs-mmed &                     # below are all LTE services
+# /open5gs/install/bin/open5gs-sgwcd & 
+# /open5gs/install/bin/open5gs-sgwud & 
+# /open5gs/install/bin/open5gs-hssd & 
+# /open5gs/install/bin/open5gs-pcrfd &
 
 echo "Running 5G SA Core Network" > "./health.log"
 
-tail -f ./health.log
+# tail -f ./health.log
+wait -n
 
 
 ############
