@@ -1,17 +1,16 @@
 #!/bin/bash
 
-CONFIG=$(echo "$CONFIG64" | base64 -d)
-
-MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
-MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
-APN=$(jq -r ".network.apn" <<< "$CONFIG")
-USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
-MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
-NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
-IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
-KEY=$(jq -r ".core.key" <<< "$CONFIG")
-OPC=$(jq -r ".core.opc" <<< "$CONFIG")
-TYPE=1
+# CONFIG=$(echo "$CONFIG64" | base64 -d)
+# MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
+# MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
+# APN=$(jq -r ".network.apn" <<< "$CONFIG")
+# USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
+# MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
+# NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
+# IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
+# KEY=$(jq -r ".core.key" <<< "$CONFIG")
+# OPC=$(jq -r ".core.opc" <<< "$CONFIG")
+# TYPE=1
 
 #############
 # Time Zone #

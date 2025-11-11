@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-if [ "$#" -ne 1 ]; then
-    echo "USE: $0 <Operator Config File (JSON)>"
-	echo "Example: .$0 config.json"
-    exit 1
-fi
+# if [ "$#" -ne 1 ]; then
+#     echo "USE: $0 <Operator Config File (JSON)>"
+# 	echo "Example: .$0 config.json"
+#     exit 1
+# fi
 
 # delete existing tun device and associated NAT rules 
 if ip link show ogstun &>/dev/null; then
@@ -28,7 +28,7 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/scripts/srsran_performance
 
-export CONFIG64=$(base64 $1)
+# export CONFIG64=$(base64 $1)
 docker compose up --build
 
 # run container in network host mode with highest privilege

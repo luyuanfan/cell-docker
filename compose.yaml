@@ -6,8 +6,9 @@ services:
     # image: cell-docker-core
     command: ./initCore.sh
     tty: true
-    environment:
-      CONFIG64: ${CONFIG64}
+    # environment:
+    #   CONFIG64: ${CONFIG64}
+    env_file: "config.env"
     build:
       context: ./core
       network: host
@@ -44,8 +45,9 @@ services:
     # image: jasminetest2
     # image: cell-docker-gnb
     command: ./initGnb.sh
-    environment:
-      CONFIG64: ${CONFIG64}
+    # environment:
+    #   CONFIG64: ${CONFIG64}
+    env_file: "config.env"
     build:
       context: ./gnb
       network: host
