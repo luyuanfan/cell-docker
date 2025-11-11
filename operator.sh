@@ -1,11 +1,10 @@
 #!/bin/bash
 set -e
 
-# if [ "$#" -ne 1 ]; then
-#     echo "USE: $0 <Operator Config File (JSON)>"
-# 	echo "Example: .$0 config.json"
-#     exit 1
-# fi
+if [ "$#" -ne 0 ]; then
+    echo "USE: $0 <Operator Config File (JSON)>"
+    exit 1
+fi
 
 # delete existing tun device and associated NAT rules 
 if ip link show ogstun &>/dev/null; then
@@ -16,6 +15,7 @@ if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE &>/d
     iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
     echo "Deleted NAT rules for ogstun"
 fi
+
 # create another one fresh
 ip tuntap add name ogstun mode tun
 ip addr add 10.45.0.1/16 dev ogstun
@@ -28,8 +28,4 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/scripts/srsran_performance
 
-# export CONFIG64=$(base64 $1)
 docker compose up --build
-
-# run container in network host mode with highest privilege
-# docker run -ti --privileged -v /tmp/gnb/:/tmp/ --network host --cap-add=SYS_NICE --ulimit rtprio=99 --ulimit rttime=-1 --ulimit memlock=8428281856 -v /dev/:/dev/ -v /proc:/proc -e CONFIG64="$(base64 $1)" jasminetest2 ./initOperator.sh
