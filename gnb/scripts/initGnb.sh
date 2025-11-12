@@ -82,17 +82,39 @@ echo "Etc/Universal" > /etc/timezone
 #  RAN 5G  #
 ############
 
-sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
-sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
-sed -i "s/USRP_ID/$USRP/g" gnb.yml
-if [[ ${MIMO,,} == "yes" ]]; then 
-	TRANSMISSION_MODE=4
-	NUM_PORTS=2
-else
-	TRANSMISSION_MODE=1
-	NUM_PORTS=1
-fi
-sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
-sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
+# sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
+# sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
+# sed -i "s/USRP_ID/$USRP/g" gnb.yml
+# if [[ ${MIMO,,} == "yes" ]]; then 
+# 	TRANSMISSION_MODE=4
+# 	NUM_PORTS=2
+# else
+# 	TRANSMISSION_MODE=1
+# 	NUM_PORTS=1
+# fi
+# sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
+# sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
 
-chrt --rr 99 gnb -c gnb.yml
+# chrt --rr 99 gnb -c gnb.yml
+
+
+## CU
+
+sed -i "s/NETWORK_MCC/$MCC/g" cu.yml
+sed -i "s/NETWORK_MNC/$MNC/g" cu.yml
+sed -i "s/USRP_ID/$USRP/g" cu.yml
+
+## DU
+
+sed -i "s/NETWORK_MCC/$MCC/g" du_b200.yml
+sed -i "s/NETWORK_MNC/$MNC/g" du_b200.yml
+sed -i "s/USRP_ID/$USRP/g" du_b200.yml
+# sed -i "s/NETWORK_MCC/$MCC/g" du_b205.yml
+# sed -i "s/NETWORK_MNC/$MNC/g" du_b205.yml
+# sed -i "s/USRP_ID/$USRP/g" du_b205.yml
+
+(
+	cd /srsRAN_Project/build/apps/cu && chrt --rr 99 srscu -c /cu.yml &
+	cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b200.yml &
+	# cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b205.yml &
+) 2>&1 | tee /gnb.log

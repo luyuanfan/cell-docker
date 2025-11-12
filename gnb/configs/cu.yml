@@ -1,0 +1,28 @@
+# Example config for a locally deployed CU listening on the localhost interface for a DU connection
+
+cu_cp:
+  amf:
+    addr: 127.0.1.100                              # The address or hostname of the AMF.
+    port: 38412
+    bind_addr: 127.0.0.1                           # A local IP that the gNB binds to for traffic from the AMF.
+    supported_tracking_areas:                      # Configure the TA associated with the CU-CP
+      - tac: 7                                     # Tracking area code
+        plmn_list:                                 # List of PLMNs associated with the tracking area
+          - plmn: "NETWORK_MCCNETWORK_MNC"         # PLMN ID
+            tai_slice_support_list:                # List of slices supported by the tracking area
+              - sst: 1                             # Slice/Service Type
+  f1ap:
+    bind_addr: 127.0.10.1                          # Configure the F1AP bind address, this will enable the CU-cp to connect to the DU
+
+cu_up:
+  f1u:
+    socket:                                        # Define UDP/IP socket(s) for F1-U interface.
+      - bind_addr: 127.0.10.1                      # Sets the address that the F1-U socket will bind to.
+
+log:
+  filename: /tmp/cu.log
+  all_level: warning
+
+pcap:
+  ngap_enable: false
+  ngap_filename: /tmp/cu_ngap.pcap
