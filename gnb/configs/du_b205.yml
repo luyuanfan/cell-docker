@@ -1,11 +1,11 @@
 # Example config for a DU with one 20MHz TDD cell using a USRP as RF frontend.
 f1ap:
   cu_cp_addr: 127.0.10.1
-  bind_addr: 127.0.10.2
+  bind_addr: 127.0.10.3
 
 f1u:
   socket:
-    - bind_addr: 127.0.1.2
+    - bind_addr: 127.0.1.3
 
 ru_sdr:
   device_driver: uhd
@@ -19,19 +19,19 @@ cell_cfg:
   dl_arfcn: 503340
   band: 41                         
   channel_bandwidth_MHz: 20
-  common_scs: 30                         # Subcarrier spacing in kHz used for data.
+  common_scs: 30
   plmn: "NETWORK_MCCNETWORK_MNC"
   tac: 7                            
   pci: 1
 
 log:
   filename: /tmp/du_b205.log
-  all_level: warning
+  all_level: debug
 
 pcap:
   mac_enable: false
-  mac_filename: /tmp/du_mac.pcap
+  mac_filename: /tmp/du_b205_mac.pcap
   f1ap_enable: false
-  f1ap_filename: /tmp/du_f1ap.pcap
+  f1ap_filename: /tmp/du_b205_f1ap.pcap
   f1u_enable: false
-  f1u_filename: /tmp/du_f1u.pcap
+  f1u_filename: /tmp/du_b205_f1u.pcap

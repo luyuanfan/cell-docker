@@ -16,7 +16,6 @@ RUN uhd_images_downloader
 
 # Copy scripts and configs
 COPY scripts/initGnb.sh .
-# COPY scripts/srsran_performance .
 COPY configs/gnb.yml .
 COPY configs/cu.yml .
 COPY configs/du_b200.yml .

@@ -37,12 +37,12 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
-
-  # srsran gnb
+  
+    # srsran gnb
   gnb:
     container_name: gnb
     # image: cell-docker-gnb
-    command: ./initGnb.sh
+    command: bash -c "./initGnb.sh; sleep infinity"
     env_file: "config.env"
     build:
       context: ./gnb
