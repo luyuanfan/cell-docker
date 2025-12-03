@@ -25,4 +25,5 @@ ufw disable
 ./docker/scripts/srsran_performance
 
 # run container in network host mode with highest privilege
-docker run -ti --privileged -v /tmp/gnb/:/tmp/ --network host --cap-add=SYS_NICE --ulimit rtprio=99 --ulimit rttime=-1 --ulimit memlock=8428281856 -v /dev/:/dev/ -v /proc:/proc -e CONFIG64="$(base64 $1)" jasminetest2 ./initOperator.sh
+# docker run -ti --privileged -v /tmp/gnb/:/tmp/ --network host --cap-add=SYS_NICE --ulimit rtprio=99 --ulimit rttime=-1 --ulimit memlock=8428281856 -v /dev/:/dev/ -v /proc:/proc -e CONFIG64="$(base64 $1)" jasminetest2 ./initOperator.sh
+docker run -ti --privileged -v /tmp/gnb/:/tmp/ --network host --cap-add=SYS_NICE --ulimit rtprio=99 --ulimit rttime=-1 --ulimit memlock=8428281856 -v /dev/:/dev/ -v /proc:/proc --env-file .env jasminetest2 ./initOperator.sh

@@ -36,4 +36,4 @@ if [[ -z "$NAME" ]]; then
     NAME="jasminetest2"
 fi
 
-docker build --no-cache --network=host $SCRATCH -t $NAME .
+docker build --network=host $SCRATCH -t $NAME .

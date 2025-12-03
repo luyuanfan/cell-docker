@@ -1,17 +1,18 @@
 #!/bin/bash
 
-CONFIG=$(echo "$CONFIG64" | base64 -d)
+# CONFIG=$(echo "$CONFIG64" | base64 -d)
 
-MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
-MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
-APN=$(jq -r ".network.apn" <<< "$CONFIG")
-USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
-MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
-NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
-IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
-KEY=$(jq -r ".core.key" <<< "$CONFIG")
-OPC=$(jq -r ".core.opc" <<< "$CONFIG")
+# MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
+# MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
+# APN=$(jq -r ".network.apn" <<< "$CONFIG")
+# USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
+# MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
+# NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
+# IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
+# KEY=$(jq -r ".core.key" <<< "$CONFIG")
+# OPC=$(jq -r ".core.opc" <<< "$CONFIG")
 TYPE=1
+PAD="00000000"
 
 #############
 # Time Zone #
@@ -48,19 +49,25 @@ do
 	fi
 done
 
-# # populate core database
+# populate core database
 # add_ue_with_apn {imsi key opc apn}
 # type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
-# for i in $(seq -f "%010g" 1 $NUM_UES)
-# do
-# 	/open5gs/misc/db/open5gs-dbctl reset
-# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
-# 	/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
-# done
-
 /open5gs/misc/db/open5gs-dbctl reset
-/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
-/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
+for i in $(seq 1 $NUM_UES)
+do	
+	key_var="KEY${i}"
+    opc_var="OPC${i}"
+	key="${!key_var}"
+    opc="${!opc_var}"
+	echo $MCC$MNC$PAD$i $key $opc $APN
+	echo $MCC$MNC$PAD$i $TYPE
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+done
+
+# /open5gs/misc/db/open5gs-dbctl reset
+# /open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
+# /open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
 
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
