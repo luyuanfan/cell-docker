@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 0 ]; then
     echo "USE: $0 <Operator Config File (JSON)>"
-	echo "Example: .$0 config.json"
+	echo "Example: $0"
     exit 1
 fi
 

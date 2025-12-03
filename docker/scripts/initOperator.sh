@@ -59,15 +59,11 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	echo $MCC$MNC$PAD$i $key $opc $APN
-	echo $MCC$MNC$PAD$i $TYPE
+	# echo $MCC$MNC$PAD$i $key $opc $APN
+	# echo $MCC$MNC$PAD$i $TYPE
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
 	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
 done
-
-# /open5gs/misc/db/open5gs-dbctl reset
-# /open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
-# /open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
 
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
