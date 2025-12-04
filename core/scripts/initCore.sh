@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PAD="00000000"
+
 echo "Starting Open5GS core services"
 
 #############
@@ -37,19 +39,22 @@ do
 	fi
 done
 
-# # populate core database
+# populate core database
 # add_ue_with_apn {imsi key opc apn}
 # type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
-# for i in $(seq -f "%010g" 1 $NUM_UES)
-# do
-# 	/open5gs/misc/db/open5gs-dbctl reset
-# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
-# 	/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
-# done
-
 /open5gs/misc/db/open5gs-dbctl reset
-/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $IMSI $KEY $OPC $APN
-/open5gs/misc/db/open5gs-dbctl type $IMSI $TYPE
+for i in $(seq 1 $NUM_UES)
+do	
+	key_var="KEY${i}"
+    opc_var="OPC${i}"
+	key="${!key_var}"
+    opc="${!opc_var}"
+	# echo $MCC$MNC$PAD$i $key $opc $APN
+	# echo $MCC$MNC$PAD$i $TYPE
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+done
+
 
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml

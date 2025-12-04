@@ -6,7 +6,7 @@ services:
     # image: cell-docker-core
     command: ./initCore.sh
     tty: true
-    env_file: "config.env"
+    env_file: ".env"
     build:
       context: ./core
       network: host
@@ -43,7 +43,7 @@ services:
     container_name: gnb
     # image: cell-docker-gnb
     command: bash -c "./initGnb.sh; sleep infinity"
-    env_file: "config.env"
+    env_file: ".env"
     build:
       context: ./gnb
       network: host
