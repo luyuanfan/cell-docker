@@ -9,7 +9,7 @@ f1u:
 
 ru_sdr:
   device_driver: uhd
-  device_args: type=b200,serial=3292BBF,num_recv_frames=256,num_send_frames=256
+  device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
   srate: 23.04
   otw_format: sc12  
   tx_gain: 80
