@@ -13,6 +13,8 @@ cu_cp:
           - plmn: "NETWORK_MCCNETWORK_MNC"
             tai_slice_support_list:
               - sst: 1
+  security:
+    nea_pref_list: nea2,nea1,nea3,nea0
 
 ru_sdr:
   device_driver: uhd
