@@ -46,4 +46,4 @@ Single-click mobile operator deployment (1 eNB and core network).
 
 85865 (unauthenticated but can see the cell; apn is configured; tries hard to attach)
 
-85863 (unauthenticated but can see the cell; apn is configured; does not attempt much to attach?)
+85863 (unauthenticated but can see the cell; apn is configured; does not attempt much to attach?)z
