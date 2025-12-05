@@ -8,7 +8,8 @@ services:
     tty: true
     env_file: ".env"
     build:
-      context: ./core
+      dockerfile: core.Dockerfile
+      context: ./docker
       network: host
       # no_cache: true 
     ports:
@@ -45,7 +46,8 @@ services:
     command: bash -c "./initGnb.sh; sleep infinity"
     env_file: ".env"
     build:
-      context: ./gnb
+      dockerfile: gnb.Dockerfile
+      context: ./docker
       network: host
       # no_cache: true 
     ports:
