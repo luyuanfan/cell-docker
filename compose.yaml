@@ -38,7 +38,7 @@ services:
       - /dev/:/dev/
       - /proc:/proc
   
-    # srsran gnb
+  # srsran gnb
   gnb:
     container_name: gnb
     # image: cell-docker-gnb
