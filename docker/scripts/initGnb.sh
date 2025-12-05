@@ -23,8 +23,9 @@ sed -i "s/NETWORK_MCC/$MCC/g" du_b205.yml
 sed -i "s/NETWORK_MNC/$MNC/g" du_b205.yml
 sed -i "s/USRP_ID/$USRP2/g" du_b205.yml
 
-(
-	cd /srsRAN_Project/build/apps/cu && chrt --rr 99 srscu -c /cu.yml &
-	cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b200.yml &
-	cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b205.yml &
-) 2>&1 | tee /gnb.log
+wait
+# (
+# 	cd /srsRAN_Project/build/apps/cu && chrt --rr 99 srscu -c /cu.yml &
+# 	cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b200.yml &
+# 	cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b205.yml &
+# ) 2>&1 | tee /gnb.log

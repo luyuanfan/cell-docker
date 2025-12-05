@@ -68,7 +68,7 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
-      # - /tmp/gnb/:/tmp/
+      - /tmp/gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
     depends_on:
