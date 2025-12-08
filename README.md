@@ -4,15 +4,8 @@ Single-click mobile operator deployment (1 eNB and core network).
 
 ## How to run
 ```bash
-./operator.sh config.json
+sudo ./operator.sh
 ```
-
-| Ending              | In Stock | Price |
-| :---------------- | :------: | ----: |
-| 85875             |   True   | 23.99 |
-| SQL Hat           |   True   | 23.99 |
-| Codecademy Tee    |  False   | 19.99 |
-| Codecademy Hoodie |  False   | 42.99 |
 
 ## Config file parameters
 - **mcc**: Mobile country code (999 for testing)
@@ -45,4 +38,9 @@ Single-click mobile operator deployment (1 eNB and core network).
 85861:
 ```bash
 ./pySim-prog.py -p0 -s 8988211000000858616 --mcc=310 --mnc=451 -a 73718177 --imsi=310451000000004 -k 0584FFFDFE867AE2C6CB469FB598BD5A --opc=44902D4577095F0BBFC8D1416D7548D6
+```
+
+another one for iphone (85863):
+```bash
+./pySim-prog.py -p0 -s 8988211000000858632 --mcc=999 --mnc=99 -a 52071445 --imsi=999990000000003 -k 8B162AF6C8231ED9C4BB96F8054FBE36 --opc=49B6D989E4D9D3722128FF32C1E499CA
 ```
