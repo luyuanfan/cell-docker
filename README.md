@@ -30,11 +30,7 @@ Single-click mobile operator deployment (1 eNB and core network).
 ./pySim-prog.py -p0 -s 8988211000000858764 --mcc=310 --mnc=451 -a 25244338 --imsi=310451000000002 -k 3E26DAE6189CA50B529DD0879724CB40 --opc=62C9D3F11B6BA25C648B32FF1A2DD479
 ```
 
-85866 (modified for iPhone; PLMN is 99999; doesn't work much):
-```bash
-./pySim-prog.py -p0 -s 8988211000000858665 --mcc=310 --mnc=451 -a 88953847 --imsi=310451000000003 -k 3E14763419F4BF79EC1CCAEDDF6B57AF --opc=27DF2870CC361FDC568DE86C8B56F610
-```
-
+85866 (modified for iPhone following [these step](https://github.com/herlesupreeth/docker_open5gs/discussions/248#discussioncomment-7392233); PLMN is 99999; does not see the cell but tries to connect in the background; getting some strange SUPI errors):
 ```bash
 ./pySim-prog.py -p0 -s 8988211000000858665 --mcc=999 --mnc=99 -a 88953847 --imsi=999990000000003 -k 3E14763419F4BF79EC1CCAEDDF6B57AF --opc=27DF2870CC361FDC568DE86C8B56F610
 ```
@@ -46,4 +42,7 @@ Single-click mobile operator deployment (1 eNB and core network).
 
 85865 (unauthenticated but can see the cell; apn is configured; tries hard to attach)
 
-85863 (unauthenticated but can see the cell; apn is configured; does not attempt much to attach?)z
+85863 (another one for iphone, configured following the regular tutorial; does not see the cell):
+```bash
+./pySim-prog.py -p0 -s 8988211000000858632 --mcc=999 --mnc=99 -a 52071445 --imsi=999990000000003 -k 8B162AF6C8231ED9C4BB96F8054FBE36 --opc=49B6D989E4D9D3722128FF32C1E499CA
+```
