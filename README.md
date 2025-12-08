@@ -4,7 +4,7 @@ Single-click mobile operator deployment.
 
 ## How to run
 ```bash
-sudo docker compose up
+sudo ./operator
 ```
 
 ## Config file parameters

@@ -2,7 +2,7 @@
 set -e
 
 if [ "$#" -ne 0 ]; then
-    echo "USE: $0 <Operator Config File (JSON)>"
+    echo "USE: sudo ./operator"
     exit 1
 fi
 

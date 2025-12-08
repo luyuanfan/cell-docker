@@ -23,7 +23,13 @@ sed -i "s/NETWORK_MCC/$MCC/g" du_b205.yml
 sed -i "s/NETWORK_MNC/$MNC/g" du_b205.yml
 sed -i "s/USRP_ID/$USRP2/g" du_b205.yml
 
+# tmux new -s gnb 
+# tmux split-window -h 'cd /srsRAN_Project/build/apps/cu && chrt --rr 99 srscu -c /cu.yml'
+# tmux split-window -h 'cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b200.yml'
+# tmux split-window -h 'cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b205.yml'
+
 wait
+
 # (
 # 	cd /srsRAN_Project/build/apps/cu && chrt --rr 99 srscu -c /cu.yml &
 # 	cd /srsRAN_Project/build/apps/du && chrt --rr 99 srsdu -c /du_b200.yml &
