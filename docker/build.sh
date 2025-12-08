@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$NAME" ]]; then
-    NAME="jasminetest2"
+    NAME="multiphone"
 fi
 
 docker build --network=host $SCRATCH -t $NAME .
