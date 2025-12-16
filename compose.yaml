@@ -11,9 +11,6 @@ services:
       dockerfile: core.Dockerfile
       context: ./docker
       network: host
-      # no_cache: true 
-    ports:
-      - "8080:12312"
     develop:
       watch:
         - action: sync
@@ -39,24 +36,18 @@ services:
       - /dev/:/dev/
       - /proc:/proc
   
-  # srsran gnb
-  gnb:
-    container_name: gnb
-    # image: cell-docker-gnb
-    command: bash -c "./initGnb.sh; sleep infinity"
+  # srsran cu
+  cu:
+    container_name: cu
+    image: cell-docker-gnb
+    command: bash -c "./initGnb.sh"
     env_file: ".env"
+    environment:
+      CONTAINER_NAME: "cu"
     build:
       dockerfile: gnb.Dockerfile
       context: ./docker
       network: host
-      # no_cache: true 
-    ports:
-      - "8081:12313"
-    develop:
-      watch:
-        - action: sync
-          path: .
-          target: /gnb_source 
     privileged: true
     network_mode: "host"
     cap_add:
@@ -74,4 +65,66 @@ services:
     depends_on:
       core:
         condition: service_healthy
+        restart: true
+
+  # srsran du 1
+  du_1:
+    container_name: du_1
+    image: cell-docker-gnb
+    command: bash -c "./initGnb.sh"
+    env_file: ".env"
+    environment:
+      CONTAINER_NAME: "du_1"
+    build:
+      dockerfile: gnb.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      - /tmp/gnb/:/tmp/
+      - /dev/:/dev/
+      - /proc:/proc
+    depends_on:
+      cu:
+        condition: service_started
+        restart: true
+  
+  # srsran du 2
+  du_2:
+    container_name: du_2
+    image: cell-docker-gnb
+    command: bash -c "./initGnb.sh"
+    env_file: ".env"
+    environment:
+      CONTAINER_NAME: "du_2"
+    build:
+      dockerfile: gnb.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      - /tmp/gnb/:/tmp/
+      - /dev/:/dev/
+      - /proc:/proc
+    depends_on:
+      cu:
+        condition: service_started
         restart: true
