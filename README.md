@@ -3,8 +3,15 @@
 Single-click mobile operator deployment. 
 
 ## How to run
+
+To start cell, run: 
 ```bash
 sudo ./operator
+```
+
+To trigger handover, run
+```bash
+./handover.sh
 ```
 
 ## Config file parameters

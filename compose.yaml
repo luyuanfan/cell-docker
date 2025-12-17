@@ -3,7 +3,7 @@ services:
   # open5gs
   core:
     container_name: "core"
-    # image: cell-docker-core
+    image: cell-docker-core
     command: ./initCore.sh
     tty: true
     env_file: ".env"

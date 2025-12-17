@@ -49,8 +49,6 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	# echo $MCC$MNC$PAD$i $key $opc $APN
-	# echo $MCC$MNC$PAD$i $TYPE
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
 	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
 done
@@ -79,23 +77,3 @@ sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 echo "Running 5G SA Core Network" > "./health.log"
 
 wait -n
-
-
-############
-#  RAN 5G  #
-############
-
-# sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
-# sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
-# sed -i "s/USRP_ID/$USRP/g" gnb.yml
-# if [[ ${MIMO,,} == "yes" ]]; then 
-# 	TRANSMISSION_MODE=4
-# 	NUM_PORTS=2
-# else
-# 	TRANSMISSION_MODE=1
-# 	NUM_PORTS=1
-# fi
-# sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
-# sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
-
-# chrt --rr 99 gnb -c gnb.yml
