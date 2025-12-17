@@ -66,6 +66,8 @@ services:
       core:
         condition: service_healthy
         restart: true
+    stdin_open: true
+    tty: true
 
   # srsran du 1
   du_1:
@@ -97,7 +99,9 @@ services:
       cu:
         condition: service_started
         restart: true
-  
+    stdin_open: true
+    tty: true
+
   # srsran du 2
   du_2:
     container_name: du_2
@@ -128,3 +132,5 @@ services:
       cu:
         condition: service_started
         restart: true
+    stdin_open: true
+    tty: true

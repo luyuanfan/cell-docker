@@ -15,9 +15,9 @@ tmux split-window -h
 tmux split-window -h
 tmux select-layout even-horizontal
 
-tmux send-keys -t $session:0.0 "docker exec -it $cu_cid bash; clear" C-m
-tmux send-keys -t $session:0.1 "docker exec -it $du1_cid bash; clear" C-m
-tmux send-keys -t $session:0.2 "docker exec -it $du2_cid bash; clear" C-m
+tmux send-keys -t $session:0.0 "echo 'ho <serving pci> <rnti> <target pci>'" C-m
+tmux send-keys -t $session:0.0 "docker attach $cu_cid" C-m
+tmux send-keys -t $session:0.1 "docker attach $du1_cid" C-m
+tmux send-keys -t $session:0.2 "docker attach $du2_cid" C-m
 
-# tmux send-keys -t $session:0.0 "cd /srsRAN_Project/build/apps/cu && chrt --rr 99 srscu -c /cu.yml" C-m
 tmux attach-session -t $session
