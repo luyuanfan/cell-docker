@@ -9,10 +9,13 @@ To start cell, run:
 sudo ./operator
 ```
 
-To trigger handover, run
+To trigger handover, run:
 ```bash
 ./handover.sh
 ```
+
+The left-most window runs `cu`, then `du_1`, than `du_2`. In `cu`, type `ho <serving pci> <rnti> <target pci>` to force handover; in `du_1` and `du_2`, type `t` to view trace.
+
 
 ## Config file parameters
 - **mcc**: Mobile country code (999 for testing)
