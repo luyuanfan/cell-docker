@@ -27,6 +27,31 @@ fi
 #  Core  #
 ##########
 
+# wait until mongo DB gets initialized
+while true;
+do
+	nc -zvv localhost 27017 > /dev/null 2>&1
+	if [ $? -eq 0 ]; then
+		break
+	else
+		echo "Waiting for MongoDB..."
+		sleep 1
+	fi
+done
+
+# populate core database
+/open5gs/misc/db/open5gs-dbctl reset
+for i in $(seq 1 $NUM_UES)
+do	
+	key_var="KEY${i}"
+    opc_var="OPC${i}"
+	key="${!key_var}"
+    opc="${!opc_var}"
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+	# configure subscriber roaming type
+done
+
 # roaming supports
 tmpf="$(mktemp)"
 awk '
@@ -54,37 +79,14 @@ awk '
 	}
 	' /etc/hosts > $tmpf && cat $tmpf > /etc/hosts && rm -f $tmpf
 
-# wait until mongo DB gets initialized
-while true;
-do
-	nc -zvv localhost 27017 > /dev/null 2>&1
-	if [ $? -eq 0 ]; then
-		break
-	else
-		echo "Waiting for MongoDB..."
-		sleep 1
-	fi
-done
-
-# populate core database
-/open5gs/misc/db/open5gs-dbctl reset
-for i in $(seq 1 $NUM_UES)
-do	
-	key_var="KEY${i}"
-    opc_var="OPC${i}"
-	key="${!key_var}"
-    opc="${!opc_var}"
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
-done
-
-
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
 sed -i "s/NETWORK_APN/$APN/g" amf.yaml
 sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
+
+# sed -i "s/"
 
 /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
 /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
@@ -98,6 +100,16 @@ sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 /open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
 /open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
 /open5gs/install/bin/open5gs-bsfd &                     # binding support function
+
+# /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp1-999-70.yaml
+# /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp2-001-01.yaml
+# /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp3-315-010.yaml
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-001-01.yaml simple-test
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-315-010.yaml simple-test
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-315-010.yaml simple-test
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-999-70.yaml simple-test
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml simple-test
 
 echo "Running 5G SA Core Network" > "./health.log"
 
