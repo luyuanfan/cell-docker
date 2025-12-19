@@ -11,8 +11,9 @@ global:
 smf:
   sbi:
     server:
-      - address: 127.0.0.4
-        port: 7777
+      # - address: 127.0.0.4
+      #   port: 7777
+      - address: smf.5gc.mnc310.mcc451.3gppnetwork.org
     client:
 #      nrf:
 #        - uri: http://127.0.0.10:7777

@@ -15,8 +15,9 @@ nrf:
         mnc: NETWORK_MNC
   sbi:
     server:
-      - address: 127.0.0.10
-        port: 7777
+      # - address: 127.0.0.10
+      #   port: 7777
+      - address: nrf.5gc.mnc310.mcc451.3gppnetwork.org
 
 ################################################################################
 # SBI Server

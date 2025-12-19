@@ -11,7 +11,8 @@ global:
 amf:
   sbi:
     server:
-      - address: 127.0.0.5
+      # - address: 127.0.0.5
+      - address: 127.0.2.5
         port: 7777
     client:
 #      nrf:
@@ -25,6 +26,20 @@ amf:
     server:
       - address: 127.0.0.5
         port: 9090
+  # guami:
+  #   - plmn_id:
+  #       mcc: NETWORK_MCC
+  #       mnc: NETWORK_MNC
+  #     amf_id:
+  #       region: 2
+  #       set: 1
+  access_control:
+    - plmn_id:
+        mcc: NETWORK_MCC
+        mnc: NETWORK_MNC
+    - plmn_id:
+        mcc: 999
+        mnc: 70
   guami:
     - plmn_id:
         mcc: NETWORK_MCC
