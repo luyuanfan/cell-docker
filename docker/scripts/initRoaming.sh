@@ -3,6 +3,7 @@
 PAD="000000000"
 
 echo "Starting Open5GS core services"
+echo "Running 5G SA Core Network" > "./health.log"
 
 #############
 # Time Zone #
@@ -39,19 +40,6 @@ do
 	fi
 done
 
-# populate core database
-/open5gs/misc/db/open5gs-dbctl reset
-for i in $(seq 1 $NUM_UES)
-do	
-	key_var="KEY${i}"
-    opc_var="OPC${i}"
-	key="${!key_var}"
-    opc="${!opc_var}"
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
-	# configure subscriber roaming type
-done
-
 # roaming supports
 tmpf="$(mktemp)"
 awk '
@@ -79,16 +67,37 @@ awk '
 	}
 	' /etc/hosts > $tmpf && cat $tmpf > /etc/hosts && rm -f $tmpf
 
-sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
-sed -i "s/NETWORK_APN/$APN/g" amf.yaml
-sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
-sed -i "s/NETWORK_APN/$APN/g" smf.yaml
+# sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
+# sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
+# sed -i "s/NETWORK_APN/$APN/g" amf.yaml
+# sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
+# sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
+# sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 
-/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp1-999-70.yaml
-/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp2-001-01.yaml
-/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp3-315-010.yaml
+/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp1-999-70.yaml &
+/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp2-001-01.yaml &
+/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp3-315-010.yaml &
+
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-001-01.yaml simple-test
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-315-010.yaml simple-test
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-315-010.yaml simple-test
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-999-70.yaml simple-test
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml simple-test
+
+# populate core database
+/open5gs/misc/db/open5gs-dbctl reset
+for i in $(seq 1 $NUM_UES)
+do	
+	key_var="KEY${i}"
+    opc_var="OPC${i}"
+	key="${!key_var}"
+    opc="${!opc_var}"
+	echo $MCC$MNC$PAD$i
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+	# configure subscriber roaming type
+done
 
 # stale 
 # /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
@@ -128,6 +137,5 @@ sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 # /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml
 # /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml
 
-echo "Running 5G SA Core Network" > "./health.log"
 
 wait -n

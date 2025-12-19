@@ -8,7 +8,7 @@ cu_cp:
   max_nof_dus: 4                     
   max_nof_cu_ups: 4                 
   amf:
-    addr: 127.0.1.100                              # The address or hostname of the AMF.
+    addr: 127.0.2.5                              # The address or hostname of the AMF.
     port: 38412
     bind_addr: 127.0.0.1                           # A local IP that the gNB binds to for traffic from the AMF.
     supported_tracking_areas:                      # Configure the TA associated with the CU-CP

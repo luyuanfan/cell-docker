@@ -33,3 +33,9 @@ The left-most window runs `cu`, then `du_1`, than `du_2`. In `cu`, type `ho <ser
 - Visitied network PLMN: 
 Trying to follow the Open5GS "Roaming Test on a Single Host" tutorial.
 Currently do not have a toggle between LBO and HR roaming. 
+
+## Programming SIM cards
+
+```bash
+./pySim-prog.py -p0 -s 8988211000000858756 --mcc=999 --mnc=70 -a 55932037 --imsi=999700000000001 -k 05EA501E9AF94BBA1AE5DD426EFA0DAA --opc=DCB307105505164936A46C831AA9A98A
+```

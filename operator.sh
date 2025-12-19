@@ -28,4 +28,7 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/srsran_performance
 
+# clean port
+# kill $(lsof -t -i:7777)
+
 docker compose up --build
