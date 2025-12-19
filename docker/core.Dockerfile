@@ -20,6 +20,7 @@ WORKDIR /
 
 # Copy scripts and configs
 COPY scripts/initCore.sh .
+COPY scripts/initRoaming.sh .
 COPY configs/amf.yaml .
 COPY configs/nrf.yaml .
 COPY configs/upf.yaml .
