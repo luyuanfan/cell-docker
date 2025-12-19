@@ -61,43 +61,18 @@ sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 
-# stale 
-# /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
-# /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
-# # /open5gs/install/bin/open5gs-seppd &                  # roaming security
-# /open5gs/install/bin/open5gs-amfd -c /amf.yaml &        # subscriber authentication
-# /open5gs/install/bin/open5gs-smfd -c /smf.yaml &        # session management
-# /open5gs/install/bin/open5gs-upfd -c /upf.yaml &        # transport data packets between gnb and external WAN
-# /open5gs/install/bin/open5gs-ausfd &                    # next three do sim authentication and hold user profile
-# /open5gs/install/bin/open5gs-udmd & 
-# /open5gs/install/bin/open5gs-udrd &
-# /open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
-# /open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
-# /open5gs/install/bin/open5gs-bsfd &                     # binding support function
-
-# run home network
-/open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml
-/open5gs/install/bin/open5gs-scpd -c /h-scp.yaml
-/open5gs/install/bin/open5gs-ausfd -c /ausf.yaml
-/open5gs/install/bin/open5gs-udmd -c /udm.yaml
-/open5gs/install/bin/open5gs-udrd -c /udr.yaml
-/open5gs/install/bin/open5gs-smfd -c /h-smf.yaml
-/open5gs/install/bin/open5gs-upfd -c /h-upf.yaml
-/open5gs/install/bin/open5gs-pcfd -c /h-pcf.yaml
-/open5gs/install/bin/open5gs-bsfd -c /h-bsf.yaml
-/open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml
-/open5gs/install/bin/open5gs-seppd -c /sepp1.yaml
-
-# run visited network
-/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
-/open5gs/install/bin/open5gs-scpd -c /scp.yaml
-/open5gs/install/bin/open5gs-amfd -c /amf.yaml
-/open5gs/install/bin/open5gs-smfd -c /smf.yaml
-/open5gs/install/bin/open5gs-upfd -c /upf.yaml
-/open5gs/install/bin/open5gs-pcfd -c /pcf.yaml
-/open5gs/install/bin/open5gs-bsfd -c /bsf.yaml
-/open5gs/install/bin/open5gs-nssfd -c /nssf.yaml
-/open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml
+/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
+/open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
+# /open5gs/install/bin/open5gs-seppd &                  # roaming security
+/open5gs/install/bin/open5gs-amfd -c /amf.yaml &        # subscriber authentication
+/open5gs/install/bin/open5gs-smfd -c /smf.yaml &        # session management
+/open5gs/install/bin/open5gs-upfd -c /upf.yaml &        # transport data packets between gnb and external WAN
+/open5gs/install/bin/open5gs-ausfd &                    # next three do sim authentication and hold user profile
+/open5gs/install/bin/open5gs-udmd & 
+/open5gs/install/bin/open5gs-udrd &
+/open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
+/open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
+/open5gs/install/bin/open5gs-bsfd &                     # binding support function
 
 echo "Running 5G SA Core Network" > "./health.log"
 

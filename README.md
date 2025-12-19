@@ -26,3 +26,10 @@ The left-most window runs `cu`, then `du_1`, than `du_2`. In `cu`, type `ho <ser
 - **num_ues**: Number of UEs to be registered in the Core DB (The UEs will look like: MCC-MNC-000000001, MCC-MNC-000000002, etc )
 - **key**: UE Key configured in the Core DB for all the UEs
 - **opc**: Operator Key configured in the Core DB for all the UEs
+
+## Notes
+
+- Home network PLMN: 
+- Visitied network PLMN: 
+Trying to follow the Open5GS "Roaming Test on a Single Host" tutorial.
+Currently do not have a toggle between LBO and HR roaming. 
