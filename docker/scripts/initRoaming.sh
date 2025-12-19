@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PAD="00000000"
+PAD="000000000"
 
 echo "Starting Open5GS core services"
 
@@ -86,6 +86,10 @@ sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 
+/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp1-999-70.yaml
+/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp2-001-01.yaml
+/open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp3-315-010.yaml
+
 # stale 
 # /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
 # /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
@@ -100,29 +104,29 @@ sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 # /open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
 # /open5gs/install/bin/open5gs-bsfd &                     # binding support function
 
-# run home network
-/open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml
-/open5gs/install/bin/open5gs-scpd -c /h-scp.yaml
-/open5gs/install/bin/open5gs-ausfd -c /ausf.yaml
-/open5gs/install/bin/open5gs-udmd -c /udm.yaml
-/open5gs/install/bin/open5gs-udrd -c /udr.yaml
-/open5gs/install/bin/open5gs-smfd -c /h-smf.yaml
-/open5gs/install/bin/open5gs-upfd -c /h-upf.yaml
-/open5gs/install/bin/open5gs-pcfd -c /h-pcf.yaml
-/open5gs/install/bin/open5gs-bsfd -c /h-bsf.yaml
-/open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml
-/open5gs/install/bin/open5gs-seppd -c /sepp1.yaml
+# # run home network
+# /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml
+# /open5gs/install/bin/open5gs-scpd -c /h-scp.yaml
+# /open5gs/install/bin/open5gs-ausfd -c /ausf.yaml
+# /open5gs/install/bin/open5gs-udmd -c /udm.yaml
+# /open5gs/install/bin/open5gs-udrd -c /udr.yaml
+# /open5gs/install/bin/open5gs-smfd -c /h-smf.yaml
+# /open5gs/install/bin/open5gs-upfd -c /h-upf.yaml
+# /open5gs/install/bin/open5gs-pcfd -c /h-pcf.yaml
+# /open5gs/install/bin/open5gs-bsfd -c /h-bsf.yaml
+# /open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml
+# /open5gs/install/bin/open5gs-seppd -c /sepp1.yaml
 
-# run visited network
-/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
-/open5gs/install/bin/open5gs-scpd -c /scp.yaml
-/open5gs/install/bin/open5gs-amfd -c /amf.yaml
-/open5gs/install/bin/open5gs-smfd -c /smf.yaml
-/open5gs/install/bin/open5gs-upfd -c /upf.yaml
-/open5gs/install/bin/open5gs-pcfd -c /pcf.yaml
-/open5gs/install/bin/open5gs-bsfd -c /bsf.yaml
-/open5gs/install/bin/open5gs-nssfd -c /nssf.yaml
-/open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml
+# # run visited network
+# /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
+# /open5gs/install/bin/open5gs-scpd -c /scp.yaml
+# /open5gs/install/bin/open5gs-amfd -c /amf.yaml
+# /open5gs/install/bin/open5gs-smfd -c /smf.yaml
+# /open5gs/install/bin/open5gs-upfd -c /upf.yaml
+# /open5gs/install/bin/open5gs-pcfd -c /pcf.yaml
+# /open5gs/install/bin/open5gs-bsfd -c /bsf.yaml
+# /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml
+# /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml
 
 echo "Running 5G SA Core Network" > "./health.log"
 
