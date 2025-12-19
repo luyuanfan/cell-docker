@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /open5gs/install/var/log/open5gs/nssf.log
+    path: /nssf.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:

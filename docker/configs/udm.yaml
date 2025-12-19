@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /log/open5gs/udm.log
+    path: /udm.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
