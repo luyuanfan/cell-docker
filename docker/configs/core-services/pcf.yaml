@@ -32,7 +32,7 @@ pcf:
           default_indicator: true
           session:
             - name: internet
-              type: 3  # 1:IPv4, 2:IPv6, 3:IPv4v6
+              type: 1  # 1:IPv4, 2:IPv6, 3:IPv4v6
               ambr:
                 downlink:
                   value: 1
@@ -47,7 +47,7 @@ pcf:
                   pre_emption_vulnerability: 1  # 1: Disabled, 2:Enabled
                   pre_emption_capability: 1  # 1: Disabled, 2:Enabled
             - name: ims
-              type: 3  # 1:IPv4, 2:IPv6, 3:IPv4v6
+              type: 1  # 1:IPv4, 2:IPv6, 3:IPv4v6
               ambr:
                 downlink:
                   value: 1
@@ -102,6 +102,7 @@ pcf:
                       uplink:
                         value: 802
                         unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+                        
 ################################################################################
 # PCF Policy Configuration: UE Home PLMN and SUPI Range Based Policies
 ################################################################################

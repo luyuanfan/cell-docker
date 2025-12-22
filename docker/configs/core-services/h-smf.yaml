@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /smf.log
+    path: /h-smf.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:

@@ -11,13 +11,13 @@ global:
 nrf:
   serving:  # 5G roaming requires PLMN in NRF
     - plmn_id:
-        mcc: NETWORK_MCC
-        mnc: NETWORK_MNC
+        mcc: 001
+        mnc: 01
   sbi:
     server:
       # - address: 127.0.0.10
       #   port: 7777
-      - address: nrf.5gc.mnc310.mcc451.3gppnetwork.org
+      - address: nrf.5gc.mnc001.mcc001.3gppnetwork.org
 
 ################################################################################
 # SBI Server

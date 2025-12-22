@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /nssf.log
+    path: /h-nssf.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:

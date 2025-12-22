@@ -13,7 +13,7 @@ scp:
     server:
       # - address: 127.0.0.200
       #   port: 7777
-      - address: http://nrf.5gc.mnc310.mcc451.3gppnetwork.org
+      - address: http://nrf.5gc.mnc001.mcc001.3gppnetwork.org
     client:
       nrf:
         - uri: http://127.0.0.10:7777

@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /bsf.log
+    path: /h-bsf.log
 #  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
