@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PAD="000000000"
+DB_URI="${DB_URI:-mongodb://localhost/open5gs}"
 
 echo "Starting Open5GS core services"
 echo "Running 5G SA Core Network" > "./health.log"
@@ -40,6 +41,20 @@ do
 	fi
 done
 
+# populate core database
+/open5gs/misc/db/open5gs-dbctl reset
+# for i in $(seq 1 $NUM_UES)
+# do	
+# 	key_var="KEY${i}"
+#     opc_var="OPC${i}"
+# 	key="${!key_var}"
+#     opc="${!opc_var}"
+# 	imsi="$MCC$MNC$PAD$i"
+# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
+# 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
+# 	# TODO: configure subscriber roaming type
+# done
+
 # roaming supports
 tmpf="$(mktemp)"
 awk '
@@ -72,27 +87,22 @@ awk '
 /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp2-001-01.yaml &
 /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp3-315-010.yaml &
 
-sed -i "s/logger:/logger:315010-00101.pcapng/g" /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml
+/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-001-01.yaml simple-test & 
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-315-010.yaml simple-test & 
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test & 
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-315-010.yaml simple-test & 
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-999-70.yaml simple-test & 
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml simple-test & 
 
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-001-01.yaml simple-test
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-315-010.yaml simple-test
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-315-010.yaml simple-test
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-999-70.yaml simple-test
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml simple-test
-
-# populate core database
-# /open5gs/misc/db/open5gs-dbctl reset
-# for i in $(seq 1 $NUM_UES)
-# do	
-# 	key_var="KEY${i}"
-#     opc_var="OPC${i}"
-# 	key="${!key_var}"
-#     opc="${!opc_var}"
-# 	echo $MCC$MNC$PAD$i
-# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-# 	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
-# 	# TODO: configure subscriber roaming type
-# done
+echo "@@@@@@@@@@@@@@@@@@@@@@@@about to set the thing@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+imsi="001010000021309"
+echo "db.subscribers.updateOne(
+					{ 'imsi' : '$imsi'},
+					{\$set: { 'slice.0.session.0.lbo_roaming_allowed' : $LBO }}
+				);"
+mongosh --eval "db.subscribers.updateMany(
+					{},
+					{ \$set: { 'slice.\$[].session.\$[].lbo_roaming_allowed': $LBO }}
+				);" $DB_URI
 
 wait -n
