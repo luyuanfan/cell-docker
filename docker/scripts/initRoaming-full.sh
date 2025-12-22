@@ -68,11 +68,16 @@ awk '
 	}
 	' /etc/hosts > $tmpf && cat $tmpf > /etc/hosts && rm -f $tmpf
 
+# sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
+# sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
+# sed -i "s/NETWORK_APN/$APN/g" amf.yaml
+# sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
+# sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
+# sed -i "s/NETWORK_APN/$APN/g" smf.yaml
+
 /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp1-999-70.yaml &
 /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp2-001-01.yaml &
 /open5gs/build/tests/app/5gc -c /open5gs/build/configs/examples/5gc-sepp3-315-010.yaml &
-
-sed -i "s/logger:/logger:315010-00101.pcapng/g" /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml
 
 /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-001-01.yaml simple-test
 /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-999-70-ue-315-010.yaml simple-test
@@ -82,17 +87,56 @@ sed -i "s/logger:/logger:315010-00101.pcapng/g" /open5gs/build/configs/examples/
 /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-315-010-ue-001-01.yaml simple-test
 
 # populate core database
-# /open5gs/misc/db/open5gs-dbctl reset
-# for i in $(seq 1 $NUM_UES)
-# do	
-# 	key_var="KEY${i}"
-#     opc_var="OPC${i}"
-# 	key="${!key_var}"
-#     opc="${!opc_var}"
-# 	echo $MCC$MNC$PAD$i
-# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-# 	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
-# 	# TODO: configure subscriber roaming type
-# done
+/open5gs/misc/db/open5gs-dbctl reset
+for i in $(seq 1 $NUM_UES)
+do	
+	key_var="KEY${i}"
+    opc_var="OPC${i}"
+	key="${!key_var}"
+    opc="${!opc_var}"
+	echo $MCC$MNC$PAD$i
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+	# configure subscriber roaming type
+done
+
+# stale 
+# /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
+# /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
+# # /open5gs/install/bin/open5gs-seppd &                  # roaming security
+# /open5gs/install/bin/open5gs-amfd -c /amf.yaml &        # subscriber authentication
+# /open5gs/install/bin/open5gs-smfd -c /smf.yaml &        # session management
+# /open5gs/install/bin/open5gs-upfd -c /upf.yaml &        # transport data packets between gnb and external WAN
+# /open5gs/install/bin/open5gs-ausfd &                    # next three do sim authentication and hold user profile
+# /open5gs/install/bin/open5gs-udmd & 
+# /open5gs/install/bin/open5gs-udrd &
+# /open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
+# /open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
+# /open5gs/install/bin/open5gs-bsfd &                     # binding support function
+
+# # run home network
+# /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml
+# /open5gs/install/bin/open5gs-scpd -c /h-scp.yaml
+# /open5gs/install/bin/open5gs-ausfd -c /ausf.yaml
+# /open5gs/install/bin/open5gs-udmd -c /udm.yaml
+# /open5gs/install/bin/open5gs-udrd -c /udr.yaml
+# /open5gs/install/bin/open5gs-smfd -c /h-smf.yaml
+# /open5gs/install/bin/open5gs-upfd -c /h-upf.yaml
+# /open5gs/install/bin/open5gs-pcfd -c /h-pcf.yaml
+# /open5gs/install/bin/open5gs-bsfd -c /h-bsf.yaml
+# /open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml
+# /open5gs/install/bin/open5gs-seppd -c /sepp1.yaml
+
+# # run visited network
+# /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml
+# /open5gs/install/bin/open5gs-scpd -c /scp.yaml
+# /open5gs/install/bin/open5gs-amfd -c /amf.yaml
+# /open5gs/install/bin/open5gs-smfd -c /smf.yaml
+# /open5gs/install/bin/open5gs-upfd -c /upf.yaml
+# /open5gs/install/bin/open5gs-pcfd -c /pcf.yaml
+# /open5gs/install/bin/open5gs-bsfd -c /bsf.yaml
+# /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml
+# /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml
+
 
 wait -n
