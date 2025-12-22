@@ -21,27 +21,4 @@ WORKDIR /
 # copy scripts and configs
 # COPY scripts/initCore.sh .
 COPY scripts/initRoaming.sh .
-
-# home network configs
-COPY configs/h-nrf.yaml .
-COPY configs/h-scp.yaml .
-COPY configs/h-smf.yaml .
-COPY configs/h-upf.yaml .
-COPY configs/h-pcf.yaml .
-COPY configs/h-bsf.yaml .
-COPY configs/h-nssf.yaml .
-COPY configs/sepp1.yaml .
-
-# all other modified files
-COPY configs/amf.yaml .
-COPY configs/nrf.yaml .
-COPY configs/upf.yaml .
-COPY configs/smf.yaml .
-COPY configs/ausf.yaml .
-COPY configs/bsf.yaml .
-COPY configs/nssf.yaml .
-COPY configs/pcf.yaml .
-COPY configs/scp.yaml .
-COPY configs/sepp1.yaml .
-COPY configs/udm.yaml .
-COPY configs/udr.yaml .
+COPY configs/core-services/* .
