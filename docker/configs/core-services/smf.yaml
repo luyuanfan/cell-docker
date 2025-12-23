@@ -1,7 +1,7 @@
 logger:
   file:
     path: /smf.log
-    level: debug   # fatal|error|warn|info(default)|debug|trace
+#  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
   max:
@@ -38,16 +38,14 @@ smf:
   session:
     - subnet: 10.45.0.0/16
       gateway: 10.45.0.1
-      dnn: NETWORK_APN
-    # - subnet: 2001:db8:cafe::/48
-    #   gateway: 2001:db8:cafe::1
-    #   dnn: internet
+    - subnet: 2001:db8:cafe::/48
+      gateway: 2001:db8:cafe::1
   dns:
     - 8.8.8.8
     - 8.8.4.4
-    # - 2001:4860:4860::8888
-    # - 2001:4860:4860::8844
-  mtu: 1500
+    - 2001:4860:4860::8888
+    - 2001:4860:4860::8844
+  mtu: 1400
 #  p-cscf:
 #    - 127.0.0.1
 #    - ::1
@@ -66,11 +64,11 @@ smf:
 #  Note that if there is no SmfInfo, any AMF can select this SMF.
 #
 #  o S-NSSAI[SST:1] and DNN[internet] - At least 1 DNN is required in S-NSSAI
-# info:
-#   - s_nssai:
-#       - sst: 1
-#         dnn:
-#           - internet
+#  info:
+#    - s_nssai:
+#        - sst: 1
+#          dnn:
+#            - internet
 #
 #  o S-NSSAI[SST:1 SD:009000] and DNN[internet or ims]
 #  info:
@@ -82,16 +80,16 @@ smf:
 #            - ims
 #
 #  o S-NSSAI[SST:1] and DNN[internet] and TAI[PLMN-ID:99970 TAC:1]
-info:
-  - s_nssai:
-      - sst: 1
-        dnn:
-          - NETWORK_APN
-    tai:
-      - plmn_id:
-          mcc: NETWORK_MCC
-          mnc: NETWORK_MNC
-        tac: 7
+#  info:
+#    - s_nssai:
+#        - sst: 1
+#          dnn:
+#            - internet
+#      tai:
+#        - plmn_id:
+#            mcc: 999
+#            mnc: 70
+#          tac: 1
 #
 #  o If any of conditions below are met:
 #   - S-NSSAI[SST:1] and DNN[internet] and TAI[PLMN-ID:99970 TAC:1-9]
@@ -275,11 +273,11 @@ info:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /open5gs/install/etc/open5gs/tls/smf.key
-#        cert: /open5gs/install/etc/open5gs/tls/smf.crt
+#        private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.key
+#        cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.crt
 #      client:
 #        scheme: https
-#        cacert: /open5gs/install/etc/open5gs/tls/ca.crt
+#        cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
 #  sbi:
 #    server:
 #      - address: smf.localdomain
@@ -294,13 +292,13 @@ info:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /open5gs/install/etc/open5gs/tls/smf.key
-#        cert: /open5gs/install/etc/open5gs/tls/smf.crt
-#        sslkeylogfile: /open5gs/install/var/log/open5gs/tls/smf-server-sslkeylog.log
+#        private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.key
+#        cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.crt
+#        sslkeylogfile: /home/lyspfan/open5gs/install/var/log/open5gs/tls/smf-server-sslkeylog.log
 #      client:
 #        scheme: https
-#        cacert: /open5gs/install/etc/open5gs/tls/ca.crt
-#        client_sslkeylogfile: /open5gs/install/var/log/open5gs/tls/smf-client-sslkeylog.log
+#        cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
+#        client_sslkeylogfile: /home/lyspfan/open5gs/install/var/log/open5gs/tls/smf-client-sslkeylog.log
 #  sbi:
 #    server:
 #      - address: smf.localdomain
@@ -313,15 +311,15 @@ info:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /open5gs/install/etc/open5gs/tls/smf.key
-#        cert: /open5gs/install/etc/open5gs/tls/smf.crt
+#        private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.key
+#        cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.crt
 #        verify_client: true
-#        verify_client_cacert: /open5gs/install/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
 #      client:
 #        scheme: https
-#        cacert: /open5gs/install/etc/open5gs/tls/ca.crt
-#        client_private_key: /open5gs/install/etc/open5gs/tls/smf.key
-#        client_cert: /open5gs/install/etc/open5gs/tls/smf.crt
+#        cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
+#        client_private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.key
+#        client_cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/smf.crt
 #  sbi:
 #    server:
 #      - address: smf.localdomain
