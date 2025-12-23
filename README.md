@@ -32,7 +32,7 @@ In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <r
 
 - Home network PLMN: 99970
 - Visitied network PLMN: 00101 and 315010
-- gNB running on visited network 00101, 
+- gNB running on visited network 00101, phone registered on 99970
 
 ## Programming SIM cards
 
