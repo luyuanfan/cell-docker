@@ -32,10 +32,11 @@ In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <r
 
 - Home network PLMN: 99970
 - Visitied network PLMN: 00101 and 315010
-- gNB running on visited network 00101
+- gNB running on visited network 00101, 
 
 ## Programming SIM cards
 
+85875 is programmed to be registered in home network 99970:
 ```bash
 ./pySim-prog.py -p0 -s 8988211000000858756 --mcc=999 --mnc=70 -a 55932037 --imsi=999700000000001 -k 05EA501E9AF94BBA1AE5DD426EFA0DAA --opc=DCB307105505164936A46C831AA9A98A
 ```

@@ -76,15 +76,15 @@ awk '
 
 # populate core database
 /open5gs/misc/db/open5gs-dbctl reset
-# for i in $(seq 1 $NUM_UES)
-# do	
-# 	key_var="KEY${i}"
-#     opc_var="OPC${i}"
-# 	key="${!key_var}"
-#     opc="${!opc_var}"
-# 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-# 	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
-# done
+for i in $(seq 1 $NUM_UES)
+do	
+	key_var="KEY${i}"
+    opc_var="OPC${i}"
+	key="${!key_var}"
+    opc="${!opc_var}"
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $HMCC$HMNC$PAD$i $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $HMCC$HMNC$PAD$i $TYPE
+done
 
 # run home network
 /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml &
