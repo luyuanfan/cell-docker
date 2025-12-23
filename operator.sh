@@ -6,22 +6,34 @@ if [ "$#" -ne 0 ]; then
     exit 1
 fi
 
-# delete existing tun device and associated NAT rules 
+# delete existing tun devices (ogstun and ogstun2) and associated NAT rules 
 if ip link show ogstun &>/dev/null; then
     ip tuntap del name ogstun mode tun
     echo "Deleted TUN device ogstun"
+fi
+if ip link show ogstun2 &>/dev/null; then
+    ip tuntap del name ogstun2 mode tun
+    echo "Deleted TUN device ogstun2"
 fi
 if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE &>/dev/null; then
     iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
     echo "Deleted NAT rules for ogstun"
 fi
+if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun2 -j MASQUERADE &>/dev/null; then
+    iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun2 -j MASQUERADE
+    echo "Deleted NAT rules for ogstun2"
+fi
 
-# create another one fresh
+# create new tun devices from fresh
 ip tuntap add name ogstun mode tun
+ip tuntap add name ogstun2 mode tun
 ip addr add 10.45.0.1/16 dev ogstun
+ip addr add 10.46.0.1/16 dev ogstun2
 ip link set dev ogstun up
+ip link set dev ogstun2 up
 iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
-echo "Re-created ogstun and associated NAT rules"
+iptables -t nat -A POSTROUTING -s 10.46.0.0/16 ! -o ogstun2 -j MASQUERADE
+echo "Re-created ogstun ogstun2 and associated NAT rules"
 
 # enable ipv4 forwarding, disable firewall, run srsran system tuning script
 sysctl -w net.ipv4.ip_forward=1
