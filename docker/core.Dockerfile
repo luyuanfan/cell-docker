@@ -20,4 +20,4 @@ WORKDIR /
 
 # copy scripts and configs
 COPY scripts/initRoaming.sh .
-COPY configs/core-services/* .
+COPY configs/* .

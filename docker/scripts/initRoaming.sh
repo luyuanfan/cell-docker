@@ -3,7 +3,6 @@
 PAD="000000000"
 
 echo "Starting Open5GS core services"
-echo "Running 5G SA Core Network" > "./health.log"
 
 #############
 # Time Zone #
@@ -111,6 +110,8 @@ awk '
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml &
 
-/open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
+# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
+
+echo "Running 5G SA Core Network" > "./health.log"
 
 wait -n
