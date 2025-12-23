@@ -14,8 +14,9 @@ To trigger handover, run:
 ./handover.sh
 ```
 
-The left-most window runs `cu`, then `du_1`, than `du_2`. In `cu`, type `ho <serving pci> <rnti> <target pci>` to force handover; in `du_1` and `du_2`, type `t` to view trace.
+The left-most window runs `cu`, then `du_1`, then `du_2`.
 
+In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <rnti> <target pci>` to force handover.
 
 ## Config file parameters
 - **mcc**: Mobile country code (999 for testing)
@@ -29,8 +30,9 @@ The left-most window runs `cu`, then `du_1`, than `du_2`. In `cu`, type `ho <ser
 
 ## Notes
 
-- Home network PLMN: 
-- Visitied network PLMN: 
+- Home network PLMN: 99970
+- Visitied network PLMN: 00101 and 315010
+
 Trying to follow the Open5GS "Roaming Test on a Single Host" tutorial.
 Currently do not have a toggle between LBO and HR roaming. 
 
