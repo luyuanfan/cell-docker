@@ -32,9 +32,7 @@ In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <r
 
 - Home network PLMN: 99970
 - Visitied network PLMN: 00101 and 315010
-
-Trying to follow the Open5GS "Roaming Test on a Single Host" tutorial.
-Currently do not have a toggle between LBO and HR roaming. 
+- gNB running on 315010
 
 ## Programming SIM cards
 

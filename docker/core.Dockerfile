@@ -19,6 +19,5 @@ RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd bui
 WORKDIR /
 
 # copy scripts and configs
-# COPY scripts/initCore.sh .
 COPY scripts/initRoaming.sh .
 COPY configs/core-services/* .
