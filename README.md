@@ -19,14 +19,13 @@ The left-most window runs `cu`, then `du_1`, then `du_2`.
 In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <rnti> <target pci>` to force handover.
 
 ## Config file parameters
-- **mcc**: Mobile country code (999 for testing)
-- **mnc**: Mobile Network Code (99 for testing)
-- **usrp**: ID of the USRP that is going to be used as base station radio head
-- **prbs**: Bandwidth of the eNB (Available values: 6,15,25,50,75,100)
-- **mimo**: Enable/Disable MIMO support (Options: yes, no)
-- **num_ues**: Number of UEs to be registered in the Core DB (The UEs will look like: MCC-MNC-000000001, MCC-MNC-000000002, etc )
-- **key**: UE Key configured in the Core DB for all the UEs
-- **opc**: Operator Key configured in the Core DB for all the UEs
+- **MCC**: Home network mobile country code
+- **MNC**: Home network mobile network code
+- **TYPE**: IP forwarding type (1=IPv4 only, 2=IPv6 only, 3=IPv4v6)
+- **USRP**: Serial number of the USRP that is going to be used as base station radio frontend
+- **NUM_UES**: Number of UEs to be registered in Core DB (The UEs will look like: MCC-MNC-000000001, MCC-MNC-000000002, etc )
+- **KEY**: Sim key registered in Core DB
+- **OPC**: Sim operator key registered in Core DB
 
 ## Notes
 
