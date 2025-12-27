@@ -6,6 +6,14 @@
 
 echo "Etc/Universal" > /etc/timezone
 
+# gNB
+if [[ "$CONTAINER_NAME" == "gnb" ]]; then
+    sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
+    sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
+    sed -i "s/USRP_ID/$USRP1/g" gnb.yml
+    exec chrt --rr 99 gnb -c gnb.yml
+fi
+
 ## CU
 if [[ "$CONTAINER_NAME" == "cu" ]]; then
     sed -i "s/NETWORK_MCC/$MCC/g" cu.yml

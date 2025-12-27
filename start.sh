@@ -2,7 +2,8 @@
 set -e
 
 if [ "$#" -ne 0 ]; then
-    echo "USE: sudo ./operator"
+    echo "USE: sudo ./start.sh"
+    echo "Intra-gNB Handover: sudo ./start.sh -h"
     exit 1
 fi
 
@@ -40,4 +41,8 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/srsran_performance
 
-docker compose up --build
+if [ "$1" = "-h"]; then 
+    docker compose up -f compose-handover.yaml up --build
+else
+    docker compose up --build
+fi

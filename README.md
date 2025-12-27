@@ -2,13 +2,14 @@ Single-click cell deployment (with Open5GS, srsRAN, and USRP devices).
 
 ## How to run
 
-To start cell, run: 
+To start cell simply, run: 
 ```bash
-sudo ./start
+sudo ./start.sh
 ```
 
-To trigger handover, run:
+To start cell with CU-DU split and trigger handover, run: 
 ```bash
+sudo ./start.sh -h
 ./handover.sh
 ```
 
