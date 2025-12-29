@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ "$#" -ne 0 ]; then
+if [ "$#" -gt 1 ] ; then
     echo "USE: sudo ./start.sh"
     echo "Intra-gNB Handover: sudo ./start.sh -h"
     exit 1
@@ -39,10 +39,10 @@ echo "Re-created ogstun ogstun2 and associated NAT rules"
 # enable ipv4 forwarding, disable firewall, run srsran system tuning script
 sysctl -w net.ipv4.ip_forward=1
 ufw disable
-./docker/srsran_performance
+./docker/scripts/srsran_performance
 
 if [ "$1" = "-h"]; then 
-    docker compose up -f compose-handover.yaml up --build
+    docker compose -f compose-handover.yaml up --build
 else
-    docker compose up --build
+    docker compose -f compose.yaml up --build
 fi
