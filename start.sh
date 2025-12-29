@@ -41,8 +41,8 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/scripts/srsran_performance
 
-if [ "$1" = "-h"]; then 
+if [ "$1" = "-h" ]; then 
     docker compose -f compose-handover.yaml up --build
 else
-    docker compose -f compose.yaml up --build
+    docker compose up --build
 fi

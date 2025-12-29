@@ -4,6 +4,7 @@ PAD="000000000"
 
 echo "Starting Open5GS core services"
 
+
 #############
 # Time Zone #
 #############
