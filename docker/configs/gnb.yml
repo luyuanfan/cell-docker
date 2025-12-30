@@ -10,7 +10,7 @@ cu_cp:
     supported_tracking_areas:
       - tac: 7
         plmn_list:
-          - plmn: "99999"
+          - plmn: "00101"
             tai_slice_support_list:
               - sst: 1
 
@@ -29,7 +29,7 @@ cell_cfg:
   band: 41                         
   channel_bandwidth_MHz: 20
   common_scs: 30                         # Subcarrier spacing in kHz used for data.
-  plmn: "99999" 
+  plmn: "00101" 
   tac: 7                            
   pci: 1
   

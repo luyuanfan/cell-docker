@@ -1,11 +1,12 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 SHELL ["/bin/bash", "-c"]
 
-# install dependencies
 RUN apt -y update
-RUN DEBIAN_FRONTEND=noninteractive apt install -y tcpdump iptables net-tools python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson iproute2 netcat tshark cmake nano iputils-ping jq software-properties-common gnuradio curl
-RUN DEBIAN_FRONTEND=noninteractive apt install -y make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
+# install open5gs and mongodb dependencies
+RUN DEBIAN_FRONTEND=noninteractive apt install -y gnupg python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git cmake libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson libidn11-dev
+# install helper softwares
+RUN DEBIAN_FRONTEND=noninteractive apt install -y tmux git curl netcat-openbsd
 
 # install mongodb
 RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
@@ -14,9 +15,9 @@ RUN apt update
 RUN apt install -y mongodb-org
 
 # install Open5GS
-RUN git clone https://github.com/open5gs/open5gs
-RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
-WORKDIR /
+# RUN git clone https://github.com/open5gs/open5gs
+# RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
+# WORKDIR /
 
 # copy scripts and configs
 COPY scripts/initRoaming.sh .

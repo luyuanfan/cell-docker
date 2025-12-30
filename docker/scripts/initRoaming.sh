@@ -1,5 +1,12 @@
 #!/bin/bash
 
+cat >/etc/ld.so.conf.d/open5gs.conf <<'EOF'
+/open5gs/install/lib
+/open5gs/install/lib/x86_64-linux-gnu
+EOF
+
+ldconfig
+
 PAD="000000000"
 
 echo "Starting Open5GS core services"
@@ -108,10 +115,10 @@ done
 /open5gs/install/bin/open5gs-pcfd -c /pcf.yaml &
 /open5gs/install/bin/open5gs-bsfd -c /bsf.yaml &
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
-/open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml &
+/open5gs/install/bin/open5gs-seppd -c /sepp2.yaml &
 
 # /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
 
 echo "Running 5G SA Core Network" > "./health.log"
 
-wait -n
+sleep 100000
