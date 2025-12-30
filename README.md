@@ -7,6 +7,13 @@ To start cell simply, run:
 sudo ./start.sh
 ```
 
+## Roaming
+
+To start cell with roaming, run:
+```bash
+sudo ./start.sh -r
+```
+
 ## Intra-gNB handover
 
 To start cell with CU-DU split and trigger handover, run: 
