@@ -1,48 +1,24 @@
 #!/bin/bash
-set -e
+session="workplace"
+cu="cu"
+du1="du_1"
+du2="du_2"
+session_exists=$(tmux ls | grep $session)
 
-if [ "$#" -gt 1 ] ; then
-    echo "USE: sudo ./start.sh"
-    echo "Intra-gNB Handover: sudo ./start.sh -h"
-    exit 1
-fi
+# TODO: if session already exists, simply attach
 
-# delete existing tun devices (ogstun and ogstun2) and associated NAT rules 
-if ip link show ogstun &>/dev/null; then
-    ip tuntap del name ogstun mode tun
-    echo "Deleted TUN device ogstun"
-fi
-if ip link show ogstun2 &>/dev/null; then
-    ip tuntap del name ogstun2 mode tun
-    echo "Deleted TUN device ogstun2"
-fi
-if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE &>/dev/null; then
-    iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
-    echo "Deleted NAT rules for ogstun"
-fi
-if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun2 -j MASQUERADE &>/dev/null; then
-    iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun2 -j MASQUERADE
-    echo "Deleted NAT rules for ogstun2"
-fi
+cu_cid=$(docker ps -qf name=$cu)
+du1_cid=$(docker ps -qf name=$du1)
+du2_cid=$(docker ps -qf name=$du2)
 
-# create new tun devices from fresh
-ip tuntap add name ogstun mode tun
-ip tuntap add name ogstun2 mode tun
-ip addr add 10.45.0.1/16 dev ogstun
-ip addr add 10.46.0.1/16 dev ogstun2
-ip link set dev ogstun up
-ip link set dev ogstun2 up
-iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.46.0.0/16 ! -o ogstun2 -j MASQUERADE
-echo "Re-created ogstun ogstun2 and associated NAT rules"
+tmux new-session -d -s $session
+tmux rename-window -t 0 'cell'
+tmux split-window -h 
+tmux split-window -h
+tmux select-layout even-horizontal
 
-# enable ipv4 forwarding, disable firewall, run srsran system tuning script
-sysctl -w net.ipv4.ip_forward=1
-ufw disable
-./docker/scripts/srsran_performance
+tmux send-keys -t $session:0.0 "docker attach $cu_cid" C-m
+tmux send-keys -t $session:0.1 "docker attach $du1_cid" C-m
+tmux send-keys -t $session:0.2 "docker attach $du2_cid" C-m
 
-if [ "$1" = "-h" ]; then 
-    docker compose -f compose-handover.yaml up --build
-else
-    docker compose up --build
-fi
+tmux attach-session -t $session

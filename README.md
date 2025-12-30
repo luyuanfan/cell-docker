@@ -4,14 +4,14 @@ Single-click cell deployment (with Open5GS, srsRAN, and USRP devices).
 
 To start cell simply, run: 
 ```bash
-sudo ./start.sh
+sudo ./operator.sh
 ```
 
 ## Intra-gNB handover
 
 To start cell with CU-DU split and trigger handover, run: 
 ```bash
-sudo ./start.sh -h
+sudo ./operator.sh -h
 ./handover.sh
 ```
 

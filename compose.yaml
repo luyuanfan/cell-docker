@@ -7,17 +7,12 @@ services:
     command: ./initRoaming.sh
     tty: true
     env_file: ".env"
-    environment:
-      LD_LIBRARY_PATH: /open5gs/install/lib:/open5gs/install/lib/x86_64-linux-gnu
+    # environment:
+    #   INSTALL_PREFIX: ""
     build:
       dockerfile: core.Dockerfile
       context: ./docker
       network: host
-    # develop:
-    #   watch:
-    #     - action: sync
-    #       path: .
-    #       target: /core_source
     privileged: true
     network_mode: "host"
     cap_add:  
@@ -36,8 +31,9 @@ services:
       # start_period: 5s
     volumes:
       - type: bind
-        source: ../open5gs-dev/
+        source: /open5gs/
         target: /open5gs/
+        read_only: false
       - /dev/:/dev/
       - /proc:/proc
   
