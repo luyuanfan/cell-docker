@@ -1,0 +1,20 @@
+logger:
+  file:
+    path: /h-bsf.log
+#  level: info   # fatal|error|warn|info(default)|debug|trace
+
+global:
+  max:
+    ue: 1024  # The number of UE can be increased depending on memory size.
+#    peer: 64
+
+bsf:
+  sbi:
+    server:
+      - address: 127.0.1.15
+        port: 7777
+    client:
+#      nrf:
+#        - uri: http://127.0.0.10:7777
+      scp:
+        - uri: http://127.0.1.200:7777
