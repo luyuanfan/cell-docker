@@ -7,15 +7,13 @@ services:
     command: ./initRoaming.sh
     tty: true
     env_file: ".env"
-    # environment:
-    #   INSTALL_PREFIX: ""
     build:
       dockerfile: core.Dockerfile
       context: ./docker
       network: host
     privileged: true
     network_mode: "host"
-    cap_add:  
+    cap_add:
       - SYS_NICE
       - NET_ADMIN
       - SYS_ADMIN
@@ -26,9 +24,6 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
       interval: 5s
-      timeout: 1s
-      retries: 60
-      # start_period: 5s
     volumes:
       - type: bind
         source: /open5gs/
@@ -41,7 +36,8 @@ services:
   gnb:
     container_name: gnb
     image: cell-docker-gnb
-    command: bash -c "./initGnb.sh"
+    command: ./initGnb.sh
+    tty: true
     env_file: ".env"
     environment:
       CONTAINER_NAME: "gnb"
@@ -68,4 +64,3 @@ services:
         condition: service_healthy
         restart: true
     stdin_open: true
-    tty: true
