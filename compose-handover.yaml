@@ -11,11 +11,6 @@ services:
       dockerfile: core.Dockerfile
       context: ./docker
       network: host
-    develop:
-      watch:
-        - action: sync
-          path: .
-          target: /core_source
     privileged: true
     network_mode: "host"
     cap_add:  
@@ -29,14 +24,14 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
       interval: 5s
-      timeout: 1s
-      retries: 60
-      # start_period: 5s
     volumes:
+      - type: bind
+        source: /open5gs/
+        target: /open5gs/
+        read_only: false
       - /dev/:/dev/
       - /proc:/proc
-      - /tmp/gnb/:/tmp/
-  
+
   # srsran cu
   cu:
     container_name: cu
