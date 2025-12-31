@@ -1,6 +1,9 @@
 #!/bin/bash
 
-PAD="00000000"
+# add location of open5gs shared libraries
+echo "/open5gs/install/lib" >  /etc/ld.so.conf.d/open5gs.conf
+echo "/open5gs/install/lib/x86_64-linux-gnu" >> /etc/ld.so.conf.d/open5gs.conf
+ldconfig
 
 echo "Starting Open5GS core services"
 
@@ -40,8 +43,6 @@ do
 done
 
 # populate core database
-# add_ue_with_apn {imsi key opc apn}
-# type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
 /open5gs/misc/db/open5gs-dbctl reset
 for i in $(seq 1 $NUM_UES)
 do	
@@ -49,8 +50,9 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+	imsi=$(printf '%s%s%0*d' $HMCC $HMNC $((15 - ${#HMCC} - ${#HMNC})) $i)
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
 
