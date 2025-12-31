@@ -24,7 +24,7 @@ cell_cfg:
   band: 41                         
   channel_bandwidth_MHz: 20
   common_scs: 30
-  plmn: "99999"
+  plmn: "00101"
   tac: 7                            
   pci: 1
   sector_id: 0001

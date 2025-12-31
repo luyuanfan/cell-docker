@@ -46,3 +46,4 @@ if [ "$1" = "-h" ]; then
 else
     docker compose up --build
 fi
+echo "Experiment ended" 

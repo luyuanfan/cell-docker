@@ -5,7 +5,6 @@ services:
     container_name: "core"
     image: cell-docker-core
     command: ./initRoaming.sh
-    tty: true
     env_file: ".env"
     build:
       dockerfile: core.Dockerfile
@@ -24,6 +23,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
       interval: 5s
+      timeout: 1s
+      retries: 60
     volumes:
       - type: bind
         source: /open5gs/
@@ -31,12 +32,13 @@ services:
         read_only: false
       - /dev/:/dev/
       - /proc:/proc
+    tty: true
 
   # srsran cu
   cu:
     container_name: cu
     image: cell-docker-gnb
-    command: bash -c "./initGnb.sh"
+    command: ./initGnb.sh
     env_file: ".env"
     environment:
       CONTAINER_NAME: "cu"
@@ -69,7 +71,7 @@ services:
   du_1:
     container_name: du_1
     image: cell-docker-gnb
-    command: bash -c "./initGnb.sh"
+    command: ./initGnb.sh
     env_file: ".env"
     environment:
       CONTAINER_NAME: "du_1"
@@ -102,7 +104,7 @@ services:
   du_2:
     container_name: du_2
     image: cell-docker-gnb
-    command: bash -c "./initGnb.sh"
+    command: ./initGnb.sh
     env_file: ".env"
     environment:
       CONTAINER_NAME: "du_2"

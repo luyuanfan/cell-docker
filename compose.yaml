@@ -23,6 +23,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
       interval: 5s
+      timeout: 1s
+      retries: 60
     volumes:
       - type: bind
         source: /open5gs/

@@ -14,7 +14,7 @@ cu_cp:
     supported_tracking_areas:                      # Configure the TA associated with the CU-CP
       - tac: 7                                     # Tracking area code
         plmn_list:                                 # List of PLMNs associated with the tracking area
-          - plmn: "99999"                          # PLMN ID
+          - plmn: "00101"                          # PLMN ID
             tai_slice_support_list:                # List of slices supported by the tracking area
               - sst: 1                             # Slice/Service Type
   f1ap:

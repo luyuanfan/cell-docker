@@ -4,6 +4,7 @@ cat >/etc/ld.so.conf.d/open5gs.conf <<'EOF'
 /open5gs/install/lib
 /open5gs/install/lib/x86_64-linux-gnu
 EOF
+ldconfig
 
 echo "Starting Open5GS core services"
 
@@ -90,7 +91,6 @@ do
 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
 # run home network
 /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml &
 /open5gs/install/bin/open5gs-scpd -c /h-scp.yaml & 
@@ -115,8 +115,5 @@ echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp2.yaml &
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
-
 echo "Running 5G SA Core Network" > "./health.log"
-
-echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
+wait -n

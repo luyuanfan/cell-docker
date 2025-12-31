@@ -75,5 +75,4 @@ sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 /open5gs/install/bin/open5gs-bsfd &                     # binding support function
 
 echo "Running 5G SA Core Network" > "./health.log"
-
 wait -n
