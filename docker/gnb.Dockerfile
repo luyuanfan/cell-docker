@@ -3,12 +3,10 @@ FROM ubuntu:24.04
 SHELL ["/bin/bash", "-c"]
 
 RUN apt -y update
-# install uhd (rf driver)
-RUN DEBIAN_FRONTEND=noninteractive apt install -y libuhd-dev uhd-host
-# install srsran dependencies
-RUN DEBIAN_FRONTEND=noninteractive apt install -y cmake make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
-# install helper softwares 
-RUN DEBIAN_FRONTEND=noninteractive apt install -y tmux git
+# install uhd (rf driver), srsran dependencies, and helper softwares
+RUN DEBIAN_FRONTEND=noninteractive apt install -y libuhd-dev uhd-host \ 
+    cmake make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev \ 
+    tmux git
 
 # build srsRAN 5g from source
 RUN git clone https://github.com/srsRAN/srsRAN_Project.git
