@@ -5,10 +5,6 @@ cat >/etc/ld.so.conf.d/open5gs.conf <<'EOF'
 /open5gs/install/lib/x86_64-linux-gnu
 EOF
 
-ldconfig
-
-PAD="000000000"
-
 echo "Starting Open5GS core services"
 
 #############
@@ -89,10 +85,12 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $HMCC$HMNC$PAD$i $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $HMCC$HMNC$PAD$i $TYPE
+	imsi=$(printf '%s%s%0*d' $HMCC $HMNC $((15 - ${#HMCC} - ${#HMNC})) $i)
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
+echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
 # run home network
 /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml &
 /open5gs/install/bin/open5gs-scpd -c /h-scp.yaml & 
@@ -117,8 +115,8 @@ done
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp2.yaml &
 
-# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
+echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
 
 echo "Running 5G SA Core Network" > "./health.log"
 
-sleep 100000
+echo "@@@@@@@@@@@@@@@@@@@@@@@ERROR?@@@@@@@@@@@@@@"
