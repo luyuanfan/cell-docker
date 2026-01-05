@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$1" = "-c" ]; then
+if [ "$1" = "-c" || "$1" = "--core" ]; then
     CONTAINER_NAME="core"
 else
     CONTAINER_NAME="gnb"
