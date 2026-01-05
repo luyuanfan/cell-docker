@@ -19,8 +19,8 @@ RUN apt -y update
 RUN apt install -y mongodb-org
 
 # install Open5GS
-# RUN git clone https://github.com/open5gs/open5gs
-# RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
+RUN git clone https://github.com/open5gs/open5gs
+RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
 
 # copy scripts and configs
 COPY scripts/initRoaming.sh .
