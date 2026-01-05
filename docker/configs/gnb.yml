@@ -37,12 +37,12 @@ cell_cfg:
 log:
   filename: /tmp/gnb.log
   all_level: info
-  hex_max_size: 32
-  ngap_level: info
-  e1ap_level: warning
-  e2ap_level: warning
-  gtpu_level: warning
-  high_latency_diagnostics_enabled: true
+  # hex_max_size: 32
+  # ngap_level: info
+  # e1ap_level: warning
+  # e2ap_level: warning
+  # gtpu_level: warning
+  # high_latency_diagnostics_enabled: true
 
 pcap:
   mac_enable: true
