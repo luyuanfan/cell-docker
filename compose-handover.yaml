@@ -4,7 +4,7 @@ services:
   core:
     container_name: "core"
     image: cell-docker-core
-    command: ./initRoaming.sh
+    command: ./initCore.sh
     env_file: ".env"
     build:
       dockerfile: core.Dockerfile
