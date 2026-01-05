@@ -24,5 +24,5 @@ RUN apt install -y mongodb-org
 
 # copy scripts and configs
 COPY scripts/initRoaming.sh .
-# COPY scripts/initCore.sh .
-COPY configs/* .
+COPY scripts/initCore.sh .
+COPY configs/simple/* .

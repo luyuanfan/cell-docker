@@ -55,12 +55,11 @@ do
 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
-
-sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
+sed -i "s/NETWORK_MCC/$HMCC/g" amf.yaml
+sed -i "s/NETWORK_MNC/$HMNC/g" amf.yaml
 sed -i "s/NETWORK_APN/$APN/g" amf.yaml
-sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
+sed -i "s/NETWORK_MCC/$HMCC/g" nrf.yaml
+sed -i "s/NETWORK_MNC/$HMNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
 
 /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
