@@ -67,13 +67,6 @@ awk '
 	}
 	' /etc/hosts > $tmpf && cat $tmpf > /etc/hosts && rm -f $tmpf
 
-# sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
-# sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
-# sed -i "s/NETWORK_APN/$APN/g" amf.yaml
-# sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
-# sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
-# sed -i "s/NETWORK_APN/$APN/g" smf.yaml
-
 # populate core database
 /open5gs/misc/db/open5gs-dbctl reset
 for i in $(seq 1 $NUM_UES)
@@ -108,9 +101,7 @@ done
 /open5gs/install/bin/open5gs-pcfd -c /pcf.yaml &
 /open5gs/install/bin/open5gs-bsfd -c /bsf.yaml &
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
-/open5gs/install/bin/open5gs-seppd -c /open5gs/install/etc/open5gs/sepp2.yaml &
-
-# /open5gs/build/tests/registration/registration -c /open5gs/build/configs/examples/gnb-001-01-ue-999-70.yaml simple-test
+/open5gs/install/bin/open5gs-seppd -c /sepp2.yaml &
 
 echo "Running 5G SA Core Network" > "./health.log"
 

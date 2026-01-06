@@ -2,22 +2,10 @@ Single-click cell deployment (with Open5GS, srsRAN, and USRP devices).
 
 ## How to run
 
-To start cell simply, run: 
+To start cell, run: 
 ```bash
-sudo ./start.sh
+sudo ./operator.sh
 ```
-
-## Intra-gNB handover
-
-To start cell with CU-DU split and trigger handover, run: 
-```bash
-sudo ./start.sh -h
-./handover.sh
-```
-
-The left-most window runs `cu`, then `du_1`, then `du_2`.
-
-In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <rnti> <target pci>` to force handover.
 
 ## Config file parameters
 - **MCC**: Home network mobile country code
