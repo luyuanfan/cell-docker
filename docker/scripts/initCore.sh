@@ -1,18 +1,6 @@
 #!/bin/bash
 
-# CONFIG=$(echo "$CONFIG64" | base64 -d)
-
-# MCC=$(jq -r ".network.mcc" <<< "$CONFIG")
-# MNC=$(jq -r ".network.mnc" <<< "$CONFIG")
-# APN=$(jq -r ".network.apn" <<< "$CONFIG")
-# USRP=$(jq -r ".ran.usrp" <<< "$CONFIG")
-# MIMO=$(jq -r ".ran.mimo" <<< "$CONFIG")
-# NUM_UES=$(jq -r ".core.num_ues" <<< "$CONFIG")
-# IMSI=$(jq -r ".core.imsi" <<< "$CONFIG")
-# KEY=$(jq -r ".core.key" <<< "$CONFIG")
-# OPC=$(jq -r ".core.opc" <<< "$CONFIG")
-TYPE=1
-PAD="00000000"
+echo "Starting Open5GS core services"
 
 #############
 # Time Zone #
@@ -50,8 +38,6 @@ do
 done
 
 # populate core database
-# add_ue_with_apn {imsi key opc apn}
-# type {imsi type}: changes the PDN-Type of the first PDN: 1 = IPv4, 2 = IPv6, 3 = IPv4v6"
 /open5gs/misc/db/open5gs-dbctl reset
 for i in $(seq 1 $NUM_UES)
 do	
@@ -59,10 +45,9 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	# echo $MCC$MNC$PAD$i $key $opc $APN
-	# echo $MCC$MNC$PAD$i $TYPE
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $MCC$MNC$PAD$i $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $MCC$MNC$PAD$i $TYPE
+	imsi=$(printf '%s%s%0*d' $MCC $MNC $((15 - ${#MCC} - ${#MNC})) $i)
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
@@ -71,8 +56,6 @@ sed -i "s/NETWORK_APN/$APN/g" amf.yaml
 sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
-
-echo "Running 5G SA Core Network"
 
 /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
 /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
@@ -86,29 +69,6 @@ echo "Running 5G SA Core Network"
 /open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
 /open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
 /open5gs/install/bin/open5gs-bsfd &                     # binding support function
-/open5gs/install/bin/open5gs-mmed &                     # below are all LTE services
-/open5gs/install/bin/open5gs-sgwcd & 
-/open5gs/install/bin/open5gs-sgwud & 
-/open5gs/install/bin/open5gs-hssd & 
-/open5gs/install/bin/open5gs-pcrfd &
 
-sleep 1
-
-############
-#  RAN 5G  #
-############
-
-sed -i "s/NETWORK_MCC/$MCC/g" gnb.yml
-sed -i "s/NETWORK_MNC/$MNC/g" gnb.yml
-sed -i "s/USRP_ID/$USRP/g" gnb.yml
-if [[ ${MIMO,,} == "yes" ]]; then 
-	TRANSMISSION_MODE=4
-	NUM_PORTS=2
-else
-	TRANSMISSION_MODE=1
-	NUM_PORTS=1
-fi
-sed -i "s/TRANSMISSION_MODE/$TRANSMISSION_MODE/g" gnb.yml
-sed -i "s/NUM_PORTS/$NUM_PORTS/g" gnb.yml
-
-chrt --rr 99 gnb -c gnb.yml
+echo "Running 5G SA Core Network" > "./health.log"
+wait -n
