@@ -20,8 +20,8 @@ if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE &>/d
     iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
     echo "Deleted NAT rules for ogstun"
 fi
-if iptables -t nat -C POSTROUTING -s 10.45.0.0/16 ! -o ogstun2 -j MASQUERADE &>/dev/null; then
-    iptables -t nat -D POSTROUTING -s 10.45.0.0/16 ! -o ogstun2 -j MASQUERADE
+if iptables -t nat -C POSTROUTING -s 10.46.0.0/16 ! -o ogstun2 -j MASQUERADE &>/dev/null; then
+    iptables -t nat -D POSTROUTING -s 10.46.0.0/16 ! -o ogstun2 -j MASQUERADE
     echo "Deleted NAT rules for ogstun2"
 fi
 
