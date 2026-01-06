@@ -78,12 +78,6 @@ set_network_buffers() {
   echo "Tweaked network buffer sizes"
 }
 
-# Check for sudo rights
-# sudo -v || exit
-
-# ifconfig ogstun mtu 9000 # For 10 GigE
-# ifconfig docker0 mtu 9000 # For 10 GigE
-
 set_performance_governor
 set_kms_polling
 set_network_buffers

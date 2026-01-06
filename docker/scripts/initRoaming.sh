@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PAD="000000000"
-
 echo "Starting Open5GS core services"
 
 #############
@@ -75,8 +73,9 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $HMCC$HMNC$PAD$i $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $HMCC$HMNC$PAD$i $TYPE
+	imsi=$(printf '%s%s%0*d' $HMCC $HMNC $((15 - ${#HMCC} - ${#HMNC})) $i)
+	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
+	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
 # run home network
