@@ -26,10 +26,10 @@ services:
       timeout: 1s
       retries: 60
     volumes:
-      - type: bind
-        source: /open5gs/
-        target: /open5gs/
-        read_only: false
+      # - type: bind
+      #   source: /open5gs/
+      #   target: /open5gs/
+      #   read_only: false
       - /dev/:/dev/
       - /proc:/proc
     tty: true
