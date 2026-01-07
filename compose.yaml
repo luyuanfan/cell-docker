@@ -40,8 +40,6 @@ services:
     image: cell-docker-gnb
     command: ./initGnb.sh
     env_file: ".env"
-    environment:
-      CONTAINER_NAME: "gnb"
     build:
       dockerfile: gnb.Dockerfile
       context: ./docker
@@ -57,6 +55,10 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
+      - type: bind
+        source: /srsRAN_Project/
+        target: /srsRAN_Project/
+        read_only: false
       - /tmp/gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
