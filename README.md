@@ -1,6 +1,6 @@
 # Operator
 
-Single-click mobile operator deployment. 
+Single-click 5G standalone cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
 This branch runs a simple cell with handover support (no roaming nor mounting).  
 
