@@ -1,5 +1,7 @@
 Single-click cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
+This branch runs a simple cell without handover nor roaming, with both `open5gs` and `srsRAN_Project` source code and executables mounted from the host machine. 
+
 ## How to run
 
 To start cell simply, run: 
@@ -13,7 +15,7 @@ Both `open5gs` and `srsRAN_Project` are directly mounted from host. Since there 
 
 To build `open5gs` for the first time, run:
 ```bash
-cd ~
+cd ~ 
 git clone git@github.com:luyuanfan/open5gs.git
 sudo mv open5gs /
 cd /open5gs
