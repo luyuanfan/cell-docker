@@ -50,7 +50,7 @@ make -j $(nproc)
 - **USRP**: Serial number of the USRP that is going to be used as base station radio frontend
 - **NUM_UES**: Number of UEs to be registered in Core DB (The UEs will look like: MCC-MNC-000000001, MCC-MNC-000000002, etc)
 - **KEY**: Sim key registered in Core DB
-- **OPC**: Sim operator key registered in Core D B
+- **OPC**: Sim operator key registered in Core DB
 
 ## Notes
 
