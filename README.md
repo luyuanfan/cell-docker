@@ -1,4 +1,4 @@
-Single-click cell deployment (with Open5GS, srsRAN, and USRP devices). 
+Single-click 5G standalone cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
 This branch runs a simple cell without handover nor roaming, with both `open5gs` and `srsRAN_Project` source code and executables mounted from the host machine. 
 
