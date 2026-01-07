@@ -1,0 +1,130 @@
+services:
+
+  # open5gs
+  core:
+    container_name: "core"
+    image: cell-docker-core
+    command: ./initRoaming.sh
+    env_file: ".env"
+    build:
+      dockerfile: core.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:  
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    healthcheck:
+      test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
+      interval: 5s
+      timeout: 1s
+      retries: 60
+    volumes:
+      - /dev/:/dev/
+      - /proc:/proc
+    tty: true
+
+  # srsran cu
+  cu:
+    container_name: cu
+    image: cell-docker-gnb
+    command: ./initGnb.sh
+    env_file: ".env"
+    environment:
+      CONTAINER_NAME: "cu"
+    build:
+      dockerfile: gnb.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      - /tmp/gnb/:/tmp/
+      - /dev/:/dev/
+      - /proc:/proc
+    depends_on:
+      core:
+        condition: service_healthy
+        restart: true
+    stdin_open: true
+    tty: true
+
+  # srsran du 1
+  du_1:
+    container_name: du_1
+    image: cell-docker-gnb
+    command: ./initGnb.sh
+    env_file: ".env"
+    environment:
+      CONTAINER_NAME: "du_1"
+    build:
+      dockerfile: gnb.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      - /tmp/gnb/:/tmp/
+      - /dev/:/dev/
+      - /proc:/proc
+    depends_on:
+      cu:
+        condition: service_started
+        restart: true
+    stdin_open: true
+    tty: true
+
+  # srsran du 2
+  du_2:
+    container_name: du_2
+    image: cell-docker-gnb
+    command: ./initGnb.sh
+    env_file: ".env"
+    environment:
+      CONTAINER_NAME: "du_2"
+    build:
+      dockerfile: gnb.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      - /tmp/gnb/:/tmp/
+      - /dev/:/dev/
+      - /proc:/proc
+    depends_on:
+      cu:
+        condition: service_started
+        restart: true
+    stdin_open: true
+    tty: true
