@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# add location of open5gs shared libraries
-echo "/open5gs/install/lib" >  /etc/ld.so.conf.d/open5gs.conf
-echo "/open5gs/install/lib/x86_64-linux-gnu" >> /etc/ld.so.conf.d/open5gs.conf
-ldconfig
-
 echo "Starting Open5GS core services"
 
 #############
@@ -50,11 +45,10 @@ do
     opc_var="OPC${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	imsi=$(printf '%s%s%0*d' $HMCC $HMNC $((15 - ${#HMCC} - ${#HMNC})) $i)
+	imsi=$(printf '%s%s%0*d' $MCC $MNC $((15 - ${#MCC} - ${#MNC})) $i)
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
-
 
 sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml

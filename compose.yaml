@@ -4,7 +4,7 @@ services:
   core:
     container_name: "core"
     image: cell-docker-core
-    command: ./initRoaming.sh
+    command: ./initCore.sh
     env_file: ".env"
     build:
       dockerfile: core.Dockerfile
@@ -26,6 +26,13 @@ services:
       timeout: 1s
       retries: 60
     volumes:
+<<<<<<< HEAD
+=======
+      # - type: bind
+      #   source: /open5gs/
+      #   target: /open5gs/
+      #   read_only: false
+>>>>>>> 7bf8d4c88129f79561b32f816f93cbbba2f12700
       - /dev/:/dev/
       - /proc:/proc
     tty: true
