@@ -4,6 +4,7 @@ set -e
 if [ "$#" -gt 1 ] ; then
     echo "USE: sudo ./operator.sh"
     echo "Intra-gNB Handover: sudo ./operator.sh -h"
+    echo "Intra-gNB Handover and Roaming: sudo ./operator.sh -h"
     exit 1
 fi
 

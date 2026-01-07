@@ -1,4 +1,8 @@
+**Do not use.**
+
 Single-click cell deployment (with Open5GS, srsRAN, and USRP devices). 
+
+This branch is capable of running a cell with both features (roaming and handover). They can be toggled on and off via command line. Mounting support is left out for now. 
 
 ## How to run
 
@@ -8,10 +12,8 @@ sudo ./operator.sh
 ```
 
 ## Roaming
-
-To start cell with roaming, run:
 ```bash
-sudo ./start.sh -r
+sudo ./operator.sh -r
 ```
 
 ## Intra-gNB handover
