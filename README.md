@@ -9,9 +9,9 @@ sudo ./operator.sh
 
 ## Mounting
 
-Both `open5gs` and `srsRAN_Project` are directly mounted from host. Since there are absolute pathes baked into these files at the time of make, it's important that we place and build these two directories in a convenient place (since they are placed in `/` in the container, we just build them in `/` in the host as well):
+Both `open5gs` and `srsRAN_Project` are directly mounted from host. Since there are absolute pathes baked into these files at the time of make, it's important that we place and build these two directories in a convenient place (since they are placed in `/` in the container, we just build them in `/` on the host as well):
 
-To build `open5gs` for the first time and place it in the right place, run:
+To build `open5gs` for the first time, run:
 ```bash
 cd ~
 git clone git@github.com:luyuanfan/open5gs.git
@@ -38,6 +38,8 @@ mkdir build
 cmake ../
 make -j $(nproc)
 ```
+
+> How srsRAN_Project is built depends on the version of one of its dependencies--libuhd. In the container, we do `apt install libuhd-dev uhd-host` and install libuhd.so.4.6.0, so any gNB binary we run in there must also be linked to 4.6.0. If there is other libuhd versions installed (such as 4.8.0, build from source) when you build srsRAN_Project on the host, CMake might build srsRAN_Project against that version. Then the resulting gNB binary will depend on 4.8.0, and it won’t run inside the container that only has 4.6.0. Therefore, make sure the host only has libuhd.so.4.6.0 when you build srsRAN_Project. 
 
 ## Config file parameters
 - **MCC**: Home network mobile country code
