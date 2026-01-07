@@ -7,17 +7,37 @@ To start cell simply, run:
 sudo ./operator.sh
 ```
 
-## Intra-gNB handover
+## Mounting
 
-To start cell with CU-DU split and trigger handover, run: 
+Both `open5gs` and `srsRAN_Project` are directly mounted from host. Since there are absolute pathes baked into these files at the time of make, it's important that we place and build these two directories in a convenient place (since they are placed in `/` in the container, we just build them in `/` in the host as well):
+
+To build `open5gs` for the first time and place it in the right place, run:
 ```bash
-sudo ./operator.sh -h
-./handover.sh
+cd ~
+git clone git@github.com:luyuanfan/open5gs.git
+sudo mv open5gs /
+cd /open5gs
+meson build --prefix=`pwd`/install
+ninja -C build
+cd build
+ninja install
 ```
 
-The left-most window runs `cu`, then `du_1`, then `du_2`.
+To rebuild `open5gs` after editing source code, run:
+```bash
+./recompile.sh
+```
 
-In `du_1` and `du_2`, type `t` to view trace; in `cu`, type `ho <serving pci> <rnti> <target pci>` to force handover.
+To build `srsRAN_Project` for the first time, run:
+```bash
+cd ~
+git clone git@github.com:luyuanfan/srsRAN_Project.git
+sudo mv srsRAN_Project /
+cd srsRAN_Project
+mkdir build
+cmake ../
+make -j $(nproc)
+```
 
 ## Config file parameters
 - **MCC**: Home network mobile country code
