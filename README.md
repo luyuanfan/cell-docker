@@ -1,5 +1,7 @@
 Single-click cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
+This branch runs a simple cell with only roaming support (no handover nor mounting). 
+
 ## How to run
 
 To start cell, run: 
