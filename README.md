@@ -2,6 +2,8 @@
 
 Single-click mobile operator deployment. 
 
+This branch runs a simple cell with handover support (no roaming nor mounting).  
+
 ## How to run
 
 To start cell, run: 
