@@ -10,8 +10,9 @@ services:
     build:
       dockerfile: core.Dockerfile
       context: ./docker
+      network: host
     privileged: true
-    networks: [cellnet]
+    network_mode: "host"
     cap_add:  
       - SYS_NICE
       - NET_ADMIN
@@ -38,8 +39,9 @@ services:
     build:
       dockerfile: gnb.Dockerfile
       context: ./docker
+      network: host
     privileged: true
-    network_mode: "service:core"
+    network_mode: "host"
     cap_add:
       - SYS_NICE
       - NET_ADMIN
@@ -58,7 +60,3 @@ services:
         restart: true
     stdin_open: true
     tty: true
-
-networks:
-  cellnet:
-    driver: bridge
