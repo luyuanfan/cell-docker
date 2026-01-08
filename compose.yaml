@@ -26,8 +26,11 @@ services:
       interval: 5s
       timeout: 1s
       retries: 60
-      # start_period: 5s
     volumes:
+      - type: bind
+        source: /open5gs/
+        target: /open5gs/
+        read_only: false
       - /dev/:/dev/
       - /proc:/proc
       - /tmp/gnb/:/tmp/

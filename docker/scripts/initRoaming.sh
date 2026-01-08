@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# add location of open5gs shared libraries
+echo "/open5gs/install/lib" > /etc/ld.so.conf.d/open5gs.conf
+echo "/open5gs/install/lib/x86_64-linux-gnu" >> /etc/ld.so.conf.d/open5gs.conf
+ldconfig
+
 echo "Starting Open5GS core services"
 
 #############
