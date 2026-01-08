@@ -1,12 +1,31 @@
 Single-click cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
-This branch runs a simple cell with only roaming support (no handover nor mounting). 
+This branch runs a simple cell with roaming support and with `open5gs` mounted from the host machine (no handover support). The intention is the recreate the roaming attack described in ["Wherever I May Roam: Stealthy Interception and Injection Attacks through Roaming Agreements"](https://hpi.de/fileadmin/user_upload/90_Research_Groups/classen/Documents/Lange_2024_Wherever_I_May_Roam-Stealthy_Interception_and_Injection_Attacks_through_Roaming_Agreements_author_version.pdf) (page 12). 
 
 ## How to run
 
 To start cell, run: 
 ```bash
 sudo ./operator.sh
+```
+
+## Mounting
+
+To build `open5gs` for the first time, run:
+```bash
+cd ~ 
+git clone git@github.com:luyuanfan/open5gs.git
+sudo mv open5gs /
+cd /open5gs
+meson build --prefix=`pwd`/install
+ninja -C build
+cd build
+ninja install
+```
+
+To rebuild `open5gs` after editing source code, run:
+```bash
+./recompile.sh
 ```
 
 ## Config file parameters
