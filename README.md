@@ -6,7 +6,7 @@ This branch runs a simple cell without any extra features (no roaming nor handov
 
 ## How to run
 ```bash
-./operator.sh
+sudo ./operator.sh
 ```
 
 ## Config file parameters
