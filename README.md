@@ -2,7 +2,7 @@
 
 Single-click cell deployment (with Open5GS, srsRAN, and USRP devices).
 
-This branch runs a simple cell without any extra features (no roaming nor handover nor mounting). Some execution steps are omitted and modified so that it can run on a virtual machine. 
+This branch runs a simple cell without any extra features (no roaming nor handover nor mounting).
 
 ## How to run
 ```bash
