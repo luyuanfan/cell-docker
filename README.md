@@ -44,5 +44,5 @@ sudo ./operator.sh
 
 85863 (another one for iphone, configured following the regular tutorial; does not see the cell):
 ```bash
-./pySim-prog.py -p0 -s 8988211000000858632 --mcc=999 --mnc=99 -a 52071445 --imsi=999990000000003 -k 8B162AF6C8231ED9C4BB96F8054FBE36 --opc=49B6D989E4D9D3722128FF32C1E499CA
+./pySim-prog.py -p0 -s 8988211000000858632 --mcc=001 --mnc=01 -a 52071445 --imsi=001010000000001 -k 8B162AF6C8231ED9C4BB96F8054FBE36 --opc=49B6D989E4D9D3722128FF32C1E499CA
 ```
