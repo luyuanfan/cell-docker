@@ -2,7 +2,7 @@ Single-click cell deployment (with Open5GS, srsRAN, and USRP devices).
 
 This branch runs a simple cell with roaming support and with `open5gs` mounted from the host machine (no handover support). Please use the `roaming-attack` branch in `open5gs`. The intention is the recreate the roaming attack described in ["Wherever I May Roam: Stealthy Interception and Injection Attacks through Roaming Agreements"](https://hpi.de/fileadmin/user_upload/90_Research_Groups/classen/Documents/Lange_2024_Wherever_I_May_Roam-Stealthy_Interception_and_Injection_Attacks_through_Roaming_Agreements_author_version.pdf) (page 12).  
 
-Trust home network PLMN: 99970 (HPLMN). Roaming partner network PLMN: 00101 (VPLMN). Evil gNB PLMN: 310451. To my understanding, evil gNB does not actually have to exist. We just want to verify that HPLMN's SEPP would attempt to send an Authentication Vector to evil gNB. I believe the change of SN ID has to happen after the request is sent but before the response's destination is generated according to the SN ID of the request. 
+Trusted home network PLMN: 99970 (HPLMN). Roaming partner network PLMN: 00101 (VPLMN). Evil gNB PLMN: 310451. To my understanding, evil gNB does not actually have to exist. We just want to verify that HPLMN's SEPP would attempt to send an Authentication Vector to evil gNB. I believe the change of SN ID has to happen after the request is sent but before the response's destination is generated according to the SN ID of the request. 
 
 *I think* a good next step is to actually set up an gNB with PLMN 310451 and see if the UE can roam with it. 
 
