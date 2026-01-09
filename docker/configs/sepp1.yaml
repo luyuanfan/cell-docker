@@ -1,7 +1,7 @@
 logger:
   file:
     path: /sepp1.log
-#  level: info   # fatal|error|warn|info(default)|debug|trace
+  level: trace   # fatal|error|warn|info(default)|debug|trace
 
 global:
   max:
