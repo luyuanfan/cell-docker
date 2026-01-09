@@ -2,6 +2,8 @@ Single-click cell deployment (with Open5GS, srsRAN, and USRP devices).
 
 This branch runs a simple cell with roaming support and with `open5gs` mounted from the host machine (no handover support). The intention is the recreate the roaming attack described in ["Wherever I May Roam: Stealthy Interception and Injection Attacks through Roaming Agreements"](https://hpi.de/fileadmin/user_upload/90_Research_Groups/classen/Documents/Lange_2024_Wherever_I_May_Roam-Stealthy_Interception_and_Injection_Attacks_through_Roaming_Agreements_author_version.pdf) (page 12). 
 
+Trust home network PLMN: 99970. Roaming partner network PLMN: 00101. Evil gNB PLMN: 310451. 
+
 ## How to run
 
 To start cell, run: 
