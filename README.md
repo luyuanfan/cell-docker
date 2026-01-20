@@ -40,7 +40,10 @@ sudo ./operator.sh
 ./pySim-prog.py -p0 -s 8988211000000858616 --mcc=310 --mnc=451 -a 73718177 --imsi=310451000000004 -k 0584FFFDFE867AE2C6CB469FB598BD5A --opc=44902D4577095F0BBFC8D1416D7548D6
 ```
 
-85865 (unauthenticated but can see the cell; apn is configured; tries hard to attach)
+85865
+```bash
+./pySim-prog.py -p0 -s 8988211000000858657 --mcc=999 --mnc=70 -a 51897857 --imsi=999700000000006 -k C7DE9F9BED42D654B562F62DF53628F7 --opc=5469AE5A50E405EE36A2F9CBD8FE5502
+```
 
 85863 (another one for iphone, configured following the regular tutorial; does not see the cell):
 ```bash
