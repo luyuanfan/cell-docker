@@ -28,4 +28,5 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 # ./docker/scripts/srsran_performance
 
+export TIME=$(date +"%Y-%m-%d-%T")
 docker compose up --build
