@@ -28,6 +28,9 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/scripts/srsran_performance
 
+# log file naming
+export TIME=$(date +"%Y-%m-%d-%T")
+
 docker compose up --build
 
 echo "Experiment ended" 

@@ -40,6 +40,8 @@ services:
     image: cell-docker-gnb
     command: ./initGnb.sh
     env_file: ".env"
+    environment:
+      - TIME=$TIME
     build:
       dockerfile: gnb.Dockerfile
       context: ./docker
@@ -59,7 +61,7 @@ services:
         source: /srsRAN_Project/
         target: /srsRAN_Project/
         read_only: false
-      - /tmp/gnb/:/tmp/
+      - /gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
     depends_on:
