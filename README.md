@@ -50,3 +50,6 @@ sudo ./operator.sh
 7. gialer 7
 8. gialer 8
 9. gialer 9
+
+
+> Note: gialer 5 and 7 are not doing great. fix it
