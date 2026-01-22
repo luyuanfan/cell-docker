@@ -29,4 +29,4 @@ ufw disable
 # ./docker/scripts/srsran_performance
 
 export TIME=$(date +"%Y-%m-%d-%T")
-docker compose up --build
+docker compose up #--build

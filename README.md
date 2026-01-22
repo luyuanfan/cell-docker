@@ -49,7 +49,9 @@ sudo ./operator.sh
 
 7. gialer 7
 8. gialer 8 (on matte oneplus phone, connected)
-9. gialer 9 
+9. gialer 9
 
+Glossy oneplus also have a hard time connectintg.
 
+Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G enabled, it does think a regular T-Mobile SIM is 5G enabled. 
 > Note: gialer 5 and 7 are not doing great. fix it
