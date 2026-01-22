@@ -25,7 +25,7 @@ sudo ./operator.sh
 ./pySim-prog.py -p0 -s 8988211000000858756 --mcc=999 --mnc=70 -a 55932037 --imsi=999700000000001 -k 05EA501E9AF94BBA1AE5DD426EFA0DAA --opc=DCB307105505164936A46C831AA9A98A
 ```
 
-2. 85876:
+2. 85876 (on white nothing phone, connected)
 ```bash
 ./pySim-prog.py -p0 -s 8988211000000858764 --mcc=999 --mnc=70 -a 25244338 --imsi=999700000000002 -k 3E26DAE6189CA50B529DD0879724CB40 --opc=62C9D3F11B6BA25C648B32FF1A2DD479
 ```
@@ -42,14 +42,14 @@ sudo ./operator.sh
 
 5. gialer 5
 
-6. 85865
+6. 85865 (on blue samsung, connected)
 ```bash
 ./pySim-prog.py -p0 -s 8988211000000858657 --mcc=999 --mnc=70 -a 51897857 --imsi=999700000000006 -k C7DE9F9BED42D654B562F62DF53628F7 --opc=5469AE5A50E405EE36A2F9CBD8FE5502
 ```
 
 7. gialer 7
-8. gialer 8
-9. gialer 9
+8. gialer 8 (on matte oneplus phone, connected)
+9. gialer 9 
 
 
 > Note: gialer 5 and 7 are not doing great. fix it
