@@ -10,10 +10,12 @@ cu_cp:
     supported_tracking_areas:
       - tac: 7
         plmn_list:
+          - plmn: "99970"
+            tai_slice_support_list:
+              - sst: 1
           - plmn: "00101"
             tai_slice_support_list:
               - sst: 1
-
 ru_sdr:
   device_driver: uhd
   device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
