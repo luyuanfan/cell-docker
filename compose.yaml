@@ -57,6 +57,10 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
+      - type: bind
+        source: /srsRAN_Project/
+        target: /srsRAN_Project/
+        read_only: false
       - /gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc

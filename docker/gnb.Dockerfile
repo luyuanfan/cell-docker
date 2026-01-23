@@ -9,8 +9,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y libuhd-dev uhd-host \
     tmux git
 
 # build srsRAN 5g from source
-RUN git clone https://github.com/srsRAN/srsRAN_Project.git
-RUN cd srsRAN_Project && git checkout release_25_04 && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
+# RUN git clone https://github.com/srsRAN/srsRAN_Project.git
+# RUN cd srsRAN_Project && git checkout release_25_04 && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && ldconfig
 
 # download USRP images
 RUN uhd_images_downloader
