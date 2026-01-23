@@ -36,9 +36,9 @@ cell_cfg:
 # level: none, error, warning, info, debug
 log:
   filename: /tmp/LOG_TIME-gnb.log
-  all_level: info
+  all_level: debug
   hex_max_size: 32
-  ngap_level: info
+  ngap_level: debug
   e1ap_level: warning
   e2ap_level: warning
   gtpu_level: warning
@@ -47,7 +47,7 @@ log:
 pcap:
   mac_enable: false
   mac_filename: /tmp/LOG_TIME-gnb_mac.pcap
-  ngap_enable: false
+  ngap_enable: true
   ngap_filename: /tmp/LOG_TIME-gnb_ngap.pcap
   e1ap_filename: /tmp/LOG_TIME-gnb_e1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_e1ap.pcap). Path for E1AP PCAPs.
   e1ap_enable: false
