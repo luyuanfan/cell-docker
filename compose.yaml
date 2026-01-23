@@ -3,9 +3,8 @@ services:
   # open5gs
   core:
     container_name: "core"
-    image: cell-docker-core-mount
+    image: cell-docker-core
     command: ./initCore.sh
-    tty: true
     env_file: ".env"
     build:
       dockerfile: core.Dockerfile
@@ -13,7 +12,7 @@ services:
       network: host
     privileged: true
     network_mode: "host"
-    cap_add:  
+    cap_add:
       - SYS_NICE
       - NET_ADMIN
       - SYS_ADMIN
@@ -33,6 +32,7 @@ services:
         read_only: false
       - /dev/:/dev/
       - /proc:/proc
+    tty: true
   
   # srsran gnb
   gnb:
@@ -61,7 +61,7 @@ services:
         source: /srsRAN_Project/
         target: /srsRAN_Project/
         read_only: false
-      - /gnb/:/tmp/
+      - ~/gnb_log/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
     depends_on:
