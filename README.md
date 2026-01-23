@@ -45,7 +45,7 @@ sudo ./operator.sh
 6. 85865 (on blue samsung, connected)
 ```bash
 ./pySim-prog.py -p0 -s 8988211000000858657 --mcc=999 --mnc=70 -a 51897857 --imsi=999700000000006 -k C7DE9F9BED42D654B562F62DF53628F7 --opc=5469AE5A50E405EE36A2F9CBD8FE5502
-```
+```z
 
 7. gialer 7
 8. gialer 8 (on matte oneplus phone, connected)
@@ -54,4 +54,7 @@ sudo ./operator.sh
 Glossy oneplus also have a hard time connectintg.
 
 Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G enabled, it does think a regular T-Mobile SIM is 5G enabled. 
-> Note: gialer 5 and 7 are not doing great. fix it
+
+> TODO: Might want to see how to make the phone think that the card is 5G enabled.
+
+> TODO: Check how eSIM works on pixel 10.
