@@ -5,6 +5,7 @@ services:
     container_name: "core"
     image: cell-docker-core
     command: ./initCore.sh
+    tty: true
     env_file: ".env"
     build:
       dockerfile: core.Dockerfile
@@ -32,7 +33,6 @@ services:
         read_only: false
       - /dev/:/dev/
       - /proc:/proc
-    tty: true
   
   # srsran gnb
   gnb:

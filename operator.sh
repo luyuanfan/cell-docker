@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-if [ "$#" -gt 1 ] ; then
-    echo "USE: sudo ./operator.sh"
+if [ "$#" -ne 0 ]; then
+    echo "USE: sudo ./operator"
     exit 1
 fi
 
-# delete existing tun devices (ogstun and ogstun2) and associated NAT rules 
+# delete existing tun device and associated NAT rules 
 if ip link show ogstun &>/dev/null; then
     ip tuntap del name ogstun mode tun
     echo "Deleted TUN device ogstun"

@@ -51,6 +51,7 @@ do
 	key="${!key_var}"
     opc="${!opc_var}"
 	imsi=$(printf '%s%s%0*d' $MCC $MNC $((15 - ${#MCC} - ${#MNC})) $i)
+	echo $imsi
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
