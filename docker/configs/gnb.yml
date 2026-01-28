@@ -39,7 +39,7 @@ cell_cfg:
 log:
   filename: /tmp/LOG_TIME-gnb.log
   all_level: warning
-  ngap_level: trace
+  ngap_level: debug
   broadcast_enabled: true
 
 pcap:
