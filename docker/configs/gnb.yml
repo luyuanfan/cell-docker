@@ -38,7 +38,7 @@ cell_cfg:
 # level: none, error, warning, info, debug
 log:
   filename: /tmp/LOG_TIME-gnb.log
-  all_level: warning
+  all_level: info
   ngap_level: debug
   broadcast_enabled: true
 

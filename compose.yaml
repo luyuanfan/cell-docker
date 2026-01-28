@@ -61,7 +61,7 @@ services:
         source: /srsRAN_Project/
         target: /srsRAN_Project/
         read_only: false
-      - ~/gnb_log/:/tmp/
+      - /gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
     depends_on:
