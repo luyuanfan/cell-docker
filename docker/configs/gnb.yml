@@ -38,20 +38,16 @@ cell_cfg:
 # level: none, error, warning, info, debug
 log:
   filename: /tmp/LOG_TIME-gnb.log
-  all_level: debug
-  hex_max_size: 32
-  ngap_level: debug
-  e1ap_level: warning
-  e2ap_level: warning
-  gtpu_level: warning
-  high_latency_diagnostics_enabled: true
+  all_level: warning
+  ngap_level: trace
+  broadcast_enabled: true
 
 pcap:
-  mac_enable: false
-  mac_filename: /tmp/LOG_TIME-gnb_mac.pcap
   ngap_enable: true
   ngap_filename: /tmp/LOG_TIME-gnb_ngap.pcap
-  e1ap_filename: /tmp/LOG_TIME-gnb_e1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_e1ap.pcap). Path for E1AP PCAPs.
+  mac_enable: false
+  mac_filename: /tmp/LOG_TIME-gnb_mac.pcap
   e1ap_enable: false
-  f1ap_filename: /tmp/LOG_TIME-gnb_f1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_f1ap.pcap). Path for F1AP PCAPs.
+  e1ap_filename: /tmp/LOG_TIME-gnb_e1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_e1ap.pcap). Path for E1AP PCAPs.
   f1ap_enable: false
+  f1ap_filename: /tmp/LOG_TIME-gnb_f1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_f1ap.pcap). Path for F1AP PCAPs.
