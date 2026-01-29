@@ -13,6 +13,9 @@ cu_cp:
           - plmn: "00101"
             tai_slice_support_list:
               - sst: 1
+          - plmn: "99980"
+            tai_slice_support_list:
+              - sst: 1
 ru_sdr:
   device_driver: uhd
   device_args: type=b200,serial=32CA32D,num_recv_frames=256,num_send_frames=256
@@ -35,7 +38,7 @@ cell_cfg:
 # level: none, error, warning, info, debug
 log:
   filename: /tmp/LOG_TIME-gnb.log
-  all_level: info
+  all_level: debug
   ngap_level: debug
   broadcast_enabled: true
 
