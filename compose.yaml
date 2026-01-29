@@ -26,11 +26,14 @@ services:
       interval: 5s
       timeout: 1s
       retries: 60
-      # start_period: 5s
     volumes:
+      - type: bind
+        source: /open5gs/
+        target: /open5gs/
+        read_only: false
       - /dev/:/dev/
       - /proc:/proc
-      - /tmp/gnb/:/tmp/
+    tty: true
   
   # srsran gnb
   gnb:
@@ -39,7 +42,8 @@ services:
     command: ./initGnb.sh
     env_file: ".env"
     environment:
-      CONTAINER_NAME: "gnb"
+      - CONTAINER_NAME="gnb"
+      - TIME=$TIME
     build:
       dockerfile: gnb.Dockerfile
       context: ./docker
@@ -55,7 +59,11 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
-      - /tmp/gnb/:/tmp/
+      - type: bind
+        source: /srsRAN_Project/
+        target: /srsRAN_Project/
+        read_only: false
+      - /gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
     depends_on:

@@ -13,7 +13,6 @@ cu_cp:
           - plmn: "00101"
             tai_slice_support_list:
               - sst: 1
-
 ru_sdr:
   device_driver: uhd
   device_args: type=b200,serial=32CA32D,num_recv_frames=256,num_send_frames=256
@@ -35,21 +34,17 @@ cell_cfg:
   
 # level: none, error, warning, info, debug
 log:
-  filename: /tmp/gnb.log
+  filename: /tmp/LOG_TIME-gnb.log
   all_level: info
-  hex_max_size: 32
-  ngap_level: info
-  e1ap_level: warning
-  e2ap_level: warning
-  gtpu_level: warning
-  high_latency_diagnostics_enabled: true
+  ngap_level: debug
+  broadcast_enabled: true
 
 pcap:
-  mac_enable: true
-  mac_filename: /tmp/gnb_mac.pcap
   ngap_enable: true
-  ngap_filename: /tmp/gnb_ngap.pcap
-  e1ap_filename: /tmp/gnb_e1ap.pcap     # Optional TEXT (/tmp/gnb_e1ap.pcap). Path for E1AP PCAPs.
-  e1ap_enable: true 
-  f1ap_filename: /tmp/gnb_f1ap.pcap     # Optional TEXT (/tmp/gnb_f1ap.pcap). Path for F1AP PCAPs.
-  f1ap_enable: true
+  ngap_filename: /tmp/LOG_TIME-gnb_ngap.pcap
+  mac_enable: false
+  mac_filename: /tmp/LOG_TIME-gnb_mac.pcap
+  e1ap_enable: false
+  e1ap_filename: /tmp/LOG_TIME-gnb_e1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_e1ap.pcap). Path for E1AP PCAPs.
+  f1ap_enable: false
+  f1ap_filename: /tmp/LOG_TIME-gnb_f1ap.pcap     # Optional TEXT (/$LOG_TIME/LOG_TIME-gnb_f1ap.pcap). Path for F1AP PCAPs.
