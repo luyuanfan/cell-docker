@@ -98,3 +98,5 @@ Glossy oneplus also have a hard time connectintg.
 Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G enabled, it does think a regular T-Mobile SIM is 5G enabled. 
 Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G enabled, it does think a regular T-Mobile SIM is 5G enabled. 
 > Note: gialer 5 and 7 are not doing great. fix it
+
+I'm actually not so happy with the auto branch switch code because it seems like the built content would not change at branches switch. Don't want to look into it now yet.
