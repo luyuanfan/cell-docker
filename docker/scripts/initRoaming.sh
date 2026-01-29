@@ -75,7 +75,8 @@ do
     opc="${!opc_var}"
 	imsi=$(printf '%s%s%0*d' $HMCC $HMNC $((15 - ${#HMCC} - ${#HMNC})) $i)
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
-	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
+	/open5gs/misc/db/open5gs-dbctl type $imsi 1
+	# /open5gs/misc/db/open5gs-dbctl lbo_roaming_allowed $imsi 1
 done
 
 # run home network
