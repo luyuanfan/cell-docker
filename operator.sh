@@ -1,10 +1,20 @@
 #!/bin/bash
 set -e
 
+SRSDIR='/srsRAN_Project/'
+COREDIR='/open5gs/'
+CELLDIR=$(pwd)
+
 if [ "$#" -ne 0 ]; then
     echo "USE: sudo ./operator"
     exit 1
 fi
+
+cd $SRSDIR
+git switch broadcast
+cd $COREDIR
+git switch main
+cd $CELLDIR
 
 # delete existing tun device and associated NAT rules 
 if ip link show ogstun &>/dev/null; then
