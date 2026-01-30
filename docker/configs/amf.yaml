@@ -1,7 +1,7 @@
 logger:
   file:
     path: /amf.log
-    level: trace   # fatal|error|warn|info(default)|debug|trace
+    level: debug   # fatal|error|warn|info(default)|debug|trace
 
 global:
   max:
@@ -39,15 +39,30 @@ amf:
       amf_id:
         region: 2
         set: 1
+    - plmn_id:
+        mcc: 999
+        mnc: 80
+      amf_id:
+        region: 2
+        set: 1
   tai:
     - plmn_id:
         mcc: 001
         mnc: 01
       tac: 7
+    - plmn_id:
+        mcc: 999
+        mnc: 80
+      tac: 7
   plmn_support:
     - plmn_id:
         mcc: 001
         mnc: 01
+      s_nssai:
+        - sst: 1
+    - plmn_id:
+        mcc: 999
+        mnc: 80
       s_nssai:
         - sst: 1
   security:

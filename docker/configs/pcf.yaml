@@ -2,7 +2,7 @@ db_uri: mongodb://localhost/open5gs
 logger:
   file:
     path: /pcf.log
-#  level: info   # fatal|error|warn|info(default)|debug|trace
+  level: debug   # fatal|error|warn|info(default)|debug|trace
 
 global:
   max:
@@ -27,6 +27,9 @@ pcf:
   policy:
     - supi_range:
         - 999700000000001-999709999999999
+      plmn_id:             # Filter policies by home PLMN-ID
+        mcc: 999
+        mnc: 70
       slice:
         - sst: 1  # 1,2,3,4
           default_indicator: true
