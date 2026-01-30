@@ -23,5 +23,6 @@ RUN apt install -y mongodb-org
 # RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
 
 # copy scripts and configs
-COPY scripts/initRoaming.sh .
+COPY scripts/initVplmn.sh .
+COPY scripts/initHplmn.sh .
 COPY configs/* .

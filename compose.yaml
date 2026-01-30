@@ -1,10 +1,10 @@
 services:
 
-  # open5gs
-  core:
-    container_name: "core"
+  # open5gs hplmn
+  hplmn:
+    container_name: "hplmn"
     image: cell-docker-core
-    command: ./initRoaming.sh
+    command: ./initHplmn.sh
     env_file: ".env"
     build:
       dockerfile: core.Dockerfile
@@ -21,7 +21,7 @@ services:
       rttime: -1
       memlock: 8428281856
     healthcheck:
-      test: ["CMD-SHELL", "grep -q 'Running 5G SA Core Network' ./health.log"]
+      test: ["CMD-SHELL", "grep -q 'Running 5G SA HPLMN Network' ./health.log"]
       interval: 5s
       timeout: 1s
       retries: 60
@@ -32,6 +32,44 @@ services:
         read_only: false
       - /dev/:/dev/
       - /proc:/proc
+    tty: true
+  
+  # open5gs vplmn
+  vplmn:
+    container_name: "vplmn"
+    image: cell-docker-core
+    command: ./initVplmn.sh
+    env_file: ".env"
+    build:
+      dockerfile: core.Dockerfile
+      context: ./docker
+      network: host
+    privileged: true
+    network_mode: "host"
+    cap_add:  
+      - SYS_NICE
+      - NET_ADMIN
+      - SYS_ADMIN
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    healthcheck:
+      test: ["CMD-SHELL", "grep -q 'Running 5G SA VPLMN Network' ./health.log"]
+      interval: 5s
+      timeout: 1s
+      retries: 60
+    volumes:
+      - type: bind
+        source: /open5gs/
+        target: /open5gs/
+        read_only: false
+      - /dev/:/dev/
+      - /proc:/proc
+    depends_on:
+      hplmn:
+        condition: service_healthy
+        restart: true
     tty: true
   
   # srsran gnb
@@ -66,7 +104,7 @@ services:
       - /dev/:/dev/
       - /proc:/proc
     depends_on:
-      core:
+      vplmn:
         condition: service_healthy
         restart: true
     stdin_open: true
