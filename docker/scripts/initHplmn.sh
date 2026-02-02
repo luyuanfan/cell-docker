@@ -68,6 +68,7 @@ do
 done
 
 # run home network
+/open5gs/install/bin/open5gs-amfd -c /h-amf.yaml &
 /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml &
 /open5gs/install/bin/open5gs-scpd -c /h-scp.yaml & 
 /open5gs/install/bin/open5gs-ausfd -c /h-ausf.yaml & 
