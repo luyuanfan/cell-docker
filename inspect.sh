@@ -1,6 +1,8 @@
 #!/bin/bash
-if [ "$1" = "-c" ]; then
-    CONTAINER_NAME="core"
+if [ "$1" = "-h" ]; then
+    CONTAINER_NAME="hplmn"
+elif [ "$1" = "-v" ]; then
+    CONTAINER_NAME="vplmn"
 else
     CONTAINER_NAME="gnb"
 fi

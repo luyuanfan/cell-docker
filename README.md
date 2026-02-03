@@ -21,8 +21,8 @@ sudo ./operator.sh
 ## Notes
 
 - Home network PLMN: 99970
-- Visitied network PLMN: 00101 and 315010
-- gNB running on visited network 00101, phone registered on 99970
+- Visitied network PLMN: 00101, but broadcast 99980
+- Want HPLMN to not see the VPLMN's 99980 besides 00101
 
 ## Programming SIM cards
 
@@ -64,6 +64,19 @@ Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G 
 > TODO: Might want to see how to make the phone think that the card is 5G enabled.
 
 > TODO: Check how eSIM works on pixel 10.
+
+> TODO: really not sure what the metrics field means in all the config files. The way I'm trying to run AMF might be really wrong
+
+> TODO: also might want to fix the log file problem. the open5gs files are not recorded anywhere on the host machine and we might want to pick some and maybe sort them or something into one big file question mark?
+
+One thing to consider is to have srsran be ok with weird sbi block without needing this entry in the supported tracking areas in cu_up because i feel like this might be what srsran also sends to core. 
+```bash
+- plmn: "99980"
+    tai_slice_support_list:
+        - sst: 1
+```
+
+another possibility is that the message the phone sends back to srsran contains some information about the plmn it heard (the fake one) and that gets sent to the core as well. this part needs more reading. can read the pcap files and also read the shared tech notes. 
 
 ## Acknowledgement
 

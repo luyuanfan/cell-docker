@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /amf.log
+    path: /h-amf.log
   level: debug   # fatal|error|warn|info(default)|debug|trace
 
 global:
@@ -11,58 +11,36 @@ global:
 amf:
   sbi:
     server:
-      - address: 127.0.0.5
+      - address: 127.0.1.5
         port: 7777
     client:
 #      nrf:
 #        - uri: http://127.0.0.10:7777
       scp:
-        - uri: http://127.0.0.200:7777
+        - uri: http://127.0.1.200:7777
   ngap:
     server:
-      - address: 127.0.2.5
+      - address: 127.0.1.5
   metrics:
     server:
-      - address: 127.0.0.5
+      - address: 127.0.1.5
         port: 9090
-  access_control:
-    - plmn_id:
-        mcc: 001
-        mnc: 01
+  guami:
     - plmn_id:
         mcc: 999
         mnc: 70
-  guami:
-    - plmn_id:
-        mcc: 001
-        mnc: 01
-      amf_id:
-        region: 2
-        set: 1
-    - plmn_id:
-        mcc: 999
-        mnc: 80
       amf_id:
         region: 2
         set: 1
   tai:
     - plmn_id:
-        mcc: 001
-        mnc: 01
-      tac: 7
-    - plmn_id:
         mcc: 999
-        mnc: 80
-      tac: 7
+        mnc: 70
+      tac: 1
   plmn_support:
     - plmn_id:
-        mcc: 001
-        mnc: 01
-      s_nssai:
-        - sst: 1
-    - plmn_id:
         mcc: 999
-        mnc: 80
+        mnc: 70
       s_nssai:
         - sst: 1
   security:
@@ -167,11 +145,11 @@ amf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.key
-#        cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.crt
+#        private_key: @sysconfdir@/open5gs/tls/amf.key
+#        cert: @sysconfdir@/open5gs/tls/amf.crt
 #      client:
 #        scheme: https
-#        cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
 #  sbi:
 #    server:
 #      - address: amf.localdomain
@@ -186,13 +164,13 @@ amf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.key
-#        cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.crt
-#        sslkeylogfile: /home/lyspfan/open5gs/install/var/log/open5gs/tls/amf-server-sslkeylog.log
+#        private_key: @sysconfdir@/open5gs/tls/amf.key
+#        cert: @sysconfdir@/open5gs/tls/amf.crt
+#        sslkeylogfile: @localstatedir@/log/open5gs/tls/amf-server-sslkeylog.log
 #      client:
 #        scheme: https
-#        cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
-#        client_sslkeylogfile: /home/lyspfan/open5gs/install/var/log/open5gs/tls/amf-client-sslkeylog.log
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
+#        client_sslkeylogfile: @localstatedir@/log/open5gs/tls/amf-client-sslkeylog.log
 #  sbi:
 #    server:
 #      - address: amf.localdomain
@@ -205,15 +183,15 @@ amf:
 #    tls:
 #      server:
 #        scheme: https
-#        private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.key
-#        cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.crt
+#        private_key: @sysconfdir@/open5gs/tls/amf.key
+#        cert: @sysconfdir@/open5gs/tls/amf.crt
 #        verify_client: true
-#        verify_client_cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
+#        verify_client_cacert: @sysconfdir@/open5gs/tls/ca.crt
 #      client:
 #        scheme: https
-#        cacert: /home/lyspfan/open5gs/install/etc/open5gs/tls/ca.crt
-#        client_private_key: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.key
-#        client_cert: /home/lyspfan/open5gs/install/etc/open5gs/tls/amf.crt
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
+#        client_private_key: @sysconfdir@/open5gs/tls/amf.key
+#        client_cert: @sysconfdir@/open5gs/tls/amf.crt
 #  sbi:
 #    server:
 #      - address: amf.localdomain
