@@ -43,7 +43,7 @@ log:
   broadcast_enabled: true
 
 pcap:
-  ngap_enable: false
+  ngap_enable: true
   ngap_filename: /tmp/LOG_TIME-gnb_ngap.pcap
   mac_enable: false
   mac_filename: /tmp/LOG_TIME-gnb_mac.pcap
