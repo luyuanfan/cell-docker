@@ -1,6 +1,6 @@
 Single-click 5G standalone cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
-This branch runs a simple cell with only roaming support (no handover nor mounting). 
+This branch runs a roaming scneario. Both `open5gs` and `srsRAN_Project` are mounted from host machine. It runs a home network (HPLMN: 99970) and a visited network (VPLMN: 00101). The visited network broadcasts a fake identity (PLMN: 99980). Target UE is registered on home network and in the serving region of the visited network. 
 
 ## How to run
 
@@ -16,13 +16,7 @@ sudo ./operator.sh
 - **USRP**: Serial number of the USRP that is going to be used as base station radio frontend
 - **NUM_UES**: Number of UEs to be registered in Core DB (The UEs will look like: MCC-MNC-000000001, MCC-MNC-000000002, etc)
 - **KEY**: Sim key registered in Core DB
-- **OPC**: Sim operator key registered in Core D B
-
-## Notes
-
-- Home network PLMN: 99970
-- Visitied network PLMN: 00101, but broadcast 99980
-- Want HPLMN to not see the VPLMN's 99980 besides 00101
+- **OPC**: Sim operator key registered in Core DB
 
 ## Programming SIM cards
 
@@ -57,6 +51,12 @@ sudo ./operator.sh
 8. gialer 8 (on matte oneplus phone, connected)
 9. gialer 9
 
+## Acknowledgement
+
+Code is based on [Operator](https://github.com/j0lama/Operator). 
+
+##  TODO
+
 Glossy oneplus also have a hard time connectintg.
 
 Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G enabled, it does think a regular T-Mobile SIM is 5G enabled. 
@@ -77,7 +77,3 @@ One thing to consider is to have srsran be ok with weird sbi block without needi
 ```
 
 another possibility is that the message the phone sends back to srsran contains some information about the plmn it heard (the fake one) and that gets sent to the core as well. this part needs more reading. can read the pcap files and also read the shared tech notes. 
-
-## Acknowledgement
-
-Code is based on [Operator](https://github.com/j0lama/Operator). 
