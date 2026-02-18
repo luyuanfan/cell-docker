@@ -78,59 +78,6 @@ One thing to consider is to have srsran be ok with weird sbi block without needi
 
 another possibility is that the message the phone sends back to srsran contains some information about the plmn it heard (the fake one) and that gets sent to the core as well. this part needs more reading. can read the pcap files and also read the shared tech notes. 
 
-## Notes on running our own eSIM profile server
+## Logs
 
-First set up all the tools we might need in pySim:
-```bash
-python3 setup.py
-```
-
-Run: 
-```bash
-./osmo-smdpp.py -p 8443
-```
-
-Since it might need reverse proxy (idk why), install one:
-```bash
-sudo apt install nginx
-```
-
-Configure the proxy software:
-
-```bash
-# in /etc/nginx/conf add another file under available-sites
-# and paste in the example config file from osmocom
-# then restart nginx service as followed
-sudo nginx -s reopen
-```
-
-add `smdpp` under `/etc/nginx/conf/sites-available`, and put this in the file:
-```
-upstream smdpp {
-        server localhost:8000;
-}
-
-server {
-        listen 8443 ssl;
-        server_name testsmdpplus1.example.com;
-
-        ssl_certificate /home/lyspfan/radio-helpers/pysim/smdpp-data/certs/DPtls/CERT_S_SM_DP_TLS_NIST.pem;
-        ssl_certificate_key /home/lyspfan/radio-helpers/pysim/smdpp-data/certs/DPtls/SK_S_SM_DP_TLS_NIST.pem;
-
-        location / {
-                proxy_read_timeout 600s;
-
-                proxy_hide_header X-Powered-By;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto https;
-                proxy_set_header X-Forwarded-Port $proxy_port;
-                proxy_set_header Host $host;
-
-                proxy_pass http://smdpp/;
-        }
-}
-```
-
-
-full [documentation](https://downloads.osmocom.org/docs/pysim/master/html/osmo-smdpp.html)
+the gnb logs and those pcaps are placed in `/gnb` and the logs from the cores are 

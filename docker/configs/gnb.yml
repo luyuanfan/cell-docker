@@ -41,7 +41,7 @@ log:
   filename: /tmp/LOG_TIME-gnb.log
   all_level: debug
   ngap_level: debug
-  broadcast_enabled: true
+  # broadcast_enabled: true
 
 pcap:
   ngap_enable: true
