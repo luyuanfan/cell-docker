@@ -23,6 +23,5 @@ RUN git clone https://github.com/open5gs/open5gs
 RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
 
 # copy scripts and configs
-COPY scripts/initVplmn.sh .
 COPY scripts/initHplmn.sh .
 COPY configs/* .

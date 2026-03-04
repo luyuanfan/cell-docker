@@ -18,11 +18,6 @@ RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.
 RUN apt -y update
 RUN apt install -y mongodb-org
 
-# install Open5GS
-# RUN git clone https://github.com/open5gs/open5gs
-# RUN cd open5gs && meson build --prefix=`pwd`/install && ninja -C build && cd build && ninja install
-
 # copy scripts and configs
 COPY scripts/initVplmn.sh .
-COPY scripts/initHplmn.sh .
 COPY configs/* .

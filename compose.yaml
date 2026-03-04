@@ -3,13 +3,13 @@ services:
   # open5gs hplmn
   hplmn:
     container_name: "hplmn"
-    image: cell-docker-core
+    image: cell-docker-hplmn
     command: ./initHplmn.sh
     env_file: ".env"
     environment:
       - TIME=$TIME
     build:
-      dockerfile: core.Dockerfile
+      dockerfile: hplmn.Dockerfile
       context: ./docker
       network: host
     privileged: true
@@ -28,10 +28,6 @@ services:
       timeout: 1s
       retries: 60
     volumes:
-      - type: bind
-        source: /open5gs/
-        target: /open5gs/
-        read_only: false
       - /dev/:/dev/
       - /proc:/proc
     tty: true
@@ -39,13 +35,13 @@ services:
   # open5gs vplmn
   vplmn:
     container_name: "vplmn"
-    image: cell-docker-core
+    image: cell-docker-vplmn
     command: ./initVplmn.sh
     env_file: ".env"
     environment:
       - TIME=$TIME
     build:
-      dockerfile: core.Dockerfile
+      dockerfile: vplmn.Dockerfile
       context: ./docker
       network: host
     privileged: true
