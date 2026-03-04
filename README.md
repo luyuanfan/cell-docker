@@ -2,6 +2,8 @@ Single-click 5G standalone cell deployment (with Open5GS, srsRAN, and USRP devic
 
 This branch runs a roaming scneario. Both `open5gs` and `srsRAN_Project` are mounted from host machine. It runs a home network (HPLMN: 99970) and a visited network (VPLMN: 00101). The visited network broadcasts a fake identity (PLMN: 99980). Target UE is registered on home network and in the serving region of the visited network. 
 
+The home network's core is built in docker image. The visited network's core is mounted from host machine. 
+
 ## How to run
 
 To start cell, run: 
