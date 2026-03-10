@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "Running 5G SA HPLMN Network" > "./health.log"
+
+mkdir -p /logs
+exec > >(tee -a /logs/$TIME-hplmn.log)
+exec 2>&1
+
 echo "Starting Open5GS HPLMN services"
 
 #############
@@ -68,7 +74,7 @@ do
 done
 
 # run home network
-/open5gs/install/bin/open5gs-amfd -c /h-amf.yaml &
+# /open5gs/install/bin/open5gs-amfd -c /h-amf.yaml &
 /open5gs/install/bin/open5gs-nrfd -c /h-nrf.yaml &
 /open5gs/install/bin/open5gs-scpd -c /h-scp.yaml & 
 /open5gs/install/bin/open5gs-ausfd -c /h-ausf.yaml & 
@@ -80,8 +86,5 @@ done
 /open5gs/install/bin/open5gs-bsfd -c /h-bsf.yaml &
 /open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp1.yaml &
-
-
-echo "Running 5G SA HPLMN Network" > "./health.log"
 
 wait -n

@@ -30,6 +30,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
+      - /hplmn:/logs
     tty: true
   
   # open5gs vplmn
