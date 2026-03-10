@@ -1,8 +1,10 @@
 Single-click 5G standalone cell deployment (with Open5GS, srsRAN, and USRP devices). 
 
-This branch runs a rouge base station roaming attack scneario. Both `open5gs` and `srsRAN_Project` are mounted from host machine. It runs a home network (HPLMN: 99970) and a visited network (VPLMN: 00101). The visited network broadcasts a fake identity (PLMN: 99980). Target UE is registered on home network and in the serving region of the visited network. The 
+This branch runs a rouge base station roaming attack scneario. It runs a legitimate trusted home network with PLMN `99970`. It also runs a rogue visited network with the registered PLMN `00101` (known by home network). The visited network also runs a secret base station under the PLMN `99980`. The phone should connect to `99980`. 
 
-The home network's core is built in docker image. The visited network's core is mounted from host machine. 
+The home network is simulated in docker service `hplmn`, in which the core code is built in the docker container from unmodified `open5gs` code. The visited network is simulated in docker service `vplmn` where the core source code is mounted from the `/open5gs:vplmn` directory on the host machine. 
+
+Behavior: HPLMN should only see `00101` and not know about the existence of `99980`. UE should see only `99980` but not `00101`. 
 
 ## How to run
 
