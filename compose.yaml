@@ -3,7 +3,7 @@ services:
   # open5gs
   core:
     container_name: "core"
-    image: cell-docker-core
+    image: simple-cell-docker-core
     command: ./initCore.sh
     tty: true
     env_file: ".env"
@@ -33,7 +33,7 @@ services:
   # srsran gnb
   gnb:
     container_name: gnb
-    image: cell-docker-gnb
+    image: simple-cell-docker-gnb
     command: ./initGnb.sh
     env_file: ".env"
     environment:

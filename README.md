@@ -55,3 +55,8 @@ Glossy oneplus also have a hard time connectintg.
 
 Pixel 9's modem doesn't seem to think either sysmocom nor gialer SIM card is 5G enabled, it does think a regular T-Mobile SIM is 5G enabled. 
 > Note: gialer 5 and 7 are not doing great. fix it
+
+10. sysmocom 5g sim card
+```bash
+./pySim-prog.py -p0 -s 8949440000001703592 --mcc=999 --mnc=70 -a 50452549 --imsi=999700000000010 -k 1A97F90D29D14250D3FA0DD80CEC1564 --opc=24AEC9A5C3B5D195F136E8FCE7B05E7D
+```
