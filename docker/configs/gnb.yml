@@ -19,16 +19,16 @@ ru_sdr:
   device_args: type=x4xx,product=x410,addr=192.168.10.2,serial=USRP_ID #,num_recv_frames=256,num_send_frames=256
   clock: internal
   sync: internal
-  srate: 23.04                           # Sets the sampling rate of the RF-frontend in MHz
-  otw_format: sc12
-  tx_gain: 80
-  rx_gain: 40 
+  srate: 30.72 #23.04                           # Sets the sampling rate of the RF-frontend in MHz
+  # otw_format: sc12
+  tx_gain: 35
+  rx_gain: 60 
 
 cell_cfg:
   dl_arfcn: 503340
   band: 41                         
   channel_bandwidth_MHz: 20
-  common_scs: 30                         # Subcarrier spacing in kHz used for data.
+  common_scs: 15                         # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC" 
   tac: 7                            
   pci: 1
