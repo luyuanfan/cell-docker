@@ -9,6 +9,20 @@ This branch runs a simple cell without any extra features (no roaming nor handov
 sudo ./operator.sh
 ```
 
+## NOTES:
+
+Add
+```bash
+net.core.wmem_max=33554432
+net.core.rmem_max=33554432
+net.core.wmem_default=33554432
+net.core.rmem_default=33554432
+```
+For 10 Gig interface MTU should be set to 9000
+```bash
+huh?
+```
+
 ## Config file parameters
 - **MCC**: Home network mobile country code
 - **MNC**: Home network mobile network code
