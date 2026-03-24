@@ -16,7 +16,7 @@ cu_cp:
 
 ru_sdr:
   device_driver: uhd
-  device_args: type=x4xx,product=x410,addr=192.168.10.2,serial=USRP_ID #,num_recv_frames=256,num_send_frames=256
+  device_args: type=x4xx,product=x410,addr=192.168.10.2,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
   clock: internal
   sync: internal
   srate: 30.72 #23.04                           # Sets the sampling rate of the RF-frontend in MHz
@@ -25,8 +25,8 @@ ru_sdr:
   rx_gain: 60 
 
 cell_cfg:
-  dl_arfcn: 503340
-  band: 41                         
+  dl_arfcn: 368640
+  band: 3                         
   channel_bandwidth_MHz: 20
   common_scs: 15                         # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC" 
@@ -37,12 +37,12 @@ cell_cfg:
 log:
   filename: /tmp/LOG_TIME-gnb.log
   all_level: info
-  hex_max_size: 32
-  ngap_level: info
-  e1ap_level: warning
-  e2ap_level: warning
-  gtpu_level: warning
-  high_latency_diagnostics_enabled: true
+  # hex_max_size: 32
+  # ngap_level: info
+  # e1ap_level: warning
+  # e2ap_level: warning
+  # gtpu_level: warning
+  # high_latency_diagnostics_enabled: true
 
 pcap:
   mac_enable: false
