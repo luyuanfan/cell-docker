@@ -51,25 +51,11 @@ do
 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
-sed -i "s/NETWORK_MCC/$MCC/g" amf.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" amf.yaml
-sed -i "s/NETWORK_APN/$APN/g" amf.yaml
-sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
-sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
-sed -i "s/NETWORK_APN/$APN/g" smf.yaml
+sed -i "s/NETWORK_MCC/$MCC/g" core.yaml
+sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
 
-/open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
-/open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           
-# /open5gs/install/bin/open5gs-seppd &                  # roaming security
-/open5gs/install/bin/open5gs-amfd -c /amf.yaml &        # subscriber authentication
-/open5gs/install/bin/open5gs-smfd -c /smf.yaml &        # session management
-/open5gs/install/bin/open5gs-upfd -c /upf.yaml &        # transport data packets between gnb and external WAN
-/open5gs/install/bin/open5gs-ausfd &                    # next three do sim authentication and hold user profile
-/open5gs/install/bin/open5gs-udmd & 
-/open5gs/install/bin/open5gs-udrd &
-/open5gs/install/bin/open5gs-pcfd &                     # charging & enforcing subscriber policies
-/open5gs/install/bin/open5gs-nssfd &                    # allow selecting network slice
-/open5gs/install/bin/open5gs-bsfd &                     # binding support function
+# Run Open5GS
+/open5gs/build/tests/app/epc -c /core.yaml > core.log &
 
-echo "Running 5G SA Core Network" > "./health.log"
+echo "Running LTE Network" > "./health.log"
 wait -n
