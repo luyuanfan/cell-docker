@@ -31,7 +31,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
-      - /tmp/enb:/log
+      - /cellog:/log
   
   # srsran gnb
   enb:
@@ -56,9 +56,9 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
-      - /gnb/:/tmp/
       - /dev/:/dev/
       - /proc:/proc
+      - /cellog:/tmp
     depends_on:
       core:
         condition: service_healthy
