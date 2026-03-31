@@ -29,6 +29,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
+      - /tmp/enb:/tmp/enb
   
   # srsran gnb
   enb:
