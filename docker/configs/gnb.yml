@@ -16,29 +16,30 @@ cu_cp:
 
 ru_sdr:
   device_driver: uhd
-  device_args: type=x4xx,product=x410,addr=192.168.10.2,serial=USRP_ID,channels=0,master_clock_rate=245.76e6,time_source=gpsdo,clock_source=gpsdo #,sensor=ref_locked #,sensor=ref_locked #,num_recv_frames=256,num_send_frames=256
+  device_args: type=x4xx,product=x410,serial=USRP_ID,channels=0,master_clock_rate=245.76e6,time_source=gpsdo,clock_source=gpsdo,num_recv_frames=256,num_send_frames=256 #,sensor=ref_locked
   clock: gpsdo
-  # sync: gpsdo 
-  srate: 61.44 #122.88 #30.72                         # Sets the sampling rate of the RF-frontend in MHz
+  sync: gpsdo 
+  srate: 61.44 #122.88 #30.72      61.44                   # Sets the sampling rate of the RF-frontend in MHz
   tx_gain: 30 #35
   rx_gain: 40 #60
 
 cell_cfg:
   dl_arfcn: 503340
   band: 41                         
-  channel_bandwidth_MHz: 20
+  channel_bandwidth_MHz: 50
   common_scs: 30                         # Subcarrier spacing in kHz used for data.
   plmn: "NETWORK_MCCNETWORK_MNC" 
   tac: 7                            
   pci: 1
 
-expert_execution:
-  threads:
-    upper_phy:
-      nof_pusch_decoder_threads: 4
-      nof_ul_threads: 4
-      nof_dl_threads: 4
+# expert_execution:
+#   threads:
+#     upper_phy:
+#       nof_pusch_decoder_threads: 4
+#       nof_ul_threads: 4
+#       nof_dl_threads: 4
 # level: none, error, warning, info, debug
+
 log:
   filename: /tmp/LOG_TIME-gnb.log
   all_level: info

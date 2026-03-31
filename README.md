@@ -13,14 +13,11 @@ sudo ./operator.sh
 
 Add
 ```bash
-net.core.wmem_max=33554432
-net.core.rmem_max=33554432
-net.core.wmem_default=33554432
-net.core.rmem_default=33554432
-```
-For 10 Gig interface MTU should be set to 9000
-```bash
-huh?
+sudo sysctl -w net.core.wmem_max=25000000
+sudo sysctl -w net.core.rmem_max=25000000
+sudo sysctl -w net.core.wmem_default=25000000
+sudo sysctl -w net.core.rmem_default=25000000
+sudo ip link set dev enp7s0f0np0 mtu 9000
 ```
 
 ## Config file parameters
