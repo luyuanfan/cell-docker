@@ -2,7 +2,7 @@
 if [ "$1" = "-c" ]; then
     CONTAINER_NAME="core"
 else
-    CONTAINER_NAME="gnb"
+    CONTAINER_NAME="enb"
 fi
 
 CONTAINER_ID=$(docker ps -qf name=$CONTAINER_NAME)
