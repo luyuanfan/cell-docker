@@ -6,7 +6,7 @@ echo "Starting Open5GS core services"
 # Time Zone #
 #############
 
-echo "Etc/Universal" > /etc/timezone
+ln -sf /usr/share/zoneinfo/GMT /etc/localtime
 
 #############
 #  MongoDB  #
@@ -51,6 +51,7 @@ do
 	/open5gs/misc/db/open5gs-dbctl type $imsi $TYPE
 done
 
+sed -i "s/LOG_TIME/$TIME/g" core.yaml
 sed -i "s/NETWORK_MCC/$MCC/g" core.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" core.yaml
 

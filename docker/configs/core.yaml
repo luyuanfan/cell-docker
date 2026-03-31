@@ -1,7 +1,9 @@
 db_uri: mongodb://localhost/open5gs
 
 logger:
-
+  file:
+      path: /log/LOG_TIME-core.log
+  level: info
 # test:
 #   serving:
 #     - plmn_id:

@@ -7,6 +7,8 @@ services:
     command: ./initCore.sh
     tty: true
     env_file: ".env"
+    environment:
+      - TIME=$TIME
     build:
       dockerfile: core.Dockerfile
       context: ./docker
@@ -29,7 +31,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
-      - /tmp/enb:/tmp/enb
+      - /tmp/enb:/log
   
   # srsran gnb
   enb:

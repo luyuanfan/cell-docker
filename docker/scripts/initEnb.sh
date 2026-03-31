@@ -4,7 +4,7 @@
 # Time Zone #
 #############
 
-echo "Etc/Universal" > /etc/timezone
+ln -sf /usr/share/zoneinfo/GMT /etc/localtime
 
 # eNB
 sed -i "s/NETWORK_MCC/$MCC/g" enb.conf
