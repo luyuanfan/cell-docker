@@ -23,7 +23,6 @@ ru_sdr:
   otw_format: sc12
   tx_gain: 80
   rx_gain: 40 
-  # time_alignment_calibration: -1000    # This will set an offset of -170 samples
 
 cell_cfg:
   dl_arfcn: 503340
@@ -38,12 +37,6 @@ cell_cfg:
 log:
   filename: /tmp/LOG_TIME-gnb.log
   all_level: info
-  hex_max_size: 32
-  ngap_level: info
-  e1ap_level: warning
-  e2ap_level: warning
-  gtpu_level: warning
-  high_latency_diagnostics_enabled: true
 
 pcap:
   mac_enable: false
