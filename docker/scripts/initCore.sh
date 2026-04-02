@@ -6,7 +6,7 @@ echo "Starting Open5GS core services"
 # Time Zone #
 #############
 
-echo "Etc/Universal" > /etc/timezone
+ln -sf /usr/share/zoneinfo/GMT /etc/localtime
 
 #############
 #  MongoDB  #
@@ -57,6 +57,11 @@ sed -i "s/NETWORK_APN/$APN/g" amf.yaml
 sed -i "s/NETWORK_MCC/$MCC/g" nrf.yaml
 sed -i "s/NETWORK_MNC/$MNC/g" nrf.yaml
 sed -i "s/NETWORK_APN/$APN/g" smf.yaml
+
+sed -i "s/LOG_TIME/$TIME/g" amf.yaml
+sed -i "s/LOG_TIME/$TIME/g" nrf.yaml
+sed -i "s/LOG_TIME/$TIME/g" smf.yaml
+sed -i "s/LOG_TIME/$TIME/g" upf.yaml
 
 /open5gs/install/bin/open5gs-nrfd -c /nrf.yaml &        # discover other core services
 /open5gs/install/bin/open5gs-scpd &                     # enable indirect communication           

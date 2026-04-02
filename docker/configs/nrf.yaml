@@ -1,7 +1,7 @@
 logger:
   file:
-    path: /nrf.log
-#  level: info   # fatal|error|warn|info(default)|debug|trace
+    path: /log/LOG_TIME-core.log
+  level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
   max:

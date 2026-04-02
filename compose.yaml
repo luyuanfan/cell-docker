@@ -7,6 +7,8 @@ services:
     command: ./initCore.sh
     tty: true
     env_file: ".env"
+    environment:
+      - TIME=$TIME
     build:
       dockerfile: core.Dockerfile
       context: ./docker
@@ -27,8 +29,9 @@ services:
       timeout: 1s
       retries: 60
     volumes:
-      - /dev/:/dev/
+      - /dev:/dev
       - /proc:/proc
+      - /gnb:/log
   
   # srsran gnb
   gnb:
@@ -53,8 +56,8 @@ services:
       rttime: -1
       memlock: 8428281856
     volumes:
-      - /gnb/:/tmp/
-      - /dev/:/dev/
+      - /gnb:/tmp
+      - /dev:/dev
       - /proc:/proc
     depends_on:
       core:
