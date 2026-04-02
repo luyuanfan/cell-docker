@@ -9,6 +9,8 @@ This branch runs a simple LTE cell with no fancy features.
 sudo ./operator.sh
 ```
 
+> Logfiles are placed in `/lte`.
+
 ## Config file parameters
 - **MCC**: Home network mobile country code
 - **MNC**: Home network mobile network code
