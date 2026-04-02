@@ -31,7 +31,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
-      - /cellog:/log
+      - /lte:/log
   
   # srsran gnb
   enb:
@@ -58,7 +58,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
-      - /cellog:/tmp
+      - /lte:/tmp
     depends_on:
       core:
         condition: service_healthy
