@@ -2,7 +2,7 @@ services:
 
   # open5gs
   core:
-    container_name: "core"
+    container_name: lte-core
     image: lte-core
     command: ./initCore.sh
     tty: true
@@ -35,7 +35,7 @@ services:
   
   # srsran gnb
   enb:
-    container_name: enb
+    container_name: lte-enb
     image: lte-enb
     command: ./initEnb.sh
     env_file: ".env"
