@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y libuhd-dev uhd-host \
 
 # build srsRAN 4G from source
 RUN git clone https://github.com/srsran/srsRAN_4G.git
-RUN cd srsRAN_4G && mkdir build && cd build && cmake ../ && make -j $(nproc) && make install && srsran_install_configs.sh user && ldconfig
+RUN cd srsRAN_4G && mkdir build && cd build && cmake ../ -DUSE_LTE_RATES=ON && make -j $(nproc) && make install && srsran_install_configs.sh user && ldconfig
 
 # download USRP images
 RUN uhd_images_downloader

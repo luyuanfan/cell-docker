@@ -71,10 +71,10 @@ set_network_buffers() {
   #   echo "Did not tweak network buffer sizes"
   #   return
   # fi
-  sysctl -w net.core.wmem_max=33554432
-  sysctl -w net.core.rmem_max=33554432
-  sysctl -w net.core.wmem_default=33554432
-  sysctl -w net.core.rmem_default=33554432
+  sysctl -w net.core.wmem_max=250000000
+  sysctl -w net.core.rmem_max=250000000
+  sysctl -w net.core.wmem_default=250000000
+  sysctl -w net.core.rmem_default=250000000
   echo "Tweaked network buffer sizes"
 }
 
