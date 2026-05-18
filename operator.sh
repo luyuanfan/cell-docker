@@ -1,10 +1,14 @@
 #!/bin/bash
 set -e
 
-if [ "$#" -ne 0 ]; then
-    echo "USE: sudo ./operator"
+if [ "$#" -ne 1 ]; then
+    echo "USE: sudo ./operator <authmode>"
     exit 1
 fi
+
+args=("$@")
+auth_mode=${args[0]}
+echo "auth mode: $auth_mode"
 
 # delete existing tun device and associated NAT rules 
 if ip link show ogstun &>/dev/null; then
@@ -28,5 +32,6 @@ sysctl -w net.ipv4.ip_forward=1
 ufw disable
 ./docker/scripts/srsran_performance
 
-export TIME=$(date +"%Y-%m-%d-%T")
+# export auth_mode
+export TIME=$(date +"%Y-%m-%d-%T")_$auth_mode
 docker compose up --build
