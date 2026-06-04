@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "Running 5G SA VPLMN Network" > "./health.log"
+
+
+mkdir -p /logs
+exec > >(tee -a /logs/$TIME-vplmn.log)
+exec 2>&1
+
 echo "Starting Open5GS VPLMN services"
 
 #############
@@ -36,7 +43,5 @@ awk '
 /open5gs/install/bin/open5gs-bsfd -c /bsf.yaml &
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp2.yaml &
-
-echo "Running 5G SA VPLMN Network" > "./health.log"
 
 wait -n

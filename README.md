@@ -9,7 +9,7 @@ Behavior: HPLMN should only see `00101` and not know about the existence of `999
 ## How to run
 
 To start cell, run: 
-```bash
+```bash 
 sudo ./operator.sh
 ```
 

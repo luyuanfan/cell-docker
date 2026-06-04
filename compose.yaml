@@ -14,7 +14,7 @@ services:
       network: host
     privileged: true
     network_mode: "host"
-    cap_add:  
+    cap_add:
       - SYS_NICE
       - NET_ADMIN
       - SYS_ADMIN
@@ -30,7 +30,7 @@ services:
     volumes:
       - /dev/:/dev/
       - /proc:/proc
-      - /hplmn:/logs
+      - /roaming:/logs
     tty: true
   
   # open5gs vplmn
@@ -67,6 +67,7 @@ services:
         read_only: false
       - /dev/:/dev/
       - /proc:/proc
+      - /roaming:/logs
     depends_on:
       hplmn:
         condition: service_healthy
@@ -80,7 +81,6 @@ services:
     command: ./initGnb.sh
     env_file: ".env"
     environment:
-      - CONTAINER_NAME="gnb"
       - TIME=$TIME
     build:
       dockerfile: gnb.Dockerfile
@@ -101,7 +101,7 @@ services:
         source: /srsRAN_Project/
         target: /srsRAN_Project/
         read_only: false
-      - /gnb/:/tmp/
+      - /roaming:/tmp
       - /dev/:/dev/
       - /proc:/proc
     depends_on:
