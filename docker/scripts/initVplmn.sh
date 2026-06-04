@@ -6,7 +6,7 @@ echo "Starting Open5GS VPLMN services"
 # Time Zone #
 #############
 
-echo "Etc/Universal" > /etc/timezone
+ln -sf /usr/share/zoneinfo/GMT /etc/localtime
 
 ## NOTE: VPLMN does not use their DB for roaming
 

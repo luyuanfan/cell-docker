@@ -12,7 +12,7 @@ echo "Starting Open5GS HPLMN services"
 # Time Zone #
 #############
 
-echo "Etc/Universal" > /etc/timezone
+ln -sf /usr/share/zoneinfo/GMT /etc/localtime
 
 #############
 #  MongoDB  #
@@ -65,9 +65,11 @@ for i in $(seq 1 $NUM_UES)
 do	
 	key_var="KEY${i}"
     opc_var="OPC${i}"
+	imsi_var="IMSI${i}"
 	key="${!key_var}"
     opc="${!opc_var}"
-	imsi=$(printf '%s%s%0*d' $MCC $MNC $((15 - ${#MCC} - ${#MNC})) $i)
+	imsi="${!imsi_var}"
+	echo $imsi
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
 	/open5gs/misc/db/open5gs-dbctl type $imsi 1
 	# /open5gs/misc/db/open5gs-dbctl lbo_roaming_allowed $imsi 1
