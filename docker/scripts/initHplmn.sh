@@ -72,7 +72,7 @@ do
 	echo $imsi
 	/open5gs/misc/db/open5gs-dbctl add_ue_with_apn $imsi $key $opc $APN
 	/open5gs/misc/db/open5gs-dbctl type $imsi 1
-	# /open5gs/misc/db/open5gs-dbctl lbo_roaming_allowed $imsi 1
+	/open5gs/misc/db/open5gs-dbctl lbo_roaming_allowed $imsi 1 # HR=1,LBO=0
 done
 
 # run home network
