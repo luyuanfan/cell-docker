@@ -1,6 +1,6 @@
 logger:
   file:
-    path: /ausf.log
+    path: /h-ausf.log
   level: info   # fatal|error|warn|info(default)|debug|trace
 
 global:
