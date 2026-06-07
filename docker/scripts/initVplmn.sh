@@ -43,7 +43,7 @@ awk '
 /open5gs/install/bin/open5gs-nssfd -c /nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp2.yaml &
 
-tail -qrf /nrf.log /scp.log /amf.log /smf.log \
+tail -qF /nrf.log /scp.log /amf.log /smf.log \
 		/upf.log /pcf.log /bsf.log /nssf.log \
 		/sepp2.log >> /logs/$TIME-vplmn.log &
 

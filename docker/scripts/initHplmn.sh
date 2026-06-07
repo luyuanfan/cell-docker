@@ -89,7 +89,7 @@ done
 /open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp1.yaml &
 
-tail -qrf /h-nrf.log /h-scp.log /h-ausf.log /h-udm.log \
+tail -qF /h-nrf.log /h-scp.log /h-ausf.log /h-udm.log \
 		/h-udr.log /h-smf.log /h-upf.log /h-pcf.log  \
 		/h-bsf.log /h-nssf.log /sepp1.log >> /logs/$TIME-hplmn.log &
 
