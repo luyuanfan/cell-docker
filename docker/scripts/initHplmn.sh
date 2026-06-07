@@ -3,8 +3,8 @@
 echo "Running 5G SA HPLMN Network" > "./health.log"
 
 mkdir -p /logs
-exec > >(tee -a /logs/$TIME-hplmn.log)
-exec 2>&1
+# exec > >(tee -a /logs/$TIME-hplmn.log)
+# exec 2>&1
 
 echo "Starting Open5GS HPLMN services"
 
@@ -88,5 +88,9 @@ done
 /open5gs/install/bin/open5gs-bsfd -c /h-bsf.yaml &
 /open5gs/install/bin/open5gs-nssfd -c /h-nssf.yaml &
 /open5gs/install/bin/open5gs-seppd -c /sepp1.yaml &
+
+tail -qrf /h-nrf.log /h-scp.log /h-ausf.log /h-udm.log \
+		/h-udr.log /h-smf.log /h-upf.log /h-pcf.log  \
+		/h-bsf.log /h-nssf.log /sepp1.log >> /logs/$TIME-hplmn.log &
 
 wait -n
