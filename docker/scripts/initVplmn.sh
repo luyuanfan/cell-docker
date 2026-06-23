@@ -47,4 +47,6 @@ tail -qF /nrf.log /scp.log /amf.log /smf.log \
 		/upf.log /pcf.log /bsf.log /nssf.log \
 		/sepp2.log >> /logs/$TIME-vplmn.log &
 
+# tail -qF /sepp2.log /smf.log >> /logs/$TIME-auth-vplmn.log & 
+
 wait -n

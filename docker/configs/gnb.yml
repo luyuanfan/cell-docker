@@ -4,18 +4,28 @@
 
 cu_cp:
   amf:
-    addr: 127.0.2.5                      # set to the IP address of AMF
+    addr: 127.0.2.5                 # set to the IP address of AMF
     port: 38412
-    bind_addr: 127.0.0.1                 # A local IP that the gNB binds to for traffic from the AMF
-    supported_tracking_areas:
+    bind_addr: 127.0.0.1            # A local IP that the gNB binds to for traffic from the AMF
+    supported_tracking_areas:       # Sets the list of tracking areas supported by this AMF
       - tac: 7
         plmn_list:
           - plmn: "00101"
             tai_slice_support_list:
               - sst: 1
-          - plmn: "99980"
+          - plmn: "310260"
             tai_slice_support_list:
               - sst: 1
+
+cell_cfg:
+  dl_arfcn: 503340
+  band: 41                         
+  channel_bandwidth_MHz: 20
+  common_scs: 30                         # Subcarrier spacing in kHz used for data.
+  plmn: "00101" 
+  tac: 7                            
+  pci: 1
+
 ru_sdr:
   device_driver: uhd
   device_args: type=b200,serial=USRP_ID,num_recv_frames=256,num_send_frames=256
@@ -26,15 +36,6 @@ ru_sdr:
   tx_gain: 80
   rx_gain: 40 
 
-cell_cfg:
-  dl_arfcn: 503340
-  band: 41                         
-  channel_bandwidth_MHz: 20
-  common_scs: 30                         # Subcarrier spacing in kHz used for data.
-  plmn: "00101" 
-  tac: 7                            
-  pci: 1
-  
 # level: none, error, warning, info, debug
 log:
   filename: /tmp/LOG_TIME-gnb.log

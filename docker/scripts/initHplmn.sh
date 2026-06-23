@@ -93,4 +93,6 @@ tail -qF /h-nrf.log /h-scp.log /h-ausf.log /h-udm.log \
 		/h-udr.log /h-smf.log /h-upf.log /h-pcf.log  \
 		/h-bsf.log /h-nssf.log /sepp1.log >> /logs/$TIME-hplmn.log &
 
+# tail -qF /sepp1.log /h-smf.log >> /logs/$TIME-auth-hplmn.log & 
+
 wait -n
